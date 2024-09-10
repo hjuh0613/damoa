@@ -17,4 +17,10 @@ public class BoardService {
                 .map(BoardListResponse::new)
                 .toList();
     }
+
+    public BoardListResponse getProduct(int boardNo) {
+        return boardRepository.findByBoardNo(boardNo)
+                .map(BoardListResponse::new)
+                .orElseThrow(() -> new RuntimeException("Board not found"));
+    }
 }

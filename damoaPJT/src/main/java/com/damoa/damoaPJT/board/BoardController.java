@@ -27,46 +27,18 @@ public class BoardController {
         // html 파일이 있는 경로
     }
 
+    @GetMapping("/product")
+    public String getProduct (@RequestParam("board_no") int boardNo, Model model) {
+
+        model.addAttribute("Product", boardService.getProduct(boardNo));
+
+        return "/board/product";
+    }
+
     @GetMapping("/sale")
     public String sale(Model model) {
 
         return "/board/sale";
-    }
-
-    @GetMapping("/boardCN")
-    public String boardCN(Model model) {
-
-        return "/board/boardCN";
-    }
-
-    @GetMapping("/boardST")
-    public String boardST(Model model) {
-
-        return "/board/boardST";
-    }
-
-    @GetMapping("/boardWatch")
-    public String boardWatch(Model model) {
-
-        return "/board/boardWatch";
-    }
-
-    @GetMapping("/boardSpeaker")
-    public String boardSpeaker(Model model) {
-
-        return "/board/boardSpeaker";
-    }
-
-    @GetMapping("/boardHome")
-    public String boardHome(Model model) {
-
-        return "/board/boardHome";
-    }
-
-    @GetMapping("/boardETC")
-    public String boardETC(Model model) {
-
-        return "/board/boardETC";
     }
 
 }

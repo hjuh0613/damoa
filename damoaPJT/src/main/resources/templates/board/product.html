@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title th:text = "|다모아 판매게시판 - ${BoardTitle}|"></title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <script th:replace = "~{/layout/includeLink::includeLink}"></script>
+
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<div th:replace = "~{/layout/header::header}"></div>
+
+<!-- 사이드바 -->
+<div th:replace = "~{/layout/sidebar::sidebar}"></div>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Modal</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item">Components</li>
+                <li class="breadcrumb-item active">Modal</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Scrolling long content</h5>
+                        <p>When modals become too long for the user’s viewport or device, they scroll independent of the page itself. You can also create a scrollable modal that allows scroll the modal body by adding <code>.modal-dialog-scrollable</code> to <code>.modal-dialog</code></p>
+
+                        <!-- Modal Dialog Scrollable -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
+                            Modal Dialog Scrollable
+                        </button>
+                        <div class="modal fade" id="modalDialogScrollable" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Modal Dialog Scrollable</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+                                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                                        This content should appear at the bottom after you scroll.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- End Modal Dialog Scrollable-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<!-- includeAsset -->
+<div th:replace = "~{/layout/includeAsset::includeAsset}"></div>
+
+</body>
+
+</html>
