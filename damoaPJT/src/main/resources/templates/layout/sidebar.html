@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<!-- ======= Sidebar ======= -->
+<!-- ======= 사이드바 ======= -->
 <div th:fragment="sidebar">
     <aside id="sidebar" class="sidebar">
 
@@ -13,48 +13,62 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>게시판</span><i class="bi bi-chevron-down ms-auto"></i>
+                    <i class="bi bi-menu-button-wide"></i><span>판매게시판</span><i class="bi bi-chevron-down ms-auto"></i>
                 </a>
                 <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="/boardCN">
+                        <a href="/boardList?category_no=1">
                             <i class="bi bi-circle"></i><span>컴퓨터/노트북</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/boardST">
+                        <a href="/boardList?category_no=2">
                             <i class="bi bi-circle"></i><span>스마트폰/태블릿</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/boardWatch">
+                        <a href="/boardList?category_no=3">
                             <i class="bi bi-circle"></i><span>워치</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/boardSpeaker">
+                        <a href="/boardList?category_no=4">
                             <i class="bi bi-circle"></i><span>음향기기</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/boardHome">
+                        <a href="/boardList?category_no=5">
                             <i class="bi bi-circle"></i><span>생활가전</span>
                         </a>
                     </li>
                     <li>
-                        <a href="/boardETC">
+                        <a href="/boardList?category_no=6">
                             <i class="bi bi-circle"></i><span>기타</span>
                         </a>
                     </li>
                 </ul>
-            </li><!-- End Components Nav -->
+            </li><!-- 판매게시판 탭 끝 -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/sale">
                     <i class="bi bi-grid"></i>
-                    <span>상품 판매</span>
+                    <span>후기게시판</span>
                 </a>
-            </li><!-- 게시판 탭 끝 -->
+            </li><!-- 후기게시판 탭 끝 -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/sale">
+                    <i class="bi bi-grid"></i>
+                    <span>상품 등록</span>
+                </a>
+            </li><!-- 상품 등록 탭 끝 -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/sale">
+                    <i class="bi bi-grid"></i>
+                    <span>후기 등록</span>
+                </a>
+            </li><!-- 후기 등록 탭 끝 -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/login">

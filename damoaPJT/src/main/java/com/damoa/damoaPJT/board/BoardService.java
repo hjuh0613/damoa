@@ -12,8 +12,8 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<BoardListResponse> findAll() {
-        return boardRepository.findAll().stream()
+    public List<BoardListResponse> findByIdBoard(int categoryNo) {
+        return boardRepository.findByCategory_CategoryNo(categoryNo).stream()
                 .map(BoardListResponse::new)
                 .toList();
     }

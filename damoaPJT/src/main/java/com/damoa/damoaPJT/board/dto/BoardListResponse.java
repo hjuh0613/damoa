@@ -18,6 +18,8 @@ public class BoardListResponse {
     private int categoryNo;
     private int userNo;
 
+    private String userNickname;
+
     @Builder
     public BoardListResponse(Board board) {
         this.boardNo = board.getBoardNo();
@@ -28,5 +30,6 @@ public class BoardListResponse {
         this.boardPrice = board.getBoardPrice();
         this.categoryNo = board.getCategory().getCategoryNo();
         this.userNo = board.getUser().getUserNo();
+        this.userNickname = board.getUser().getUserNickname();
     }
 }
