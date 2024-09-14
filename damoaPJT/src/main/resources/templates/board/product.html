@@ -24,12 +24,13 @@
 <main id="main" class="main">
 
     <div class="pagetitle">
-        <h1>Modal</h1>
+        <p>올바른 중고거래 문화를 위해 바른 말을 사용해주세요.</p>
+        <h1 th:text = "|${categoryName}카테고리명 - ${boardTitle}글제목|"></h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item">Components</li>
-                <li class="breadcrumb-item active">Modal</li>
+                <li class="breadcrumb-item"><a href="index.html">홈</a></li>
+                <li class="breadcrumb-item" th:text = "|${categoryName}카테고리명|"></li>
+                <li class="breadcrumb-item active" th:text = "|${boardTitle}글제목|"></li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -40,8 +41,8 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Scrolling long content</h5>
-                        <p>When modals become too long for the user’s viewport or device, they scroll independent of the page itself. You can also create a scrollable modal that allows scroll the modal body by adding <code>.modal-dialog-scrollable</code> to <code>.modal-dialog</code></p>
+                        <p>올바른 중고거래 문화를 위해 바른 말을 사용해주세요.</p>
+                        <h5 th:text="${boardTitle}"></h5>
 
                         <!-- Modal Dialog Scrollable -->
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDialogScrollable">
