@@ -36,7 +36,8 @@ public class Board {
     @Column(name = "board_price", nullable = false)
     private int boardPrice;
 
-    @OneToOne
+    // @OneToOne 카테고리 1개당 게시글 1개 작성 가능
+    @ManyToOne
     @JoinColumn(name = "category_no")
     private Category category;
 
