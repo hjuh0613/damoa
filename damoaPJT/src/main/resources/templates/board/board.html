@@ -51,7 +51,7 @@
                 <th>제목</th>
                 <th>가격</th>
                 <th>지역</th>
-                <th data-type="date" data-format="YYYY-MM-DD">등록일</th>
+                <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
               </tr>
               </thead>
               <tbody>
@@ -63,7 +63,7 @@
                 </td>
                 <td th:text = "${board.boardPrice}"></td>
                 <td th:text = "${board.boardLocation}"></td>
-                <td th:text = "${board.boardDate}"></td>
+                <td th:text = "${#temporals.format(board.boardDate, 'yyyy.MM.dd')}"></td>
               </tr>
               </tbody>
             </table>
