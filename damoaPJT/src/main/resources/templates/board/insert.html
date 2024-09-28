@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title th:text = "|다모아 판매게시판 - ${Product.boardTitle}|"></title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <script th:replace = "~{/layout/includeLink::includeLink}"></script>
+
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<div th:replace = "~{/layout/header::header}"></div>
+
+<!-- 사이드바 -->
+<div th:replace = "~{/layout/sidebar::sidebar}"></div>
+
+<main id="main" class="main">
+    <div class="boardinsert">
+        <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
+        <div class="row">
+            <div class="col-1">
+                <h5 class="m-2">
+                    <b>제목 :</b>
+                </h5>
+            </div>
+            <div class="col-11">
+                <input
+                        name="title"
+                        id="title"
+                        type="text"
+                        class="form-control"
+                        placeholder="제목을 입력해주세요."
+                />
+            </div>
+        </div>
+    </div>
+    <!-- 제목 -->
+
+    <section class="section">
+        <div class="row mt-3 justify-content-around">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row">
+                        <!-- 가격 -->
+                        <div class="col-4">
+                            <h5 class="m-2 px-1 font-weight-bold text-primary">가격</h5>
+                            <input
+                                    name="price"
+                                    id="price"
+                                    type="text"
+                                    class="px-2 form-control"
+                                    placeholder="0"
+                            />
+                        </div>
+                        <!-- 첨부파일 -->
+                        <div class="col-4">
+                            <h5 class="m-2 font-weight-bold text-primary">첨부파일</h5>
+                            <input
+                                    type="file"
+                                    id="img"
+                                    class="px-2 form-control"
+                                    name="img"
+                                    multiple
+                            />
+                        </div>
+                        <!-- 카테고리 -->
+                        <div class="col-4">
+                            <h5 class="m-2 font-weight-bold text-primary">카테고리</h5>
+                            <div class="px-2 dropdown mb-4">
+                                <input id="category" name="category" class="d-none" />
+                                <button
+                                        id="mystatus"
+                                        class="btn btn-outline-primary dropdown-toggle"
+                                        type="button"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                >
+                                    카테고리
+                                </button>
+                                <div
+                                        class="dropdown-menu animated--fade-in"
+                                        aria-labelledby="dropdownMenuButton"
+                                >
+                                    <!-- 카테고리 항목 반복 -->
+                                    <a class="dropdown-item">카테고리1</a>
+                                    <a class="dropdown-item">카테고리2</a>
+                                    <a class="dropdown-item">카테고리3</a>
+                                    <!-- 필요한 만큼 추가 -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 가격 첨부파일 카테고리 끝 -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- 내용 -->
+                <div class="card">
+                    <textarea class="card-body py-3">게시글 내용</textarea>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end gap-2">
+                            <!-- 버튼 영역 -->
+                            <button type="button" class="btn btn-outline-primary">
+                                저장
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 내용 -->
+            </div>
+        </div>
+    </section>
+</main>
+<!-- End #main -->
+
+<!-- includeAsset -->
+<div th:replace = "~{/layout/includeAsset::includeAsset}"></div>
+
+</body>
+
+</html>
