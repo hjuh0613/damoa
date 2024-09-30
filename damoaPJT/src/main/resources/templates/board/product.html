@@ -5,21 +5,21 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title th:text = "|다모아 판매게시판 - ${Product.boardTitle}|"></title>
+    <title th:text="|다모아 판매게시판 - ${Product.boardTitle}|"></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
-    <script th:replace = "~{/layout/includeLink::includeLink}"></script>
+    <script th:replace="~{/layout/includeLink::includeLink}"></script>
 
 </head>
 
 <body>
 
 <!-- 헤더 -->
-<div th:replace = "~{/layout/header::header}"></div>
+<div th:replace="~{/layout/header::header}"></div>
 
 <!-- 사이드바 -->
-<div th:replace = "~{/layout/sidebar::sidebar}"></div>
+<div th:replace="~{/layout/sidebar::sidebar}"></div>
 
 <main id="main" class="main">
     <div class="boardtitle">
@@ -27,11 +27,11 @@
         <div class="row">
             <div class="col-6">
                 <h3>
-                    <b th:text = "${Product.boardTitle}"></b>
+                    <b th:text="${Product.boardTitle}"></b>
                 </h3>
             </div>
             <div class="col-6">
-                <p class="text-end" th:text = "${#temporals.format(Product.boardDate, 'yyyy.MM.dd')}"></p>
+                <p class="text-end"></p>
             </div>
         </div>
     </div>
@@ -42,7 +42,30 @@
             <div class="col-lg-12">
                 <!-- 작성자 -->
                 <div class="card">
-                    <div class="card-body py-3" th:text = "${Product.userNickname}"></div>
+                    <div class="row m-3 gx-3">
+                        <div class="col d-flex align-item-center">
+                            <div class="p-1">
+                                <strong th:text="${Product.userNickname}">
+                                    닉네임
+                                </strong>
+                            </div>
+                            &nbsp; &nbsp; &nbsp;
+                            <div class="p-1" th:text="${#temporals.format(Product.boardDate, 'yyyy.MM.dd')}">
+                                날짜
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex justify-content-end gap-2">
+                                <!-- 버튼 영역 -->
+                                <button type="button" class="btn btn-outline-danger">
+                                    신고
+                                </button>
+                                <button type="button" class="btn btn-outline-primary">
+                                    <i class="bi bi-bag-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- 작성자 -->
             </div>
@@ -54,17 +77,19 @@
             <div class="col-lg-12">
                 <!-- 내용 -->
                 <div class="card">
-                    <div id="file" class="card-body py-3">첨부 파일</div>
-                    <div class="card-body py-3" th:text = "${Product.boardContent}"></div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-end gap-2">
-                            <!-- 버튼 영역 -->
-                            <button type="button" class="btn btn-outline-danger">
-                                신고
-                            </button>
-                            <button type="button" class="btn btn-outline-primary">
-                                찜
-                            </button>
+                    <div id="file" class="card-body py-3">
+                        <div class="row gx-2">
+                            <div class="col pt-2">
+                                첨부파일
+                            </div>
+                            <div class="col-11">
+                                <input type="file" id="img" class="px-2 form-control" name="img">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="d-flex border rounded p-3" style="height: 200px;" th:text="${Product.boardContent}">
+                            내용
                         </div>
                     </div>
                 </div>
@@ -81,7 +106,7 @@
                     <div class="card-body py-3">댓글</div>
                     <div class="row ps-3 g-2">
                         <div class="col">
-                            <input type="comment" class="form-control" id="comment" />
+                            <input type="comment" class="form-control" id="comment"/>
                         </div>
                         <div class="me-3 col-1 d-flex flex-row-reverse">
                             <button
@@ -122,7 +147,7 @@
 <!-- End #main -->
 
 <!-- includeAsset -->
-<div th:replace = "~{/layout/includeAsset::includeAsset}"></div>
+<div th:replace="~{/layout/includeAsset::includeAsset}"></div>
 
 </body>
 
