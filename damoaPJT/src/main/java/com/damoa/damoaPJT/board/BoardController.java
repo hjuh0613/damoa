@@ -35,6 +35,13 @@ public class BoardController {
         return "/board/product";
     }
 
+    @GetMapping("/addBoard")
+    public String goAddBoard(@RequestParam(value = "category_name", required = false) String categoryName, Model model){
+        model.addAttribute("categoryName", categoryName);
+
+        return "board/boardInsert";
+    }
+
     @GetMapping("/sale")
     public String sale(Model model) {
 
