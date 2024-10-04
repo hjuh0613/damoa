@@ -1,8 +1,10 @@
 package com.damoa.damoaPJT.board;
 
+import com.damoa.damoaPJT.board.dto.BoardAddRequest;
 import com.damoa.damoaPJT.board.dto.BoardListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -22,5 +24,13 @@ public class BoardService {
         return boardRepository.findByBoardNo(boardNo)
                 .map(BoardListResponse::new)
                 .orElseThrow(() -> new RuntimeException("Board not found"));
+    }
+
+    public int addProduct(BoardAddRequest boardAddRequest, List<MultipartFile> files){
+
+        // 게시글 저장
+        int addBoardNo = boardRepository.save(boardAddRequest.toEntity()).getBoardNo();
+
+        return addBoardNo;
     }
 }

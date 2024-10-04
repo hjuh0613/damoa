@@ -2,12 +2,14 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity // 엔티티 등록
 @Getter // getter
@@ -44,5 +46,16 @@ public class Board {
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
+
+    @Builder
+    public Board(int boardNo, String boardTitle, String boardContent, LocalDateTime boardDate, String boardLocation, int boardPrice, Category category, User user){
+        this.boardNo = boardNo;
+        this.boardContent = boardContent;
+        this.boardDate = boardDate;
+        this.boardLocation = boardLocation;
+        this.boardPrice = boardPrice;
+        this.category = category;
+        this.user = user;
+    }
 
 }

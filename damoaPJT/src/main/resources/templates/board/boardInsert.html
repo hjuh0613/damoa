@@ -19,8 +19,44 @@
               $("#category").val($(this).html());
           });
 
+          // 제출 버튼 클릭 이벤트
+          /*$("#submitBtn").click(function(){
+
+            let requestData = {"title": $("#title").val()
+                            , "price": $("#price").val()
+                            , "img": $("#img")[0].files
+                            , "category": $("#category").val()
+                            , "content": $("#content").val()};
+
+            console.log(requestData);
+
+            let formData = new FormData();
+            formData.append("img", $("#img")[0].files, {type: "multipart/form-data"});
+            formData.append("request", new Blob([JSON.stringify(requestData)], {type: "application/json"}));
+
+            $.ajax({
+                type: "POST",
+                url: "/addBoard",
+                data: formData,
+                processData:false,
+                contentType:false,
+                success: function(data){
+                    console.log(data);
+                },
+                error: function(err){
+                    alert("데이터 전송 실패!");
+                }
+            });
+
+          });*/
+
 
         });
+
+
+
+
+
 
 
     </script>
@@ -36,103 +72,178 @@
 <div th:replace="~{/layout/sidebar::sidebar}"></div>
 
 <main id="main" class="main">
-    <div id="board insert">
-        <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
-        <div class="mt-3 card p-3">
-            <div class="d-flex">
-                <h5 class="m-2">
-                    <b>제목 :</b>
-                </h5>
-                <input name="title" id="title" type="text" class="form-control col" placeholder="제목을 입력해주세요.">
+    <form action="/addBoard" method="post" enctype="multipart/form-data">
+        <div id="board insert">
+            <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
+            <div class="mt-3 card p-3">
+                <div class="d-flex">
+                    <h5 class="m-2">
+                        <b>제목 :</b>
+                    </h5>
+                    <input id="title" name="title" type="text" class="form-control col ms-2" placeholder="제목을 입력해주세요.">
+                </div>
             </div>
         </div>
-    </div>
-    <!-- 제목 -->
+        <!-- 제목 -->
 
-    <section class="section">
-        <div class="row mt-3 justify-content-around">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="row p-3">
-                        <!-- 가격 -->
-                        <div class="col-4 d-flex">
-                            <h5 class="font-weight-bold mt-2 mx-1">
-                                <strong>가격 : &nbsp;&nbsp;</strong>
-                            </h5>
-                            <div class="col">
-                                <input
-                                        name="price"
-                                        id="price"
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="0"
-                                />
+        <div class="card p-3">
+            <div class="d-flex">
+                <h5 class="m-2 ">
+                    <b>장소 :</b>
+                </h5>
+                <!--                <input name="location" type="text" class="form-control col ms-2" placeholder="나중에 여기 아래에 지도 api 넣어야함">-->
+                <div id="map" class="form-control col ms-2" style="height:500px;"></div>
+                <script type="text/javascript"
+                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24f03a2406400ea0a6796127dc447cd0"></script>
+                <script>
+                    var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+                    var options = { //지도를 생성할 때 필요한 기본 옵션
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+                        level: 3 //지도의 레벨(확대, 축소 정도)
+                    };
+
+                    var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+
+                </script>
+                <script>
+                    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                    mapOption = {
+                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                        level: 10 // 지도의 확대 레벨
+                    };
+
+                    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+                    // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+                    if (navigator.geolocation) {
+
+                        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+                        navigator.geolocation.getCurrentPosition(function(position) {
+
+                            var lat = position.coords.latitude, // 위도
+                                lon = position.coords.longitude; // 경도
+
+                            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+                                message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+
+                            // 마커와 인포윈도우를 표시합니다
+                            displayMarker(locPosition, message);
+
+                          });
+
+                    } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+                        var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+                            message = 'geolocation을 사용할수 없어요..'
+
+                        displayMarker(locPosition, message);
+                    }
+
+                    // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+                    function displayMarker(locPosition, message) {
+
+                        // 마커를 생성합니다
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: locPosition
+                        });
+
+                        var iwContent = message, // 인포윈도우에 표시할 내용
+                            iwRemoveable = true;
+
+                        // 지도 중심좌표를 접속위치로 변경합니다
+                        map.setCenter(locPosition);
+                    }
+
+                </script>
+            </div>
+        </div>
+
+        <section class="section">
+            <div class="row mt-3 justify-content-around">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="row p-3">
+                            <!-- 가격 -->
+                            <div class="col-4 d-flex">
+                                <h5 class="font-weight-bold mt-2 mx-1">
+                                    <strong>가격 : &nbsp;&nbsp;</strong>
+                                </h5>
+                                <div class="col">
+                                    <input
+                                            id="price"
+                                            name="price"
+                                            type="number"
+                                            class="form-control"
+                                            placeholder="0"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <!-- 첨부파일 -->
-                        <div class="col-4 d-flex">
-                            <h5 class="font-weight-bold mt-2 mx-1">
-                                <strong>첨부파일 :&nbsp;&nbsp;</strong>
-                            </h5>
-                            <div class="col">
-                                <input
-                                        type="file"
-                                        id="img"
-                                        class="form-control"
-                                        name="img"
-                                        multiple
-                                />
+                            <!-- 첨부파일 -->
+                            <div class="col-4 d-flex">
+                                <h5 class="font-weight-bold mt-2 mx-1">
+                                    <strong>첨부파일 :&nbsp;&nbsp;</strong>
+                                </h5>
+                                <div class="col">
+                                    <input
+                                            name="img"
+                                            type="file"
+                                            id="img"
+                                            class="form-control"
+                                            multiple
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <!-- 카테고리 -->
-                        <div class="col-4 d-flex">
-                            <h5 class="font-weight-bold mt-2 mx-1">
-                                <strong>카테고리 : &nbsp;&nbsp;</strong>
-                            </h5>
-                            <div>
+                            <!-- 카테고리 -->
+                            <div class="col-4 d-flex">
+                                <h5 class="font-weight-bold mt-2 mx-1">
+                                    <strong>카테고리 : &nbsp;&nbsp;</strong>
+                                </h5>
                                 <div>
-                                    <input id="category" name="category" class="d-none" />
-                                    <button id="myStatus" type="button" class="btn btn-outline-dark dropdown-toggle"
-                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                        카테고리
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">컴퓨터/노트북</a></li>
-                                        <li><a class="dropdown-item" href="#">스마트폰/태블릿</a></li>
-                                        <li><a class="dropdown-item" href="#">워치</a></li>
-                                        <li><a class="dropdown-item" href="#">음향기기</a></li>
-                                        <li><a class="dropdown-item" href="#">생활가전</a></li>
-                                        <li><a class="dropdown-item" href="#">기타</a></li>
-                                    </ul>
+                                    <div>
+                                        <input id="category" name="category" class="d-none"/>
+                                        <button id="myStatus" type="button" class="btn btn-outline-dark dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            카테고리
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">컴퓨터/노트북</a></li>
+                                            <li><a class="dropdown-item" href="#">스마트폰/태블릿</a></li>
+                                            <li><a class="dropdown-item" href="#">워치</a></li>
+                                            <li><a class="dropdown-item" href="#">음향기기</a></li>
+                                            <li><a class="dropdown-item" href="#">생활가전</a></li>
+                                            <li><a class="dropdown-item" href="#">기타</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- 가격 첨부파일 카테고리 끝 -->
+        </section>
+        <!-- 가격 첨부파일 카테고리 끝 -->
 
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-12">
-                <!-- 내용 -->
-                <div class="card">
-                    <textarea rows="10" class="border rounded m-3 p-2" placeholder="내용을 입력해주세요."></textarea>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-end gap-2">
-                            <!-- 버튼 영역 -->
-                            <button type="button" class="btn btn-outline-primary">
-                                저장
-                            </button>
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- 내용 -->
+                    <div class="card">
+                        <textarea name="content" id="content" rows="10" class="border rounded m-3 p-2"
+                                  placeholder="내용을 입력해주세요."></textarea>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end gap-2">
+                                <!-- 버튼 영역 -->
+                                <button type="submit" class="btn btn-outline-primary">등록</button>
+                            </div>
                         </div>
                     </div>
+                    <!-- 내용 -->
                 </div>
-                <!-- 내용 -->
             </div>
-        </div>
-    </section>
+        </section>
+    </form>
 </main>
 <!-- End #main -->
 

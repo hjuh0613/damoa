@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,4 +22,11 @@ public class File {
 
     @Column(name = "file_path", length = 1000)
     private String filePath;
+
+    @Builder
+    public File(FilePK filePK, String fileName, String filePath){
+        this.filePK = filePK;
+        this.fileName = fileName;
+        this.filePath = filePath;
+    }
 }
