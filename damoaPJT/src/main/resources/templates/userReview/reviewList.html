@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title th:text = "|다모아 후기게시판|"></title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <script th:replace = "~{/layout/includeLink::includeLink}"></script>
+
+
+
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<div th:replace = "~{/layout/header::header}"></div>
+
+<!-- 사이드바 -->
+<div th:replace = "~{/layout/sidebar::sidebar}"></div>
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">홈</a></li>
+        <li class="breadcrumb-item active">후기게시판</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-body">
+            <div class="row pt-3">
+              <div class="col">
+                <h5 class="fw-bold">후기게시판</h5>
+              </div>
+              <div class="col">
+                <div class="d-flex justify-content-end gap-2">
+                  <button id="addBtn" type="button" class="btn btn-outline-primary">
+                    게시글 작성
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <p>올바른 중고 거래를 위해 바른 말을 사용해주세요.</p>
+            <table class="table ">
+              <thead>
+              <tr>
+                <th>글번호</th>
+                <th>닉네임</th>
+                <th>제목</th>
+                <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each = "userReview : ${userReviewList}">
+                <td th:text = "${userReview.reviewNo}"></td>
+                <td th:text = "${userReview.userNickname}"></td>
+                <td>
+                  <a th:href = "@{/review(review_no = ${userReview.reviewNo})}" th:text = "${userReview.reviewTitle}"></a>
+                </td>
+                <td th:text = "${#temporals.format(userReview.reviewDate, 'yyyy.MM.dd')}"></td>
+                <td>
+                  <i id="heartBtn" class="bi bi-bag-heart"></i>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main><!-- End #main -->
+
+<!-- includeAsset -->
+<div th:replace = "~{/layout/includeAsset::includeAsset}"></div>
+
+</body>
+
+</html>

@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,9 +27,6 @@ public class Review {
     @Column(name = "review_content", length = 1500, nullable = false)
     private String reviewContent;
 
-    @Column(name = "review_file", length = 1000)
-    private String reviewFile;
-
     @Column(name = "review_date", nullable = false)
     private LocalDateTime reviewDate;
 
@@ -38,4 +36,19 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
+
+    @Builder
+    public Review(int reviewNo, String reviewTitle, String reviewContent, LocalDateTime reviewDate, List<Comment> comments, User user){
+        this.reviewNo = reviewNo;
+        this.reviewTitle = reviewTitle;
+        this.reviewContent = reviewContent;
+        this.reviewDate = reviewDate;
+        this.comments = comments;
+        this.user = user;
+    }
+
+    public void update(String reviewTitle, String reviewContent){
+        this.reviewTitle = reviewTitle;
+        this.reviewContent = reviewContent;
+    }
 }
