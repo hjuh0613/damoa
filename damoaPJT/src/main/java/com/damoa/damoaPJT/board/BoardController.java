@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.board;
 
 import com.damoa.damoaPJT.board.dto.BoardAddRequest;
 import com.damoa.damoaPJT.board.dto.BoardListResponse;
+import com.damoa.damoaPJT.board.dto.BoardUpdateRequest;
 import com.damoa.damoaPJT.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,22 @@ public class BoardController {
     public String getProduct (@RequestParam("board_no") int boardNo, Model model) {
 
         model.addAttribute("Product", boardService.getProduct(boardNo));
+
+        return "/board/product";
+    }
+
+    @GetMapping("/boardUpdate")
+    public String getUpdateBoard(@RequestParam("board_no") int boardNo, Model model) {
+
+        model.addAttribute("boardUpdate", boardService.findByBoardNo(boardNo));
+
+        return "/board/boardUpdate";
+    }
+
+    @PostMapping("/boardUpdate")
+    public String putUpdateBoard(@ModelAttribute BoardUpdateRequest boardUpdateRequest, Model model) {
+
+        model.addAttribute("Product", boardService.updateBoard(boardUpdateRequest));
 
         return "/board/product";
     }

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title th:text="|다모아 판매게시판 - ${boardUpdate.boardTitle}|"></title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <script th:replace="~{/layout/includeLink::includeLink}"></script>
+
+    <script>
+        $(function(){
+          //드랍다운 클릭 시 값변경
+          $(".dropdown-item").click(function(){
+              $("#myStatus").html($(this).html());
+              if($(this).html() == '컴퓨터/노트북'){
+                $("#category").val(1);
+              } else if( $(this).html() == '스마트폰/태블릿' ){
+                $("#category").val(2);
+              } else if( $(this).html() == '워치' ){
+                $("#category").val(3);
+              } else if( $(this).html() == '음향기기' ){
+                $("#category").val(4);
+              } else if( $(this).html() == '생활가전' ){
+                $("#category").val(5);
+              } else if( $(this).html() == '기타' ){
+                $("#category").val(6);
+              }
+
+          });
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<div th:replace="~{/layout/header::header}"></div>
+
+<!-- 사이드바 -->
+<div th:replace="~{/layout/sidebar::sidebar}"></div>
+
+<main id="main" class="main">
+    <form action="/boardUpdate" method="post">
+        <div id="board insert">
+            <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
+            <div class="row">
+                <div class="col-1">
+                    <h5 class="m-2">
+                        <b>제목 :</b>
+                    </h5>
+                </div>
+                <div class="col-11">
+                    <input id="title" name="boardTitle" type="text" class="form-control" th:value="${boardUpdate.boardTitle}" />
+                    <input name="boardNo" type="hidden" th:value="${boardUpdate.boardNo}">
+                </div>
+            </div>
+        </div>
+        <!-- 제목 -->
+
+        <section class="section">
+            <div class="row mt-3 justify-content-around">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="row">
+                            <!-- 가격 -->
+                            <div class="col-4">
+                                <h5 class="m-2 px-1 font-weight-bold text-primary">가격</h5>
+                                <input
+                                        name="boardPrice"
+                                        id="boardPrice"
+                                        type="text"
+                                        class="px-2 form-control"
+                                        th:value="${boardUpdate.boardPrice}"
+                                />
+                            </div>
+                            <!-- 첨부파일 -->
+                            <div class="col-4">
+                                <h5 class="m-2 font-weight-bold text-primary">첨부파일</h5>
+                                <input
+                                        type="file"
+                                        id="img"
+                                        class="px-2 form-control"
+                                        name="img"
+                                />
+                            </div>
+                            <!-- 카테고리 -->
+                            <div class="col-4 d-flex">
+                                <h5 class="font-weight-bold mt-2 mx-1">
+                                    <strong>카테고리 : &nbsp;&nbsp;</strong>
+                                </h5>
+                                <div>
+                                    <div>
+                                        <input id="category" value="${boardUpdate.categoryNo}" name="categoryNo" class="d-none"/>
+                                        <button id="myStatus" type="button" class="btn btn-outline-primary dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            카테고리
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">컴퓨터/노트북</a></li>
+                                            <li><a class="dropdown-item" href="#">스마트폰/태블릿</a></li>
+                                            <li><a class="dropdown-item" href="#">워치</a></li>
+                                            <li><a class="dropdown-item" href="#">음향기기</a></li>
+                                            <li><a class="dropdown-item" href="#">생활가전</a></li>
+                                            <li><a class="dropdown-item" href="#">기타</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input name="boardLocation" type="text" class="form-control" th:value="${boardUpdate.boardLocation}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 가격 첨부파일 카테고리 끝 -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- 내용 -->
+                    <div class="card">
+                        <textarea name="boardContent" id="content" class="card-body py-3" th:text="${boardUpdate.boardContent}"></textarea>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end gap-2">
+                                <!-- 버튼 영역 -->
+                                <button type="submit" class="btn btn-outline-primary">
+                                    저장
+                                </button>
+                                <button type="button" class="btn btn-outline-danger">
+                                    삭제
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 내용 -->
+                </div>
+            </div>
+        </section>
+    </form>
+</main>
+<!-- End #main -->
+
+<!-- includeAsset -->
+<div th:replace="~{/layout/includeAsset::includeAsset}"></div>
+
+</body>
+
+</html>

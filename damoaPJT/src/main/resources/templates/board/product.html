@@ -22,7 +22,7 @@
 <div th:replace="~{/layout/sidebar::sidebar}"></div>
 
 <main id="main" class="main">
-    <div class="boardtitle">
+    <div class="boardTitle">
         <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
         <div class="row">
             <div class="col-6">
@@ -56,7 +56,10 @@
                         </div>
                         <div class="col">
                             <div class="d-flex justify-content-end gap-2">
-                                <!-- 버튼 영역 -->
+                                <!-- 버튼 영역  -->
+                                <button id="updateBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{boardUpdate(board_no=${Product.boardNo})}'|">
+                                    수정
+                                </button>
                                 <button id="reportBtn" type="button" class="btn btn-outline-danger">
                                     신고
                                 </button>
@@ -88,10 +91,11 @@
                         </div>
                     </div>
                     <div class="card-body py-3">
-                        <div class="d-flex border rounded p-3" style="height: 200px;" th:text="${Product.boardContent}">
+                        <div class="d-flex border rounded p-3" style="height: 500px;" th:text="${Product.boardContent}">
                             내용
                         </div>
                     </div>
+
                 </div>
                 <!-- 내용 -->
             </div>
@@ -101,45 +105,6 @@
     <section class="section">
         <div class="row align-items-top">
             <div class="col-lg-12">
-                <!-- 댓글 -->
-                <div class="card">
-                    <div class="card-body py-3">댓글</div>
-                    <div class="row ps-3 g-2">
-                        <div class="col">
-                            <input type="comment" class="form-control" id="comment"/>
-                        </div>
-                        <div class="me-3 col-1 d-flex flex-row-reverse">
-                            <button
-                                    id="commentRegBtn"
-                                    type="button"
-                                    class="btn btn-outline-primary"
-                            >
-                                작성
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body py-3">
-                        <div
-                                class="alert alert-secondary alert-dismissible fade show"
-                                role="alert"
-                        >
-                            ㅎ히히히히ㅣ히히히
-                        </div>
-                        <div
-                                class="alert alert-secondary alert-dismissible fade show"
-                                role="alert"
-                        >
-                            ㅎ히히히히ㅣ히히히
-                        </div>
-                        <div
-                                class="alert alert-secondary alert-dismissible fade show"
-                                role="alert"
-                        >
-                            ㅎ히히히히ㅣ히히히
-                        </div>
-                    </div>
-                </div>
-                <!-- 댓글 -->
             </div>
         </div>
     </section>

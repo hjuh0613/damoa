@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title th:text="|다모아 판매게시판 - 게시글 등록|"></title>
+  <title th:text="|다모아 판매게시판 - ${reviewUpdate.reviewTitle}|"></title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -57,11 +57,11 @@
                 </h5>
                 <div class="col">
                   <input
-                          name="img"
-                          type="file"
-                          id="img"
-                          class="form-control"
-                          multiple
+                      name="img"
+                      type="file"
+                      id="img"
+                      class="form-control"
+                      multiple
                   />
                 </div>
               </div>
@@ -77,7 +77,7 @@
         <div class="col-lg-12">
           <!-- 내용 -->
           <div class="card">
-            <textarea name="reviewContent" id="content" rows="10" class="border rounded m-3 p-2" th:text="${reviewUpdate.reviewContent}"></textarea>
+            <textarea name="reviewContent" id="content" style="height: 450px;" rows="10" class="border rounded m-3 p-2" th:text="${reviewUpdate.reviewContent}"></textarea>
             <div class="card-footer">
               <div class="d-flex justify-content-end gap-2">
                 <!-- 버튼 영역 -->

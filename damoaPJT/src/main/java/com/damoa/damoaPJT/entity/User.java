@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity // 엔티티 등록
 @Getter // getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -40,6 +41,9 @@ public class User {
     @Column(name = "user_region", length = 45, nullable = false)
     private String userRegion;
 
+    @Column(name = "user_address", length = 45, nullable = false)
+    private String userAddress;
+
     @Column(name = "user_role", nullable = false)
     private int userRole;
 
@@ -67,4 +71,42 @@ public class User {
     @OneToOne(mappedBy = "user")
     private UserDetail userDetail;
 
+    @Builder
+    public User(String userId,
+                String userPw,
+                String userName,
+                String userPhone,
+                String userEmail,
+                String userNickname,
+                String userRegion,
+                String userAddress){
+        this.userId = userId;
+        this.userPw = userPw;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.userEmail = userEmail;
+        this.userNickname = userNickname;
+        this.userRegion = userRegion;
+        this.userAddress = userAddress;
+    }
+
+    public void update(String userId,
+                       String userName,
+                       String userPhone,
+                       String userEmail,
+                       String userNickname,
+                       String userRegion,
+                       String userAddress){
+        this.userId = userId;
+        this.userName = userName;
+        this.userPhone = userPhone;
+        this.userEmail = userEmail;
+        this.userNickname = userNickname;
+        this.userRegion = userRegion;
+        this.userAddress = userAddress;
+    }
+
+    public void updatePw(String userPw){
+        this.userPw = userPw;
+    }
 }

@@ -48,14 +48,36 @@ public class Board {
     private User user;
 
     @Builder
-    public Board(int boardNo, String boardTitle, String boardContent, LocalDateTime boardDate, String boardLocation, int boardPrice, Category category, User user){
+    public Board(int boardNo,
+                 String boardTitle,
+                 String boardContent,
+                 LocalDateTime boardDate,
+                 String boardLocation,
+                 int boardPrice,
+                 Category category,
+                 User user){
         this.boardNo = boardNo;
+        this.boardTitle = boardTitle;
         this.boardContent = boardContent;
         this.boardDate = boardDate;
         this.boardLocation = boardLocation;
         this.boardPrice = boardPrice;
         this.category = category;
         this.user = user;
+    }
+
+    public void update(String boardTitle,
+                       String boardContent,
+                       String boardLocation,
+                       int boardPrice,
+                       int categoryNo){
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+        this.boardLocation = boardLocation;
+        this.boardPrice = boardPrice;
+        this.category = Category.builder()
+                .categoryNo(categoryNo)
+                .build();
     }
 
 }
