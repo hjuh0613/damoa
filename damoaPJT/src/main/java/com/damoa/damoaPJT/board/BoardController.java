@@ -51,9 +51,9 @@ public class BoardController {
     @PostMapping("/boardUpdate")
     public String putUpdateBoard(@ModelAttribute BoardUpdateRequest boardUpdateRequest, Model model) {
 
-        model.addAttribute("Product", boardService.updateBoard(boardUpdateRequest));
+        boardService.updateBoard(boardUpdateRequest);
 
-        return "/board/product";
+        return "redirect:/product?board_no=" + boardUpdateRequest.getBoardNo();
     }
 
     @GetMapping("/addBoard")
@@ -63,7 +63,7 @@ public class BoardController {
         return "board/boardInsert";
     }
 
-    @PostMapping(value = "/addBoard")
+    @PostMapping("/addBoard")
     public ResponseEntity addBoard(@ModelAttribute BoardAddRequest boardAddRequest, @RequestParam("img") List<MultipartFile> imgFile, Model model){
 
         // 파일 업로드 처리 필요
@@ -79,6 +79,13 @@ public class BoardController {
     public String sale(Model model) {
 
         return "/board/sale";
+    }
+
+    @GetMapping("/deleteBoard")
+    public String deleteBoard(@RequestParam("board_no") int boardNo, @RequestParam("category_no") int categoryNo, Model model){
+        boardService.deleteBoard(boardNo);
+
+        return "redirect:/boardList?category_no="+categoryNo;
     }
 
 }

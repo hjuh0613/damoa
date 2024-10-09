@@ -7,10 +7,7 @@ import com.damoa.damoaPJT.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -30,9 +27,9 @@ public class UserController {
     @PostMapping("/userDetailUpdate")
     public String putUserDetailUpdate(@ModelAttribute UserDetailUpdateRequest userDetailUpdateRequest, Model model) {
 
-        model.addAttribute("UserDetail", userService.userDetailUpdate(userDetailUpdateRequest));
+        userService.userDetailUpdate(userDetailUpdateRequest);
 
-        return "/user/userDetail";
+        return "redirect:/userDetail";
     }
 
     @PostMapping("/userPwUpdate")
@@ -55,4 +52,6 @@ public class UserController {
 
         return "/user/userDetail";
     }
+
+
 }

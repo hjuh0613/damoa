@@ -57,6 +57,9 @@
                         <div class="col">
                             <div class="d-flex justify-content-end gap-2">
                                 <!-- 버튼 영역  -->
+                                <button id="deleteBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{deleteBoard(board_no=${Product.boardNo}, category_no=${Product.categoryNo})}'|">
+                                    삭제
+                                </button>
                                 <button id="updateBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{boardUpdate(board_no=${Product.boardNo})}'|">
                                     수정
                                 </button>

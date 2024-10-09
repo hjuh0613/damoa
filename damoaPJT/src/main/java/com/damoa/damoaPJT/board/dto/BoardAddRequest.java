@@ -3,6 +3,7 @@ package com.damoa.damoaPJT.board.dto;
 import com.damoa.damoaPJT.entity.Board;
 import com.damoa.damoaPJT.entity.Category;
 import com.damoa.damoaPJT.entity.File;
+import com.damoa.damoaPJT.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,8 @@ public class BoardAddRequest {
     private String location;
     private String category;
 
+    private int userNo;
+
     public Board toEntity(){
         return Board.builder()
                 .boardTitle(title)
@@ -41,6 +44,9 @@ public class BoardAddRequest {
                 .boardLocation(location)
                 .category(Category.builder()
                         .categoryName(category)
+                        .build())
+                .user(User.builder()
+                        .userNo(userNo)
                         .build())
                 .build();
     }

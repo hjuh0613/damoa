@@ -1,4 +1,4 @@
-package com.damoa.damoaPJT.controller;
+package com.damoa.damoaPJT.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,4 +20,7 @@ public class LoginController {
 
         return "/login/pages-register";
     }
+
+
+
 }

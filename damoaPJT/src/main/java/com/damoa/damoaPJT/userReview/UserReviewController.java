@@ -1,7 +1,9 @@
 package com.damoa.damoaPJT.userReview;
 
+import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
 import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,10 +41,31 @@ public class UserReviewController {
     @PostMapping("/updateReview")
     public String putUpdateReview(@ModelAttribute UserReviewUpdateRequest userReviewUpdateRequest, Model model){
 
-        // 수정 -> 수정된 dto를 받을거야
+        userReviewService.updateReview(userReviewUpdateRequest);
 
-        model.addAttribute("Review", userReviewService.updateReview(userReviewUpdateRequest));
-
-        return "/userReview/review";
+        return "redirect:/review?review_no=" + userReviewUpdateRequest.getReviewNo();
     }
+
+    @GetMapping("/addReview")
+    public String goAddReview(Model model){
+
+        return "/userReview/reviewInsert";
+    }
+
+    @PostMapping("/addReview")
+    public String addReview(@ModelAttribute ReviewAddRequest reviewAddRequest, Model model){
+
+        userReviewService.addReview(reviewAddRequest);
+
+        return "redirect:/userReviewList";
+    }
+
+    @GetMapping("/deleteReview")
+    public String deleteReview(@RequestParam("review_no") int reviewNo, Model model){
+
+        userReviewService.deleteReview(reviewNo);
+
+        return "redirect:/userReviewList";
+    }
+
 }

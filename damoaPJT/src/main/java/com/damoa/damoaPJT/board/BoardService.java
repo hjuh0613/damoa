@@ -61,5 +61,9 @@ public class BoardService {
         return addBoardNo;
     }
 
+    public void deleteBoard(int boardNo){
+        boardRepository.deleteById(boardNo);
+    }
+
 
 }

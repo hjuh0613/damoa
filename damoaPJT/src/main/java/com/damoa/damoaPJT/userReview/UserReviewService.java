@@ -1,6 +1,7 @@
 package com.damoa.damoaPJT.userReview;
 
 import com.damoa.damoaPJT.entity.Review;
+import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
 import com.damoa.damoaPJT.userReview.dto.UserReviewListResponse;
 import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateRequest;
 import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateResponse;
@@ -15,6 +16,12 @@ import java.util.List;
 public class UserReviewService {
 
     private final UserReviewRepository userReviewRepository;
+
+    @Transactional
+    public void addReview(ReviewAddRequest reviewAddRequest){
+
+        userReviewRepository.save(reviewAddRequest.toEntity());
+    }
 
     public List<UserReviewListResponse> findAllUserReview() {
         return userReviewRepository.findAll().stream()
@@ -47,6 +54,10 @@ public class UserReviewService {
         return userReviewRepository.findByReviewNo(entity.getReviewNo())
                 .map(UserReviewListResponse::new)
                 .orElseThrow(() -> new RuntimeException("Review not found"));
+    }
+
+    public void deleteReview(int reviewNo){
+        userReviewRepository.deleteById(reviewNo);
     }
 
 }

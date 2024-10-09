@@ -72,7 +72,8 @@ public class User {
     private UserDetail userDetail;
 
     @Builder
-    public User(String userId,
+    public User(int userNo,
+                String userId,
                 String userPw,
                 String userName,
                 String userPhone,
@@ -80,6 +81,7 @@ public class User {
                 String userNickname,
                 String userRegion,
                 String userAddress){
+        this.userNo = userNo;
         this.userId = userId;
         this.userPw = userPw;
         this.userName = userName;
