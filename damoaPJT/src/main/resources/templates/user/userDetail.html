@@ -138,11 +138,6 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-lg-3 col-md-4 label">지역</div>
-                                    <div class="col-lg-9 col-md-8" th:text="${UserDetail.userRegion}"></div>
-                                </div>
-
-                                <div class="row">
                                     <div class="col-lg-3 col-md-4 label">주소</div>
                                     <div class="col-lg-9 col-md-8" th:text="${UserDetail.userAddress}"></div>
                                 </div>
@@ -229,23 +224,6 @@
                                                     class="form-control"
                                                     id="NickName"
                                                     th:value="${UserDetail.userNickname}"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
-                                        <label
-                                                for="Region"
-                                                class="col-md-4 col-lg-3 col-form-label"
-                                        >지역</label
-                                        >
-                                        <div class="col-md-8 col-lg-9">
-                                            <input
-                                                    name="userRegion"
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="Region"
-                                                    th:value="${UserDetail.userRegion}"
                                             />
                                         </div>
                                     </div>

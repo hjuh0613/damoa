@@ -20,19 +20,16 @@ public class UserDetailUpdateRequest {
 
     private String userNickname;
 
-    private String userRegion;
-
     private String userAddress;
 
     public User toEntity() {
         return User.builder()
                 .userId(userId)
                 .userPw(userPw)
-                .userName(userName)
+                .userNames(userName)
                 .userPhone(userPhone)
                 .userEmail(userEmail)
                 .userNickname(userNickname)
-                .userRegion(userRegion)
                 .userAddress(userAddress)
                 .build();
     }

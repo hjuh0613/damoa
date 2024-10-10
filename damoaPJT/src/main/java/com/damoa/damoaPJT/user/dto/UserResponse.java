@@ -19,19 +19,16 @@ public class UserResponse {
 
     private String userNickname;
 
-    private String userRegion;
-
     private String userAddress;
 
     @Builder
     public UserResponse(User user){
         this.userId = user.getUserId();
         this.userPw = user.getUserPw();
-        this.userName = user.getUserName();
+        this.userName = user.getUserNames();
         this.userPhone = user.getUserPhone();
         this.userEmail = user.getUserEmail();
         this.userNickname = user.getUserNickname();
-        this.userRegion = user.getUserRegion();
         this.userAddress = user.getUserAddress();
     }
 }

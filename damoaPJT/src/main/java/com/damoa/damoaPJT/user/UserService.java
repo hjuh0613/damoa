@@ -1,10 +1,12 @@
 package com.damoa.damoaPJT.user;
 
 import com.damoa.damoaPJT.entity.User;
+import com.damoa.damoaPJT.user.dto.UserAddRequest;
 import com.damoa.damoaPJT.user.dto.UserDetailUpdateRequest;
 import com.damoa.damoaPJT.user.dto.UserPwUpdateRequest;
 import com.damoa.damoaPJT.user.dto.UserResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,21 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public String save(UserAddRequest userAddRequest) {
+        return userRepository.save(User.builder()
+                .userId(userAddRequest.getUserId())
+                .userPw(bCryptPasswordEncoder.encode(userAddRequest.getUserPw()))
+                .userEmail(userAddRequest.getUserEmail())
+                .userNames(userAddRequest.getUserNames())
+                .userNickname(userAddRequest.getUserNickname())
+                .userPhone(userAddRequest.getUserPhone())
+                .userAddress(userAddRequest.getUserAddress())
+                .userYn(1)
+                .build()).getUserId();
+    }
 
     public UserResponse getUserDetail(String userId) {
 
@@ -35,7 +52,6 @@ public class UserService {
                 , userDetailUpdateRequest.getUserPhone()
                 , userDetailUpdateRequest.getUserEmail()
                 , userDetailUpdateRequest.getUserNickname()
-                , userDetailUpdateRequest.getUserRegion()
                 , userDetailUpdateRequest.getUserAddress()
         );
 
@@ -47,7 +63,9 @@ public class UserService {
     @Transactional
     public UserResponse userPwUpdate(UserPwUpdateRequest userPwUpdateRequest) {
         User entity = userRepository.findByUserIdAndUserPw(userPwUpdateRequest.getUserId(), userPwUpdateRequest.getUserPw())
-                .orElseThrow(() -> {return null;});
+                .orElseThrow(() -> {
+                    return null;
+                });
 
         entity.updatePw(userPwUpdateRequest.getUserNewPw());
 
