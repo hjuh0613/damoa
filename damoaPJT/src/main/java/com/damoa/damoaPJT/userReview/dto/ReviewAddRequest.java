@@ -4,6 +4,7 @@ import com.damoa.damoaPJT.entity.Review;
 import com.damoa.damoaPJT.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +16,7 @@ public class ReviewAddRequest {
 
     private String reviewContent;
 
-    private int userNo;
+    private Integer userNo = null;
 
     public Review toEntity() {
         return Review.builder()
@@ -27,4 +28,9 @@ public class ReviewAddRequest {
                         .build())
                 .build();
     }
+
+    public void setUserNo(int userNo){
+        this.userNo = userNo;
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.damoa.damoaPJT.userReview;
 
 import com.damoa.damoaPJT.entity.Review;
+import com.damoa.damoaPJT.user.dto.MyBoardResponse;
+import com.damoa.damoaPJT.user.dto.MyReviewResponse;
 import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
 import com.damoa.damoaPJT.userReview.dto.UserReviewListResponse;
 import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateRequest;
@@ -58,6 +60,13 @@ public class UserReviewService {
 
     public void deleteReview(int reviewNo){
         userReviewRepository.deleteById(reviewNo);
+    }
+
+    // 특정 사용자가 작성한 모든 후기글 불러오기
+    public List<MyReviewResponse> findByLogInUserId(int userNo) {
+        return userReviewRepository.findByUserUserNo(userNo).stream()
+                .map(MyReviewResponse::new)
+                .toList();
     }
 
 }

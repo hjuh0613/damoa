@@ -1,10 +1,9 @@
 package com.damoa.damoaPJT.user;
 
+import com.damoa.damoaPJT.board.BoardService;
 import com.damoa.damoaPJT.entity.UserDetail;
-import com.damoa.damoaPJT.user.dto.UserAddRequest;
-import com.damoa.damoaPJT.user.dto.UserDetailUpdateRequest;
-import com.damoa.damoaPJT.user.dto.UserPwUpdateRequest;
-import com.damoa.damoaPJT.user.dto.UserResponse;
+import com.damoa.damoaPJT.user.dto.*;
+import com.damoa.damoaPJT.userReview.UserReviewService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +20,10 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
+    private final BoardService boardService;
+
+    private final UserReviewService userReviewService;
 
     // 로그인
     @GetMapping("/login")
@@ -51,11 +54,12 @@ public class UserController {
         return "redirect:/login";
     }
 
-    // 로그인 기능 구현 전 임시로 default 값 admin 넣음
     @GetMapping("/userDetail")
-    public String getUserDetail(@AuthenticationPrincipal UserDetails user, Model model) {
+    public String getUserDetail(@AuthenticationPrincipal CustomUserDetails user, Model model) {
 
         model.addAttribute("UserDetail", userService.getUserDetail(user.getUsername()));
+        model.addAttribute("MyBoardList", boardService.findByLogInUserId(user.getUserNo()));
+        model.addAttribute("MyReviewList", userReviewService.findByLogInUserId(user.getUserNo()));
 
         return "/user/userDetail";
     }

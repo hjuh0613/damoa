@@ -18,7 +18,7 @@ public class BoardUpdateRequest {
 
     private int boardPrice;
 
-    private int categoryNo;
+    private String categoryNo;
 
     public Board toEntity() {
         return Board.builder()
@@ -28,7 +28,7 @@ public class BoardUpdateRequest {
                 .boardLocation(boardLocation)
                 .boardPrice(boardPrice)
                 .category(Category.builder()
-                        .categoryNo(categoryNo)
+                        .categoryNo(Integer.parseInt(categoryNo))
                         .build())
                 .build();
     }

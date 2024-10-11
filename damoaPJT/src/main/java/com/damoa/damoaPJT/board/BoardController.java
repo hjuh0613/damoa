@@ -4,9 +4,11 @@ import com.damoa.damoaPJT.board.dto.BoardAddRequest;
 import com.damoa.damoaPJT.board.dto.BoardListResponse;
 import com.damoa.damoaPJT.board.dto.BoardUpdateRequest;
 import com.damoa.damoaPJT.category.CategoryService;
+import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,19 +62,20 @@ public class BoardController {
     public String goAddBoard(@RequestParam(value = "category_name", required = false) String categoryName, Model model){
         model.addAttribute("categoryName", categoryName);
 
-        return "board/boardInsert";
+        return "/board/boardInsert";
     }
 
     @PostMapping("/addBoard")
-    public ResponseEntity addBoard(@ModelAttribute BoardAddRequest boardAddRequest, @RequestParam("img") List<MultipartFile> imgFile, Model model){
+    public String addBoard(@ModelAttribute BoardAddRequest boardAddRequest, @RequestParam("img") List<MultipartFile> imgFile, @AuthenticationPrincipal CustomUserDetails user, Model model){
 
         // 파일 업로드 처리 필요
         
         // 게시글 저장 로직
+        boardAddRequest.setUserNo(user.getUserNo());
         boardService.addProduct(boardAddRequest, imgFile);
 
         //게시글 작성 완료 후 게시글 목록으로 이동
-        return new ResponseEntity<>(HttpStatus.OK);
+        return "redirect:/boardList?category_no=" + boardAddRequest.getCategoryNo();
     }
 
     @GetMapping("/sale")

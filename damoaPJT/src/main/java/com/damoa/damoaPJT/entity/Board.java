@@ -29,7 +29,7 @@ public class Board {
     private String boardContent;
 
     @CreatedDate
-    @Column(name = "board_date", nullable = false)
+    @Column(name = "board_date")
     private LocalDateTime boardDate;
 
     @Column(name = "board_location", length = 500, nullable = false)

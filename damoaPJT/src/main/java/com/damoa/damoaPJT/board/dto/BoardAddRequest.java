@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 // @ModelAttribute를 사용하기 위해서는 @Setter가 필요
@@ -28,27 +29,35 @@ import java.util.List;
 public class BoardAddRequest {
 
     private String title;
+
     private String content;
-    private int price;
+
+    private String price;
 
     private String location;
-    private String category;
 
-    private int userNo;
+    private Integer categoryNo;
+
+    private Integer userNo = null;
 
     public Board toEntity(){
         return Board.builder()
                 .boardTitle(title)
                 .boardContent(content)
-                .boardPrice(price)
+                .boardPrice(Integer.parseInt(price))
+                .boardDate(LocalDateTime.now())
                 .boardLocation(location)
                 .category(Category.builder()
-                        .categoryName(category)
+                        .categoryNo(categoryNo)
                         .build())
                 .user(User.builder()
                         .userNo(userNo)
                         .build())
                 .build();
+    }
+
+    public void setUserNo(int userNo){
+        this.userNo = userNo;
     }
 
 }

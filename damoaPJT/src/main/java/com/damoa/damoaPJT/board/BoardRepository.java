@@ -10,4 +10,7 @@ import java.util.Optional;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
     List<Board> findByCategory_CategoryNo(int categoryNo);
     Optional<Board> findByBoardNo(int boardNo);
+
+    List<Board> findByUserUserNo(int userNo);
+
 }

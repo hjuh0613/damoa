@@ -5,6 +5,7 @@ import com.damoa.damoaPJT.board.dto.BoardListResponse;
 import com.damoa.damoaPJT.board.dto.BoardUpdateRequest;
 import com.damoa.damoaPJT.board.dto.BoardUpdateResponse;
 import com.damoa.damoaPJT.entity.Board;
+import com.damoa.damoaPJT.user.dto.MyBoardResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +46,7 @@ public class BoardService {
                 , boardUpdateRequest.getBoardContent()
                 , boardUpdateRequest.getBoardLocation()
                 , boardUpdateRequest.getBoardPrice()
-                , boardUpdateRequest.getCategoryNo()
+                , Integer.parseInt(boardUpdateRequest.getCategoryNo())
         );
 
         return boardRepository.findByBoardNo(entity.getBoardNo())
@@ -64,6 +65,12 @@ public class BoardService {
     public void deleteBoard(int boardNo){
         boardRepository.deleteById(boardNo);
     }
-
+    
+    // 특정 사용자가 작성한 모든 판매글 불러오기
+    public List<MyBoardResponse> findByLogInUserId(int userNo) {
+        return boardRepository.findByUserUserNo(userNo).stream()
+                .map(MyBoardResponse::new)
+                .toList();
+    }
 
 }

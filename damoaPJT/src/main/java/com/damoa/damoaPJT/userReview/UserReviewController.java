@@ -1,9 +1,11 @@
 package com.damoa.damoaPJT.userReview;
 
+import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
 import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,8 +55,9 @@ public class UserReviewController {
     }
 
     @PostMapping("/addReview")
-    public String addReview(@ModelAttribute ReviewAddRequest reviewAddRequest, Model model){
+    public String addReview(@ModelAttribute ReviewAddRequest reviewAddRequest, @AuthenticationPrincipal CustomUserDetails user,  Model model){
 
+        reviewAddRequest.setUserNo(user.getUserNo());
         userReviewService.addReview(reviewAddRequest);
 
         return "redirect:/userReviewList";
