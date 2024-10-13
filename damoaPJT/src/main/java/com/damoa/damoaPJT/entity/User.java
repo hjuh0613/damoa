@@ -19,6 +19,7 @@ import java.util.List;
 @Table(name = "users")
 public class User implements UserDetails { // User 를 상속받아 인증 객체로 사용
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_no", nullable = false)

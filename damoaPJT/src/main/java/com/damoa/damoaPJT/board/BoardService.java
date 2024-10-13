@@ -20,7 +20,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     public List<BoardListResponse> findByIdBoard(int categoryNo) {
-        return boardRepository.findByCategory_CategoryNo(categoryNo).stream()
+        return boardRepository.findByCategory_CategoryNoOrderByBoardNoDesc(categoryNo).stream()
                 .map(BoardListResponse::new)
                 .toList();
     }

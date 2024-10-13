@@ -66,14 +66,14 @@
               </thead>
               <tbody>
               <tr th:each = "userReview : ${userReviewList}">
-                <td th:text = "${userReview.reviewNo}"></td>
+                <td class="reviewNo" th:text = "${userReview.reviewNo}"></td>
                 <td th:text = "${userReview.userNickname}"></td>
                 <td>
                   <a th:href = "@{/review(review_no = ${userReview.reviewNo})}" th:text = "${userReview.reviewTitle}"></a>
                 </td>
                 <td th:text = "${#temporals.format(userReview.reviewDate, 'yyyy.MM.dd')}"></td>
                 <td>
-                  <i id="heartBtn" class="bi bi-bag-heart"></i>
+                  <i class="heartBtn bi bi-bag-heart"></i>
                 </td>
               </tr>
               </tbody>
@@ -87,6 +87,9 @@
   </section>
 
 </main><!-- End #main -->
+
+<!-- <head>로 올리면 Jquery보다 먼저 선언돼서 오류 발생 -->
+<script src="/assets/js/reviewList.js" />
 
 <!-- includeAsset -->
 <div th:replace = "~{/layout/includeAsset::includeAsset}"></div>

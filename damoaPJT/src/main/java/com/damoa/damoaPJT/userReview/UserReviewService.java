@@ -26,7 +26,7 @@ public class UserReviewService {
     }
 
     public List<UserReviewListResponse> findAllUserReview() {
-        return userReviewRepository.findAll().stream()
+        return userReviewRepository.findAllByOrderByReviewNoDesc().stream()
                 .map(UserReviewListResponse::new)
                 .toList();
     }

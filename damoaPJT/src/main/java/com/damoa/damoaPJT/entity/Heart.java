@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,4 +26,12 @@ public class Heart {
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
+
+    @Builder
+    public Heart(int heartNo, int no, String type, User user){
+        this.heartNo = heartNo;
+        this.no = no;
+        this.type = type;
+        this.user = user;
+    }
 }

@@ -7,8 +7,11 @@
     <title th:text="|다모아 - ${UserDetail.userNickname}|"></title>
     <meta content="" name="description"/>
     <meta content="" name="keywords"/>
+    <script src="/assets/js/userDetail_pwChange.js"></script>
 
     <script th:replace="~{/layout/includeLink::includeLink}"></script>
+
+
 
 </head>
 
@@ -290,6 +293,14 @@
                                                 id="renewPassword"
                                             />
                                         </div>
+                                    </div>
+
+                                    <div id="pwSuccess" class="alert alert-success alert-dismissible fade show d-none" role="alert">
+                                        비밀번호가 일치합니다.
+                                    </div>
+
+                                    <div id="pwFail" class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                                        비밀번호가 일치하지 않습니다.
                                     </div>
 
                                     <div class="text-center">

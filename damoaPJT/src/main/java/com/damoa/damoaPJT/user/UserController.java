@@ -1,7 +1,6 @@
 package com.damoa.damoaPJT.user;
 
 import com.damoa.damoaPJT.board.BoardService;
-import com.damoa.damoaPJT.entity.UserDetail;
 import com.damoa.damoaPJT.user.dto.*;
 import com.damoa.damoaPJT.userReview.UserReviewService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -9,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +52,7 @@ public class UserController {
         return "redirect:/login";
     }
 
+    // 마이페이지 조회
     @GetMapping("/userDetail")
     public String getUserDetail(@AuthenticationPrincipal CustomUserDetails user, Model model) {
 
@@ -73,26 +72,25 @@ public class UserController {
         return "redirect:/userDetail";
     }
 
+    // 비밀번호 변경
     @PostMapping("/userPwUpdate")
     public String putUserPwUpdate(@ModelAttribute UserPwUpdateRequest userPwUpdateRequest, Model model) {
 
-
         // renewPw와 newPw가 다르면 사용자 입력 다시 받기 필요
-        if(!userPwUpdateRequest.getUserNewPw().equals(userPwUpdateRequest.getUserReNewPw())){
+        if(!userPwUpdateRequest.getUserNewPw().equals(userPwUpdateRequest.getUserReNewPw())) {
             model.addAttribute("renewFail", "fail");
         }else {
             UserResponse userResponse = userService.userPwUpdate(userPwUpdateRequest);
 
             // 사용자 id에 맞는 현재 pw가 다름
-            if(userResponse == null){
+            if(userResponse == null) {
                 model.addAttribute("pwFail", "pwFail");
             }
         }
 
         model.addAttribute("UserDetail", userService.getUserDetail(userPwUpdateRequest.getUserId()));
 
-        return "/user/userDetail";
+        return "redirect:/userDetail";
     }
-
 
 }

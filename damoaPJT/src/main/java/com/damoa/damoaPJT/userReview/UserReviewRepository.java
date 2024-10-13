@@ -11,4 +11,6 @@ public interface UserReviewRepository extends JpaRepository<Review, Integer> {
     Optional<Review> findByReviewNo(int reviewNo);
 
     List<Review> findByUserUserNo(int userNo);
+
+    List<Review> findAllByOrderByReviewNoDesc();
 }

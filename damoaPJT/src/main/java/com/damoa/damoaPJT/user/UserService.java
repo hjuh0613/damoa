@@ -59,19 +59,24 @@ public class UserService {
                 .map(UserResponse::new)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
-
+    
+    // 비밀번호 변경
     @Transactional
     public UserResponse userPwUpdate(UserPwUpdateRequest userPwUpdateRequest) {
-        User entity = userRepository.findByUserIdAndUserPw(userPwUpdateRequest.getUserId(), userPwUpdateRequest.getUserPw())
-                .orElseThrow(() -> {
-                    return null;
-                });
 
-        entity.updatePw(userPwUpdateRequest.getUserNewPw());
+        User user = userRepository.findByUserId(userPwUpdateRequest.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return userRepository.findByUserId(entity.getUserId())
+        if(bCryptPasswordEncoder.matches(userPwUpdateRequest.getUserPw(), user.getUserPw())) {
+            String newPw = bCryptPasswordEncoder.encode(userPwUpdateRequest.getUserNewPw());
+            user.updatePw(newPw);
+        }else{
+            return null;
+        }
+
+        return userRepository.findByUserId(user.getUserId())
                 .map(UserResponse::new)
                 .orElseThrow(() -> new RuntimeException("User ID not found"));
-
     }
+
 }
