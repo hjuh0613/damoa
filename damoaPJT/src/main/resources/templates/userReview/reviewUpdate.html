@@ -38,7 +38,7 @@
           <h5 class="m-2">
             <b>제목 :</b>
           </h5>
-          <input id="title" name="reviewTitle" type="text" class="form-control col ms-2" th:value="${reviewUpdate.reviewTitle}">
+          <input id="title" name="reviewTitle" type="text" class="form-control col ms-2" autocomplete="off" th:value="${reviewUpdate.reviewTitle}">
           <input name="reviewNo" type="hidden" th:value="${reviewUpdate.reviewNo}">
         </div>
       </div>
@@ -77,7 +77,7 @@
         <div class="col-lg-12">
           <!-- 내용 -->
           <div class="card">
-            <textarea name="reviewContent" id="content" style="height: 450px;" rows="10" class="border rounded m-3 p-2" th:text="${reviewUpdate.reviewContent}"></textarea>
+            <textarea name="reviewContent" id="content" style="height: 450px;" rows="10" class="border rounded m-3 p-2" autocomplete="off" th:text="${reviewUpdate.reviewContent}"></textarea>
             <div class="card-footer">
               <div class="d-flex justify-content-end gap-2">
                 <!-- 버튼 영역 -->
