@@ -5,19 +5,19 @@ window.onload = function (){
         // '찜하기'를 위해 필요한 데이터
         // 사용자가 선택한 글의 번호
         // 사용자가 선택한 글의 게시판 유형 정보
-        let sendDate = {
+        let sendData = {
                             "no": $(this).parent().parent().find(".boardNo").html(),
                             "type": $("#categoryName").html()
                         };
 
-        console.log(sendDate);
+        console.log(sendData);
 
         // 비동기 작업 시작~
         $.ajax({
             url: "/addHeart",                   // controller에 요청할 api 요청
             type: "post",                       // api 요청 타입
             contentType: "application/json",
-            data: JSON.stringify(sendDate),     // api 요청 시 전달되는 값
+            data: JSON.stringify(sendData),     // api 요청 시 전달되는 값
             dataType: "text",                   // 요청 후 서버가 화면(html)에게 주는 데이터의 형식(text(json,html,txt,script), xml)
 
             //정상 처리될 경우

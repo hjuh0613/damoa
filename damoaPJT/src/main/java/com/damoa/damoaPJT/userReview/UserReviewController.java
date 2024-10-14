@@ -9,6 +9,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -55,10 +58,15 @@ public class UserReviewController {
     }
 
     @PostMapping("/addReview")
-    public String addReview(@ModelAttribute ReviewAddRequest reviewAddRequest, @AuthenticationPrincipal CustomUserDetails user,  Model model){
+    public String addReview(@ModelAttribute ReviewAddRequest reviewAddRequest
+            , @RequestParam("img") List<MultipartFile> imgFile
+            , @AuthenticationPrincipal CustomUserDetails user,  Model model) throws Exception {
 
+        // 로그인한 유저 no 세팅
         reviewAddRequest.setUserNo(user.getUserNo());
-        userReviewService.addReview(reviewAddRequest);
+
+        // 후기 게시글 저장
+        userReviewService.addReview(reviewAddRequest, imgFile);
 
         return "redirect:/userReviewList";
     }

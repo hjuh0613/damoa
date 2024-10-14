@@ -1,6 +1,10 @@
 package com.damoa.damoaPJT.userReview;
 
+import com.damoa.damoaPJT.entity.File;
 import com.damoa.damoaPJT.entity.Review;
+import com.damoa.damoaPJT.file.FileRepository;
+import com.damoa.damoaPJT.file.FileUtil;
+import com.damoa.damoaPJT.file.dto.FileAddRequest;
 import com.damoa.damoaPJT.user.dto.MyBoardResponse;
 import com.damoa.damoaPJT.user.dto.MyReviewResponse;
 import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
@@ -10,19 +14,40 @@ import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class UserReviewService {
 
     private final UserReviewRepository userReviewRepository;
+    private final FileRepository fileRepository;
+    private final FileUtil fileUtil;
 
     @Transactional
-    public void addReview(ReviewAddRequest reviewAddRequest){
+    public int addReview(ReviewAddRequest reviewAddRequest, List<MultipartFile> files) throws Exception{
 
-        userReviewRepository.save(reviewAddRequest.toEntity());
+        // 게시글 저장
+        int addReviewNo = userReviewRepository.save(reviewAddRequest.toEntity()).getReviewNo();
+
+        // 파일 저장 로직
+        // board_type 7 = 후기 게시판
+        List<FileAddRequest> fileAddRequestList = fileUtil.storeFile(files, addReviewNo, 7);
+
+        // 파일 데이터 DB 저장
+        fileRepository.saveAll(fileAddRequestList.stream()
+                .map(fileAddRequest -> File.builder()
+                        .path(fileAddRequest.getPath())
+                        .originalName(fileAddRequest.getOriginalName())
+                        .no(fileAddRequest.getNo())
+                        .size(fileAddRequest.getSize())
+                        .build())
+                .collect(Collectors.toList()));
+
+        return addReviewNo;
     }
 
     public List<UserReviewListResponse> findAllUserReview() {

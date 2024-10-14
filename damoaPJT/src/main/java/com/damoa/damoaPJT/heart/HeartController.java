@@ -18,7 +18,7 @@ public class HeartController {
     // 찜하기
     @PostMapping("/addHeart")
     @ResponseBody // 비동기 요청 시 반환 값을 view 경로로 인식하지 않도록 함
-    public String addHeart(@AuthenticationPrincipal CustomUserDetails user,@RequestBody AddHeartRequest addHeartRequest) {
+    public String addHeart(@AuthenticationPrincipal CustomUserDetails user, @RequestBody AddHeartRequest addHeartRequest) {
 
         addHeartRequest.setUserNo(user.getUserNo());
 

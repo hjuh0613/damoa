@@ -6,27 +6,38 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity // 엔티티 등록
-@Getter // getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자
-@Table(name = "file")
+@Entity
+@Table(name="file")
 public class File {
-        
-    // 복합키
+
     @Id
-    @EmbeddedId
-    private FilePK filePK;
+    @Column(name = "file_no" )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int fileNo;
 
-    @Column(name = "file_name", length = 1000)
-    private String fileName;
+    @Column(name = "original_name")
+    private String originalName;
 
-    @Column(name = "file_path", length = 1000)
-    private String filePath;
+    @Column(name = "path")
+    private String path;
+
+    @Column(name = "board_no")
+    private int no;
+
+    @Column(name = "board_type")
+    private int board_type;
+
+    @Column(name = "size")
+    private long size;
 
     @Builder
-    public File(FilePK filePK, String fileName, String filePath){
-        this.filePK = filePK;
-        this.fileName = fileName;
-        this.filePath = filePath;
+    public File(int fileNo, String originalName, String path, int no, int board_type, long size){
+        this.fileNo = fileNo;
+        this.originalName = originalName;
+        this.path = path;
+        this.no = no;
+        this.board_type = board_type;
+        this.size = size;
     }
+
 }

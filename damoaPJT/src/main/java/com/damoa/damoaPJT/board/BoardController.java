@@ -66,12 +66,14 @@ public class BoardController {
     }
 
     @PostMapping("/addBoard")
-    public String addBoard(@ModelAttribute BoardAddRequest boardAddRequest, @RequestParam("img") List<MultipartFile> imgFile, @AuthenticationPrincipal CustomUserDetails user, Model model){
+    public String addBoard(@ModelAttribute BoardAddRequest boardAddRequest
+            , @RequestParam("img") List<MultipartFile> imgFile
+            , @AuthenticationPrincipal CustomUserDetails user, Model model) throws Exception {
 
-        // 파일 업로드 처리 필요
-        
-        // 게시글 저장 로직
+        // 로그인한 유저 no 세팅
         boardAddRequest.setUserNo(user.getUserNo());
+
+        // 판매 게시글 저장
         boardService.addProduct(boardAddRequest, imgFile);
 
         //게시글 작성 완료 후 게시글 목록으로 이동

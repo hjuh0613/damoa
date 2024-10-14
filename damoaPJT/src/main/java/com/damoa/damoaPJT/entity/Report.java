@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,18 +11,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자
 @Table(name = "report")
 public class Report {
-    
-    // 복합키
-    @Id
-    @EmbeddedId
-    private ReportPK reportPK;
 
-    @Column(name = "report_nick", length = 45, nullable = false)
-    private String reportNick;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 1씩 자동 증가
+    @Column(name = "report_No", nullable = false)
+    private int reportNo;
+
+    @Column(name = "report_type", nullable = false)
+    private String reportType;
+
+    @Column(name = "report_fromUserNo", nullable = false) // 신고를 한 유저의 UserNo
+    private int reportFromUserNo;
+
+    @Column(name = "report_toUserNo", nullable = false) // 신고를 당한 유저의 UserNo
+    private int reportToUserNo;
 
     @Column(name = "report_content", length = 900, nullable = false)
     private String reportContent;
 
-    @Column(name = "report_file", length = 1000, nullable = false)
-    private String reportFile;
+    @Builder
+    public Report(int reportNo, String reportType, int reportFromUserNo, int reportToUserNo, String reportContent) {
+        this.reportNo = reportNo;
+        this.reportType = reportType;
+        this.reportFromUserNo = reportFromUserNo;
+        this.reportToUserNo = reportToUserNo;
+        this.reportContent = reportContent;
+    }
 }

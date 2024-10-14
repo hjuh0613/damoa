@@ -4,6 +4,10 @@ import com.damoa.damoaPJT.board.dto.BoardAddRequest;
 import com.damoa.damoaPJT.board.dto.BoardListResponse;
 import com.damoa.damoaPJT.board.dto.BoardUpdateRequest;
 import com.damoa.damoaPJT.board.dto.BoardUpdateResponse;
+import com.damoa.damoaPJT.entity.File;
+import com.damoa.damoaPJT.file.FileRepository;
+import com.damoa.damoaPJT.file.FileUtil;
+import com.damoa.damoaPJT.file.dto.FileAddRequest;
 import com.damoa.damoaPJT.entity.Board;
 import com.damoa.damoaPJT.user.dto.MyBoardResponse;
 import lombok.RequiredArgsConstructor;
@@ -12,12 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final FileRepository fileRepository;
+    private final FileUtil fileUtil;
 
     public List<BoardListResponse> findByIdBoard(int categoryNo) {
         return boardRepository.findByCategory_CategoryNoOrderByBoardNoDesc(categoryNo).stream()
@@ -54,10 +61,24 @@ public class BoardService {
                 .orElseThrow(() -> new RuntimeException("Board not found"));
     }
 
-    public int addProduct(BoardAddRequest boardAddRequest, List<MultipartFile> files){
+    @Transactional
+    public int addProduct(BoardAddRequest boardAddRequest, List<MultipartFile> files) throws Exception{
 
         // 게시글 저장
         int addBoardNo = boardRepository.save(boardAddRequest.toEntity()).getBoardNo();
+
+        // 파일 저장 로직
+        List<FileAddRequest> fileAddRequestList = fileUtil.storeFile(files, addBoardNo, boardAddRequest.getCategoryNo());
+
+        // 파일 데이터 DB 저장
+        fileRepository.saveAll(fileAddRequestList.stream()
+                .map(fileAddRequest -> File.builder()
+                        .path(fileAddRequest.getPath())
+                        .originalName(fileAddRequest.getOriginalName())
+                        .no(fileAddRequest.getNo())
+                        .size(fileAddRequest.getSize())
+                        .build())
+                .collect(Collectors.toList()));
 
         return addBoardNo;
     }
