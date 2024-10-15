@@ -4,6 +4,7 @@ import com.damoa.damoaPJT.board.dto.BoardAddRequest;
 import com.damoa.damoaPJT.board.dto.BoardListResponse;
 import com.damoa.damoaPJT.board.dto.BoardUpdateRequest;
 import com.damoa.damoaPJT.category.CategoryService;
+import com.damoa.damoaPJT.file.FileService;
 import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,7 @@ public class BoardController {
 
     private final BoardService boardService;
     private final CategoryService categoryService;
+    private final FileService fileService;
 
     @GetMapping("/boardList")
     public String getBoardList (@RequestParam("category_no") int categoryNo, Model model) {
@@ -37,7 +39,10 @@ public class BoardController {
     @GetMapping("/product")
     public String getProduct (@RequestParam("board_no") int boardNo, Model model) {
 
-        model.addAttribute("Product", boardService.getProduct(boardNo));
+        BoardListResponse boardListResponse = boardService.getProduct(boardNo);
+
+        model.addAttribute("Product", boardListResponse);
+        model.addAttribute("fileList", fileService.getFileListByBoardNoAndBoardType(boardNo, boardListResponse.getCategoryNo()));
 
         return "/board/product";
     }

@@ -37,12 +37,15 @@ window.onload = function () {
                 // 마커 위치를 클릭한 위치로 옮깁니다
                 marker.setPosition(latlng);
 
+                // 주소 변환 함수
+                updateAddress(latlng);
+
             });
         });
     } else {
         // 브라우저가 geolocation을 지원하지 않을 때 기본 위치 설정
 
-        var defaultPosition = new kakao.maps.LatLng(33.450701, 126.570667); // 기본 좌표
+        var defaultPosition = new kakao.maps.LatLng(36.9495, 127.9082); // 기본 좌표
 
         var mapOption = {
             center: defaultPosition,
@@ -60,6 +63,30 @@ window.onload = function () {
         kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
             var latlng = mouseEvent.latLng;
             marker.setPosition(latlng);
+
+            // 주소 변환 함수
+            updateAddress(latlng);
+        });
+    }
+
+
+    // 주소 변환 함수
+    function updateAddress(latlng) {
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        // 좌표로 법정동 상세 주소 정보를 요청합니다
+        geocoder.coord2Address(latlng.getLng(), latlng.getLat(),  function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                console.log("주소 정보 ==============");
+                console.log(result);
+
+                var address = result[0].address.address_name;
+
+                $("#address").val(address);
+            } else {
+                console.error('주소 변환 실패:', status);
+            }
         });
     }
 }

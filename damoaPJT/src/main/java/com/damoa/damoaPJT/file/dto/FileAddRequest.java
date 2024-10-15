@@ -26,8 +26,8 @@ public class FileAddRequest {
         return File.builder()
                 .originalName(originalName)
                 .path(path)
-                .no(no)
-                .board_type(board_type)
+                .boardNo(no)
+                .boardType(board_type)
                 .size(size)
                 .build();
     }

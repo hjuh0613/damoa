@@ -40,9 +40,10 @@ public class UserReviewService {
         // 파일 데이터 DB 저장
         fileRepository.saveAll(fileAddRequestList.stream()
                 .map(fileAddRequest -> File.builder()
+                        .boardType(fileAddRequest.getBoard_type())
                         .path(fileAddRequest.getPath())
                         .originalName(fileAddRequest.getOriginalName())
-                        .no(fileAddRequest.getNo())
+                        .boardNo(fileAddRequest.getNo())
                         .size(fileAddRequest.getSize())
                         .build())
                 .collect(Collectors.toList()));

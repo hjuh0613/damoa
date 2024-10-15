@@ -1,7 +1,7 @@
 package com.damoa.damoaPJT.report;
 
 import com.damoa.damoaPJT.report.dto.AddReportRequest;
-import com.damoa.damoaPJT.report.dto.ReportListResponse;
+import com.damoa.damoaPJT.report.dto.ReportListDetailResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +15,8 @@ public class ReportService {
 
     private final ReportRepository reportRepository;
 
-    public List<ReportListResponse> findAllReport() {
-        return reportRepository.findAll().stream()
-                .map(ReportListResponse::new)
-                .toList();
+    public List<ReportListDetailResponse> findAllReport() {
+        return reportRepository.getReportAll();
     }
 
     @Transactional

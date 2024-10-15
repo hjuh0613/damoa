@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <div class="card">
+                <div class="card" style="height=100%">
                     <div class="card-body">
                         <div class="row pt-3">
                             <div class="col">
@@ -54,15 +54,24 @@
                                 <th>신고자</th>
                                 <th>피신고자</th>
                                 <th>신고내용</th>
+                                <th>제재일수</th>
+                                <th>강제탈퇴</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each = "report : ${reportList}">
-                                <td class="reportNo" th:text = "${report.reportNo}"></td>
-                                <td th:text = "${report.reportFromUserNo}"></td>
-                                <td th:text = "${report.reportToUserNo}"></td>
-                                <td>
+                                <td class="reportNo" th:text = "${report.reportNo}" style="vertical-align: middle;"></td>
+                                <td th:text = "${report.fromUserNickname}" style="vertical-align: middle;"></td>
+                                <td th:text = "${report.toUserNickname}" style="vertical-align: middle;"></td>
+                                <td style="vertical-align: middle;">
                                     <a th:href = "@{/report(report_no = ${report.reportNo})}" th:text = "${report.reportContent}"></a>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <input type="number" style="width:50px;">
+                                    <button id="limitDayBtn" type="button" class="btn btn-primary">적용</button>
+                                </td>
+                                <td style="vertical-align: middle;">
+                                    <button id="removeUserBtn" type="button" class="btn btn-outline-danger">탈퇴</button>
                                 </td>
                             </tr>
                             </tbody>

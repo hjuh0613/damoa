@@ -38,7 +38,6 @@
     <!-- 제목 -->
 
     <section class="section">
-    <section class="section">
         <div class="row align-items-top">
             <div class="col-lg-12">
                 <!-- 작성자 -->
@@ -111,6 +110,62 @@
         </div>
     </section>
 
+    <section>
+        <div class="card p-3">
+            <div class="d-flex">
+                <h5 class="m-2">
+                    <b>장소&nbsp;&nbsp;</b>
+                </h5>
+                <input id="address" name="location" type="hidden" class="form-control col ms-2" value="">
+                <div id="map" class="form-control col ms-2" style="height:500px;"></div>
+                <script type="text/javascript"
+                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2dee0bb54e20c019b2a6a80534fd99d7&libraries=services"></script>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row mt-3 justify-content-around">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="row p-3">
+                        <!-- 가격 -->
+                        <div class="col-6 d-flex">
+                            <h5 class="font-weight-bold mt-2 mx-1">
+                                <strong>가격&nbsp;&nbsp;</strong>
+                            </h5>
+                            <div class="col mt-2 mx-1" th:text="${Product.boardPrice}"></div>
+                        </div>
+                        <!-- 카테고리 -->
+                        <div class="col-6 d-flex">
+                            <h5 class="font-weight-bold mt-2 mx-1">
+                                <strong>카테고리&nbsp;&nbsp;</strong>
+                            </h5>
+                            <div>
+                                <div>
+                                    <input id="category" type="number" name="categoryNo" value="" class="d-none"/>
+                                    <button id="myStatus" type="button" class="btn btn-outline-dark dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                        카테고리
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">컴퓨터/노트북</a></li>
+                                        <li><a class="dropdown-item" href="#">스마트폰/태블릿</a></li>
+                                        <li><a class="dropdown-item" href="#">워치</a></li>
+                                        <li><a class="dropdown-item" href="#">음향기기</a></li>
+                                        <li><a class="dropdown-item" href="#">생활가전</a></li>
+                                        <li><a class="dropdown-item" href="#">기타</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- 가격 첨부파일 카테고리 끝 -->
+
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
@@ -149,6 +204,7 @@
 
 <!-- <head>로 올리면 Jquery보다 먼저 선언돼서 오류 발생 -->
 <script src="/assets/js/report.js" />
+<script src="/assets/js/mapProduct.js" />
 
 <!-- includeAsset -->
 <div th:replace="~{/layout/includeAsset::includeAsset}"></div>
