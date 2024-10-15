@@ -38,6 +38,7 @@
     <!-- 제목 -->
 
     <section class="section">
+    <section class="section">
         <div class="row align-items-top">
             <div class="col-lg-12">
                 <!-- 작성자 -->
@@ -45,6 +46,7 @@
                     <div class="row m-3 gx-3">
                         <div class="col d-flex align-item-center">
                             <input type="hidden" id="userNo" th:value="${Product.userNo}">
+                            <input type="hidden" id="categoryNo" th:value="${Product.categoryNo}">
                             <div class="p-1">
                                 <strong th:text="${Product.userNickname}">
                                     닉네임
@@ -88,8 +90,8 @@
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                                <button id="addReportBtn" type="button" class="btn btn-primary">작성</button>
+                                                <button id="cancelReportBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                                <button id="addReportBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">작성</button>
                                             </div>
                                         </div>
                                     </div>

@@ -24,5 +24,4 @@ public class HeartController {
 
         return heartService.addOrDeleteHeart(addHeartRequest);
     }
-
 }

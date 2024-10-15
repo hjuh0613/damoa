@@ -1,11 +1,18 @@
 window.onload = function (){
 
+    // 모달 창을 닫았을 때 모달 내부의 값 초기화
+    $('.modal').on('hidden.bs.modal', function (e) {
+        $(this).find('input[type="text"], input[type="file"], textarea').val('');
+
+        console.log('modal close');
+    });
+
     // 신고 모달 창의 save 버튼 클릭 시 이벤트
     $("#addReportBtn").on("click", function(){
         let sendData = {
-                           "reportType" : $("#categoryNo").html(),
+                           "reportType" : $("#categoryNo").val(),
                            "reportToUserNo" : $("#userNo").val(),
-                           "reportContent" : $("#modalContent").html()
+                           "reportContent" : $("#modalContent").val()
                         };
 
         console.log(sendData);
@@ -16,7 +23,7 @@ window.onload = function (){
         );
         formData.append("file", $('#modalFile')[0].files[0]);
 
-        /*
+
         $.ajax({
             url: "/addReport",
             type: "post",
@@ -30,8 +37,11 @@ window.onload = function (){
                 console.log("요청 성공");
                 console.log(data)
 
-                // 모달창 닫기 기능 구현
-
+                Swal.fire({
+                    title: "신고 완료",
+                    text: "신고가 완료되었습니다.",
+                    icon: "success"
+                });
             },
 
             error: function(err) {
@@ -42,6 +52,6 @@ window.onload = function (){
                 });
             }
         });
-        */
+
     });
 };

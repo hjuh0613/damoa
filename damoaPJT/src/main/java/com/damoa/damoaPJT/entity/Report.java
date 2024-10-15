@@ -20,10 +20,10 @@ public class Report {
     @Column(name = "report_type", nullable = false)
     private String reportType;
 
-    @Column(name = "report_fromUserNo", nullable = false) // 신고를 한 유저의 UserNo
+    @Column(name = "report_from_user_no", nullable = false) // 신고를 한 유저의 UserNo
     private int reportFromUserNo;
 
-    @Column(name = "report_toUserNo", nullable = false) // 신고를 당한 유저의 UserNo
+    @Column(name = "report_to_user_no", nullable = false) // 신고를 당한 유저의 UserNo
     private int reportToUserNo;
 
     @Column(name = "report_content", length = 900, nullable = false)

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title th:text = "|다모아 신고 관리|"></title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <script th:replace = "~{/layout/includeLink::includeLink}"></script>
+
+
+
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<div th:replace = "~{/layout/header::header}"></div>
+
+<!-- 사이드바 -->
+<div th:replace = "~{/layout/sidebar::sidebar}"></div>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">홈</a></li>
+                <li class="breadcrumb-item active">신고 관리</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row pt-3">
+                            <div class="col">
+                                <h5 class="fw-bold">신고 관리</h5>
+                            </div>
+                        </div>
+
+                        <p>올바른 중고 거래를 위해 바른 말을 사용해주세요.</p>
+                        <table class="table ">
+                            <thead>
+                            <tr>
+                                <th>신고 번호</th>
+                                <th>신고자</th>
+                                <th>피신고자</th>
+                                <th>신고내용</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each = "report : ${reportList}">
+                                <td class="reportNo" th:text = "${report.reportNo}"></td>
+                                <td th:text = "${report.reportFromUserNo}"></td>
+                                <td th:text = "${report.reportToUserNo}"></td>
+                                <td>
+                                    <a th:href = "@{/report(report_no = ${report.reportNo})}" th:text = "${report.reportContent}"></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<!-- <head>로 올리면 Jquery보다 먼저 선언돼서 오류 발생 -->
+<script src="/assets/js/reviewList.js" />
+
+<!-- includeAsset -->
+<div th:replace = "~{/layout/includeAsset::includeAsset}"></div>
+
+</body>
+
+</html>

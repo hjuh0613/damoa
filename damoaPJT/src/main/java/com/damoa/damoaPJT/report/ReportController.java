@@ -5,6 +5,7 @@ import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 public class ReportController {
 
     private final ReportService reportService;
+
+    @GetMapping("/reportList")
+    public String getReportList(Model model) {
+        model.addAttribute("reportList", reportService.findAllReport());
+
+        return "/report/reportList";
+    }
 
     @PostMapping("/addReport")
     @ResponseBody
