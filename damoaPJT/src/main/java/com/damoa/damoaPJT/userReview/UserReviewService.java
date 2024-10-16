@@ -5,7 +5,6 @@ import com.damoa.damoaPJT.entity.Review;
 import com.damoa.damoaPJT.file.FileRepository;
 import com.damoa.damoaPJT.file.FileUtil;
 import com.damoa.damoaPJT.file.dto.FileAddRequest;
-import com.damoa.damoaPJT.user.dto.MyBoardResponse;
 import com.damoa.damoaPJT.user.dto.MyReviewResponse;
 import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
 import com.damoa.damoaPJT.userReview.dto.UserReviewListResponse;
