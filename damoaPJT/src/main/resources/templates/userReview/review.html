@@ -55,6 +55,7 @@
               </div>
             </div>
             <div class="col">
+              <input type="hidden" id="review_no" th:value="${Review.reviewNo}"/>
               <div class="d-flex justify-content-end gap-2">
                 <!-- 버튼 영역 -->
                 <button id="deleteBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{deleteReview(review_no=${Review.reviewNo})}'|">
@@ -112,7 +113,7 @@
           <div class="card-body py-3">댓글</div>
           <div class="row ps-3 g-2">
             <div class="col">
-              <input type="comment" class="form-control" id="comment"/>
+              <input id="comment" type="comment" class="form-control"/>
             </div>
             <div class="me-3 col-1 d-flex flex-row-reverse">
               <button
@@ -124,24 +125,9 @@
               </button>
             </div>
           </div>
-          <div class="card-body py-3">
-            <div
-                    class="alert alert-secondary alert-dismissible fade show"
-                    role="alert"
-            >
-              ㅎ히히히히ㅣ히히히
-            </div>
-            <div
-                    class="alert alert-secondary alert-dismissible fade show"
-                    role="alert"
-            >
-              ㅎ히히히히ㅣ히히히
-            </div>
-            <div
-                    class="alert alert-secondary alert-dismissible fade show"
-                    role="alert"
-            >
-              ㅎ히히히히ㅣ히히히
+          <div class="card-body py-3" id="commentContainer">
+            <div>
+
             </div>
           </div>
         </div>
@@ -151,6 +137,7 @@
   </section>
 </main>
 <!-- End #main -->
+<script src="/assets/js/comment.js" />
 
 <!-- includeAsset -->
 <div th:replace="~{/layout/includeAsset::includeAsset}"></div>

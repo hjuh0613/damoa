@@ -26,14 +26,8 @@ public class Comment {
     @Column(name = "comment_date", nullable = false)
     private LocalDateTime commentDate;
 
-    @Column(name = "group_no", nullable = false)
-    private int groupNo;
-
-    @Column(name = "group_order", nullable = false)
-    private int groupOrder;
-
-    @Column(name = "group_depth", nullable = false)
-    private int groupDepth;
+    @Column(name = "parent_comment_no", nullable = true)
+    private Integer parentCommentNo;
 
     @ManyToOne
     @JoinColumn(name = "review_no")
@@ -42,4 +36,5 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
+
 }

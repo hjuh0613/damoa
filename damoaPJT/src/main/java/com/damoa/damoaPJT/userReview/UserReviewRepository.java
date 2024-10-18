@@ -1,5 +1,6 @@
 package com.damoa.damoaPJT.userReview;
 
+import com.damoa.damoaPJT.entity.Comment;
 import com.damoa.damoaPJT.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,4 +14,5 @@ public interface UserReviewRepository extends JpaRepository<Review, Integer> {
     List<Review> findByUserUserNo(int userNo);
 
     List<Review> findAllByOrderByReviewNoDesc();
+
 }
