@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -23,7 +24,7 @@ public class Comment {
     private String commentContent;
 
     @CreatedDate
-    @Column(name = "comment_date", nullable = false)
+    @Column(name = "comment_date")
     private LocalDateTime commentDate;
 
     @Column(name = "parent_comment_no", nullable = true)
@@ -36,5 +37,15 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "user_no")
     private User user;
+
+    @Builder
+    public Comment(int commentNo, String commentContent, LocalDateTime commentDate, Integer parentCommentNo, Review review, User user) {
+        this.commentNo = commentNo;
+        this.commentContent = commentContent;
+        this.commentDate = commentDate;
+        this.parentCommentNo = parentCommentNo;
+        this.review = review;
+        this.user = user;
+    }
 
 }

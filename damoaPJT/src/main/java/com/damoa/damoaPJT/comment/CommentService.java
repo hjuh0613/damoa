@@ -1,11 +1,14 @@
 package com.damoa.damoaPJT.comment;
 
+import com.damoa.damoaPJT.comment.dto.AddCommentRequest;
 import com.damoa.damoaPJT.comment.dto.CommentListResponse;
+import com.damoa.damoaPJT.entity.Comment;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -18,6 +21,14 @@ public class CommentService {
         return commentRepository.findByReviewNoWithUser(reviewNo).stream()
                 .map(CommentListResponse::new)
                 .toList();
+    }
+
+    @Transactional
+    public Integer addComment(AddCommentRequest addCommentRequest) {
+
+        Integer commentNo = commentRepository.save(addCommentRequest.toEntity()).getCommentNo();
+        
+        return commentNo;
     }
 
 }
