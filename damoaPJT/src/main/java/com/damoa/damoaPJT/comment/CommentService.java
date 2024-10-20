@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.comment;
 
 import com.damoa.damoaPJT.comment.dto.AddCommentRequest;
 import com.damoa.damoaPJT.comment.dto.CommentListResponse;
+import com.damoa.damoaPJT.comment.dto.UpdateCommentRequest;
 import com.damoa.damoaPJT.entity.Comment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,19 @@ public class CommentService {
         Integer commentNo = commentRepository.save(addCommentRequest.toEntity()).getCommentNo();
         
         return commentNo;
+    }
+
+    @Transactional
+    public CommentListResponse updateComment(UpdateCommentRequest updateCommentRequest) {
+
+        Comment entity = commentRepository.findByCommentNo(updateCommentRequest.getCommentNo())
+                .orElseThrow(() -> new RuntimeException("Comment update failed"));
+
+        entity.update(updateCommentRequest.getCommentNo(), updateCommentRequest.getCommentContent());
+
+        return commentRepository.findByCommentNo(entity.getCommentNo())
+                .map(CommentListResponse::new)
+                .orElseThrow(() -> new RuntimeException("Comment not found"));
     }
 
 }

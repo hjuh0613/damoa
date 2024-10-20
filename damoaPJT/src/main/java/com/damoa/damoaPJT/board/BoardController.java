@@ -24,9 +24,12 @@ public class BoardController {
     private final FileService fileService;
 
     @GetMapping("/boardList")
-    public String getBoardList (@RequestParam("category_no") int categoryNo, Model model) {
+    public String getBoardList (@RequestParam(value="page", defaultValue="0") int page,
+                                @RequestParam("category_no") int categoryNo, Model model) {
 
-        model.addAttribute("BoardList", boardService.findByIdBoard(categoryNo));
+
+        model.addAttribute("BoardList", boardService.findByIdBoard(page, categoryNo));
+        model.addAttribute("categoryNo", categoryNo);
         model.addAttribute("categoryName", categoryService.getCategoryNameByCategoryNo(categoryNo));
 
         return "/board/board";

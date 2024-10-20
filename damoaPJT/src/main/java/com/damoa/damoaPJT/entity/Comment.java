@@ -48,4 +48,9 @@ public class Comment {
         this.user = user;
     }
 
+    public void update(int commentNo, String commentContent) {
+        this.commentNo = commentNo;
+        this.commentContent = commentContent;
+    }
+
 }

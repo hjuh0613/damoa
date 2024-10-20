@@ -35,16 +35,22 @@ window.onload = function () {
                         html = '<div class="alert alert-secondary row ms-5">'
                     }
 
+                    html += '<input class="commentNo" type="hidden" value="' + obj.commentNo + '" />'
+
                     if(userNo != obj.userNo){
-                        html += '<div class="col-10">' + obj.commentContent + '</div>'
-                            + '<div class="col-2">' + obj.commentDate + '<br>' + obj.userNickname + '</div>'
-                            + '</div>';
-                    }else {
-                        html += '<div class="col-9">' + obj.commentContent + '</div>'
+                        html += '<div class="commentContent col-9">' + obj.commentContent + '</div>'
                             + '<div class="col-2">' + obj.commentDate + '<br>' + obj.userNickname + '</div>'
                             + '<div class="col-1">'
-                            + '<button class="m-1 btn btn-outline-primary updateCommentBtn">수정</button>'
-                            + '<button class="m-1 btn btn-outline-primary deleteCommentBtn">삭제</button>'
+                            + '<button class="m-1 btn btn-outline-danger reportCommentBtn">신고</button>'
+                            + '<button class="m-1 btn btn-outline-danger addMoreCommentBtn">답글</button>'
+                            + '</div>';
+                            + '</div>';
+                    }else {
+                        html += '<div class="commentContent col-9">' + obj.commentContent + '</div>'
+                            + '<div class="col-2">' + obj.commentDate + '<br>' + obj.userNickname + '</div>'
+                            + '<div class="col-1">'
+                            + '<button class="m-1 btn btn-outline-danger deleteCommentBtn">삭제</button>'
+                            + '<button class="m-1 btn btn-outline-danger addMoreCommentBtn">답글</button>'
                             + '</div>';
                             + '</div>';
                     }
@@ -69,7 +75,6 @@ window.onload = function () {
 
     // 댓글 작성 시작
     $("#AddCommentBtn").on("click", function() {
-        console.log('123123');
 
         let sendData = {
             "reviewNo": $("#review_no").val(),
@@ -97,13 +102,62 @@ window.onload = function () {
             //에러일 경우 xmlHttp 객체를 받음
             error: function(err) {
                 Swal.fire({
-                  title: "요청 실패",
-                  text: "조금 뒤 다시 시도해주세요",
-                  icon: "error"
+                    title: "요청 실패",
+                    text: "조금 뒤 다시 시도해주세요",
+                    icon: "error"
                 });
             }
         });
     });
 
     // 댓글 작성 종료
+
+    // 대댓글 작성 시작
+
+
+
+    // 대댓글 작성 종료
+
+    // 댓글 삭제 시작
+
+    $(document).on("click",".deleteCommentBtn",function(){
+
+        let sendData = {
+            "commentNo": $(this).parent().parent().find('.commentNo').val(),
+            "commentContent": '삭제된 댓글입니다.'
+        };
+
+        console.log(sendData);
+
+        $.ajax({
+            url: "/deleteComment",
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify(sendData),     // api 요청 시 전달되는 값
+            dataType: "text",
+
+            //정상 처리될 경우
+            success: function(data) {
+                console.log("요청 성공");
+                console.log(data);
+
+                document.getElementById("commentContent").value='';
+
+                getCommentList();
+
+
+
+            },
+            //에러일 경우 xmlHttp 객체를 받음
+            error: function(err) {
+                Swal.fire({
+                    title: "요청 실패",
+                    text: "조금 뒤 다시 시도해주세요",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
+    // 댓글 삭제 종료
 };

@@ -10,6 +10,9 @@ import com.damoa.damoaPJT.file.FileUtil;
 import com.damoa.damoaPJT.file.dto.FileAddRequest;
 import com.damoa.damoaPJT.entity.Board;
 import com.damoa.damoaPJT.user.dto.MyBoardResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,10 +29,12 @@ public class BoardService {
     private final FileRepository fileRepository;
     private final FileUtil fileUtil;
 
-    public List<BoardListResponse> findByIdBoard(int categoryNo) {
-        return boardRepository.findByCategory_CategoryNoOrderByBoardNoDesc(categoryNo).stream()
-                .map(BoardListResponse::new)
-                .toList();
+    public Page<BoardListResponse> findByIdBoard(int page, int categoryNo) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return boardRepository.findByCategory_CategoryNoOrderByBoardNoDesc(pageable, categoryNo)
+                .map(BoardListResponse::new);
     }
 
     public BoardListResponse getProduct(int boardNo) {

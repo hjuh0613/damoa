@@ -83,6 +83,28 @@
             </table>
 
           </div>
+          <div class="d-flex justify-content-center" th:if="${!BoardList.isEmpty()}">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item" th:classappend="${!BoardList.hasPrevious} ? 'disabled'">
+                  <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${BoardList.number-1}&category_no=${categoryNo}|}">
+                    <span aria-hidden="true">«</span>
+                  </a>
+                </li>
+                <li class="page-item"
+                    th:if="${page >= BoardList.number-2 and page <= BoardList.number+2}"
+                    th:each="page: ${#numbers.sequence(0, BoardList.totalPages-1)}"
+                    th:classappend="${page == BoardList.number} ? 'active'">
+                  <a class="page-link" th:text="${page}" th:href="@{|?page=${page}&category_no=${categoryNo}|}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${!BoardList.hasNext} ? 'disabled'">
+                  <a class="page-link" aria-label="Next" th:href="@{|?page=${BoardList.number+1}&category_no=${categoryNo}|}">
+                    <span aria-hidden="true">»</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
 
       </div>

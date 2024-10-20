@@ -19,9 +19,9 @@ public class UserReviewController {
     private final UserReviewService userReviewService;
 
     @GetMapping("/userReviewList")
-    public String getUserReviewList(Model model) {
+    public String getUserReviewList(@RequestParam(value="page", defaultValue="0") int page, Model model) {
 
-        model.addAttribute("userReviewList", userReviewService.findAllUserReview());
+        model.addAttribute("userReviewList", userReviewService.findAllUserReview(page));
 
         return "/userReview/reviewList";
     }

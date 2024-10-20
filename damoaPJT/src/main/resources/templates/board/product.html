@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+<html lang="kor" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta charset="utf-8">
@@ -58,19 +58,22 @@
                         </div>
                         <div class="col">
                             <div class="d-flex justify-content-end gap-2">
-                                <!-- 버튼 영역  -->
-                                <button id="deleteBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{deleteBoard(board_no=${Product.boardNo}, category_no=${Product.categoryNo})}'|">
-                                    삭제
-                                </button>
-                                <button id="updateBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{boardUpdate(board_no=${Product.boardNo})}'|">
-                                    수정
-                                </button>
+                                <div th:if="${#authentication.principal.userNo == Product.userNo}">
+                                    <!-- 버튼 영역  -->
+                                    <button id="deleteBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{/deleteBoard(board_no=${Product.boardNo}, category_no=${Product.categoryNo})}'|">
+                                        삭제
+                                    </button>
+                                    <button id="updateBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{/boardUpdate(board_no=${Product.boardNo})}'|">
+                                        수정
+                                    </button>
+                                </div>
 
+                                <div th:if="${#authentication.principal.userNo != Product.userNo}">
+                                    <button id="reportBtn" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#reportModal">
+                                        신고
+                                    </button>
+                                </div>
 
-
-                                <button id="reportBtn" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                    신고
-                                </button>
                                 <!-- 신고 모달 창 -->
                                 <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

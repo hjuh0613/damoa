@@ -13,7 +13,9 @@ import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -51,10 +53,12 @@ public class UserReviewService {
         return addReviewNo;
     }
 
-    public List<UserReviewListResponse> findAllUserReview() {
-        return userReviewRepository.findAllByOrderByReviewNoDesc().stream()
-                .map(UserReviewListResponse::new)
-                .toList();
+    public Page<UserReviewListResponse> findAllUserReview(int page) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return userReviewRepository.findAllByOrderByReviewNoDesc(pageable)
+                .map(UserReviewListResponse::new);
     }
 
     public UserReviewListResponse getReview(int reviewNo) {

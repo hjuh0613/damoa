@@ -47,6 +47,7 @@
                         </div>
 
                         <p>올바른 중고 거래를 위해 바른 말을 사용해주세요.</p>
+
                         <table class="table ">
                             <thead>
                             <tr>
@@ -55,6 +56,7 @@
                                 <th>피신고자</th>
                                 <th>신고내용</th>
                                 <th>제재일수</th>
+                                <th>상세보기</th>
                                 <th>강제탈퇴</th>
                             </tr>
                             </thead>
@@ -64,11 +66,16 @@
                                 <td th:text = "${report.fromUserNickname}" style="vertical-align: middle;"></td>
                                 <td th:text = "${report.toUserNickname}" style="vertical-align: middle;"></td>
                                 <td style="vertical-align: middle;">
-                                    <a th:href = "@{/report(report_no = ${report.reportNo})}" th:text = "${report.reportContent}"></a>
+                                    <a class="reportContent" th:text = "${report.reportContent}"></a>
                                 </td>
                                 <td style="vertical-align: middle;">
                                     <input type="number" style="width:50px;">
                                     <button id="limitDayBtn" type="button" class="btn btn-primary">적용</button>
+                                </td>
+                                <td>
+                                    <button id="reportDetailBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reportDetailModal">
+                                        상세보기
+                                    </button>
                                 </td>
                                 <td style="vertical-align: middle;">
                                     <button id="removeUserBtn" type="button" class="btn btn-outline-danger">탈퇴</button>
@@ -84,10 +91,33 @@
         </div>
     </section>
 
+    <!-- 신고 모달 창 -->
+    <div class="modal fade" id="reportDetailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">신고 내용</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ms-3">
+                        <input id="modalFile" type="file" required>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div rows="10" class="border rounded m-3 p-2"style="width:93%; height:450px;"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelReportBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </main><!-- End #main -->
 
 <!-- <head>로 올리면 Jquery보다 먼저 선언돼서 오류 발생 -->
-<script src="/assets/js/reviewList.js" />
+<script src="/assets/js/report.js" />
 
 <!-- includeAsset -->
 <div th:replace = "~{/layout/includeAsset::includeAsset}"></div>

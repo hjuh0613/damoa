@@ -80,6 +80,28 @@
             </table>
 
           </div>
+          <div class="d-flex justify-content-center" th:if="${!userReviewList.isEmpty()}">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item" th:classappend="${!userReviewList.hasPrevious} ? 'disabled'">
+                  <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${userReviewList.number-1}|}">
+                    <span aria-hidden="true">«</span>
+                  </a>
+                </li>
+                <li class="page-item"
+                    th:if="${page >= userReviewList.number-2 and page <= userReviewList.number+2}"
+                    th:each="page: ${#numbers.sequence(0, userReviewList.totalPages-1)}"
+                    th:classappend="${page == userReviewList.number} ? 'active'">
+                  <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                </li>
+                <li class="page-item" th:classappend="${!userReviewList.hasNext} ? 'disabled'">
+                  <a class="page-link" aria-label="Next" th:href="@{|?page=${userReviewList.number+1}|}">
+                    <span aria-hidden="true">»</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
         </div>
 
       </div>

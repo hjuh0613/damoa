@@ -2,6 +2,8 @@ package com.damoa.damoaPJT.comment;
 
 import com.damoa.damoaPJT.comment.dto.AddCommentRequest;
 import com.damoa.damoaPJT.comment.dto.CommentListResponse;
+import com.damoa.damoaPJT.comment.dto.UpdateCommentRequest;
+import com.damoa.damoaPJT.entity.Comment;
 import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -35,4 +37,13 @@ public class CommentController {
 
         return commentService.addComment(addCommentRequest);
     }
+
+    @PostMapping("/deleteComment")
+    @ResponseBody
+    public Integer updateComment (@RequestBody UpdateCommentRequest updateCommentRequest) {
+
+        return  commentService.updateComment(updateCommentRequest).getCommentNo();
+    }
+
+
 }
