@@ -54,11 +54,11 @@ public class UserController {
 
     // 마이페이지 조회
     @GetMapping("/userDetail")
-    public String getUserDetail(@AuthenticationPrincipal CustomUserDetails user, Model model) {
+    public String getUserDetail(@RequestParam(value="page", defaultValue="0") int page, @AuthenticationPrincipal CustomUserDetails user, Model model) {
 
         model.addAttribute("UserDetail", userService.getUserDetail(user.getUsername()));
-        model.addAttribute("MyBoardList", boardService.findByLogInUserId(user.getUserNo()));
-        model.addAttribute("MyReviewList", userReviewService.findByLogInUserId(user.getUserNo()));
+        model.addAttribute("MyBoardList", boardService.findByLogInUserId(page, user.getUserNo()));
+        model.addAttribute("MyReviewList", userReviewService.findByLogInUserId(page, user.getUserNo()));
 
         return "/user/userDetail";
     }

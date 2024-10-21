@@ -93,10 +93,21 @@ public class UserReviewService {
     }
 
     // 특정 사용자가 작성한 모든 후기글 불러오기
-    public List<MyReviewResponse> findByLogInUserId(int userNo) {
-        return userReviewRepository.findByUserUserNo(userNo).stream()
-                .map(MyReviewResponse::new)
-                .toList();
+    public Page<MyReviewResponse> findByLogInUserId(int page, int userNo) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return userReviewRepository.findByUserUserNo(pageable, userNo)
+                .map(MyReviewResponse::new);
+    }
+
+    // 제목에서 특정 검색어가 포함된 list get
+    public Page<UserReviewListResponse> getUserReviewListBySearch(int page, String reviewSearch) {
+
+        Pageable pageable = PageRequest.of(page, 5);
+
+        return userReviewRepository.findByTitleContaining(pageable, reviewSearch)
+                .map(UserReviewListResponse::new);
     }
 
 }

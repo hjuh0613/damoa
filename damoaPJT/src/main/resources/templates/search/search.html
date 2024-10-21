@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title th:text = "|다모아 검색|"></title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <script th:replace = "~{/layout/includeLink::includeLink}"></script>
+
+
+</head>
+
+<body>
+
+<!-- 헤더 -->
+<div th:replace = "~{/layout/header::header}"></div>
+
+<!-- 사이드바 -->
+<div th:replace = "~{/layout/sidebar::sidebar}"></div>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">홈</a></li>
+                <li class="breadcrumb-item active">검색결과</li>
+            </ol>
+        </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row pt-3">
+                            <div class="col">
+                                <h5 class="fw-bold">판매게시판</h5>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex justify-content-end gap-2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <table class="table ">
+                            <thead>
+                            <tr>
+                                <th>글번호</th>
+                                <th>닉네임</th>
+                                <th>제목</th>
+                                <th>가격</th>
+                                <th>장소</th>
+                                <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each = "board : ${boardSearchList}" >
+                                <td class="boardNo" th:text = "${board.boardNo}"></td>
+                                <td th:text = "${board.userNickname}"></td>
+                                <td>
+                                    <a th:href = "@{/product(board_no = ${board.boardNo})}" th:text = "${board.boardTitle}"></a>
+                                </td>
+                                <td th:text = "${board.boardPrice}"></td>
+                                <td th:text = "${board.boardLocation}"></td>
+                                <td th:text = "${#temporals.format(board.boardDate, 'yyyy.MM.dd')}"></td>
+                                <td>
+                                    <i class="heartBtn bi bi-bag-heart"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="d-flex justify-content-center" th:if="${!boardSearchList.isEmpty()}">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item" th:classappend="${!boardSearchList.hasPrevious} ? 'disabled'">
+                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${boardSearchList.number-1}|}">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"
+                                    th:if="${page >= boardSearchList.number-2 and page <= boardSearchList.number+2}"
+                                    th:each="page: ${#numbers.sequence(0, boardSearchList.totalPages-1)}"
+                                    th:classappend="${page == boardSearchList.number} ? 'active'">
+                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                </li>
+                                <li class="page-item" th:classappend="${!boardSearchList.hasNext} ? 'disabled'">
+                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${boardSearchList.number+1}|}">
+                                        <span aria-hidden="true">»</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row pt-3">
+                            <div class="col">
+                                <h5 class="fw-bold">후기게시판</h5>
+                            </div>
+                            <div class="col">
+                                <div class="d-flex justify-content-end gap-2">
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table ">
+                            <thead>
+                            <tr>
+                                <th>글번호</th>
+                                <th>닉네임</th>
+                                <th>제목</th>
+                                <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each = "userReview : ${reviewSearchList}">
+                                <td class="reviewNo" th:text = "${userReview.reviewNo}"></td>
+                                <td th:text = "${userReview.userNickname}"></td>
+                                <td>
+                                    <a th:href = "@{/review(review_no = ${userReview.reviewNo})}" th:text = "${userReview.reviewTitle}"></a>
+                                </td>
+                                <td th:text = "${#temporals.format(userReview.reviewDate, 'yyyy.MM.dd')}"></td>
+                                <td>
+                                    <i class="heartBtn bi bi-bag-heart"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="d-flex justify-content-center" th:if="${!reviewSearchList.isEmpty()}">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item" th:classappend="${!reviewSearchList.hasPrevious} ? 'disabled'">
+                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${reviewSearchList.number-1}|}">
+                                        <span aria-hidden="true">«</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"
+                                    th:if="${page >= reviewSearchList.number-2 and page <= reviewSearchList.number+2}"
+                                    th:each="page: ${#numbers.sequence(0, reviewSearchList.totalPages-1)}"
+                                    th:classappend="${page == reviewSearchList.number} ? 'active'">
+                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                </li>
+                                <li class="page-item" th:classappend="${!reviewSearchList.hasNext} ? 'disabled'">
+                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${reviewSearchList.number+1}|}">
+                                        <span aria-hidden="true">»</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<!-- <head>로 올리면 Jquery보다 먼저 선언돼서 오류 발생 -->
+
+<!-- includeAsset -->
+<div th:replace = "~{/layout/includeAsset::includeAsset}"></div>
+
+</body>
+
+</html>

@@ -94,10 +94,21 @@ public class BoardService {
     }
     
     // 특정 사용자가 작성한 모든 판매글 불러오기
-    public List<MyBoardResponse> findByLogInUserId(int userNo) {
-        return boardRepository.findByUserUserNo(userNo).stream()
-                .map(MyBoardResponse::new)
-                .toList();
+    public Page<MyBoardResponse> findByLogInUserId(int page, int userNo) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return boardRepository.findByUserUserNo(pageable ,userNo)
+                .map(MyBoardResponse::new);
+    }
+
+    // 제목에서 특정 검색어가 포함된 list get
+    public Page<BoardListResponse> getBoardListBySearch(int page, String boardSearch) {
+
+        Pageable pageable = PageRequest.of(page, 5);
+
+        return boardRepository.findByTitleContaining(pageable, boardSearch)
+                .map(BoardListResponse::new);
     }
 
 }
