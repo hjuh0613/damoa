@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,7 +48,8 @@ public class User implements UserDetails { // User 를 상속받아 인증 객�
     private String userAddress;
 
     @Column(name = "user_role", nullable = false)
-    private int userRole;
+    @Enumerated(EnumType.STRING)
+    private Role userRole;
 
     @Column(name = "user_yn", nullable = false)
     private int userYn;
@@ -82,6 +84,7 @@ public class User implements UserDetails { // User 를 상속받아 인증 객�
                 String userEmail,
                 String userNickname,
                 String userAddress,
+                Role userRole,
                 int userYn){
         this.userNo = userNo;
         this.userId = userId;
@@ -91,6 +94,7 @@ public class User implements UserDetails { // User 를 상속받아 인증 객�
         this.userEmail = userEmail;
         this.userNickname = userNickname;
         this.userAddress = userAddress;
+        this.userRole = userRole;
         this.userYn = userYn;
     }
 
@@ -147,6 +151,10 @@ public class User implements UserDetails { // User 를 상속받아 인증 객�
         this.userEmail = userEmail;
         this.userNickname = userNickname;
         this.userAddress = userAddress;
+    }
+
+    public void delete(int userYn) {
+        this.userYn = userYn;
     }
 
     public void updatePw(String userPw){

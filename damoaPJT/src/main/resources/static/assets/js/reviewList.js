@@ -6,9 +6,9 @@ window.onload = function (){
         // 사용자가 선택한 글의 번호
         // 사용자가 선택한 글의 게시판 유형 정보
         let sendDate = {
-                            "no": $(this).parent().parent().find(".reviewNo").html(),
-                            "type": '후기게시판'
-                        };
+            "no": $(this).parent().parent().find(".reviewNo").html(),
+            "type": '후기게시판'
+        };
 
         console.log(sendDate);
 

@@ -1,5 +1,6 @@
 package com.damoa.damoaPJT.user.dto;
 
+import com.damoa.damoaPJT.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,6 +31,8 @@ public class CustomUserDetails implements UserDetails {
 
     private int userNo;
 
+    private Role userRole;
+
     @Builder
     public CustomUserDetails(String userId
             , String userPw
@@ -39,7 +42,8 @@ public class CustomUserDetails implements UserDetails {
             , String userNickname
             , String userAddress
             , int userYn
-            , int userNo) {
+            , int userNo
+            , Role userRole) {
         this.userId = userId;
         this.userPw = userPw;
         this.userNames = userNames;
@@ -49,6 +53,7 @@ public class CustomUserDetails implements UserDetails {
         this.userAddress = userAddress;
         this.userYn = userYn;
         this.userNo = userNo;
+        this.userRole = userRole;
     }
 
     @Override

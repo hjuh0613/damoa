@@ -50,12 +50,11 @@
 
                         <table class="table ">
                             <thead>
-                            <tr>
+                            <tr style="vertical-align: middle;">
                                 <th>신고 번호</th>
                                 <th>신고자</th>
                                 <th>피신고자</th>
                                 <th>신고내용</th>
-                                <th>제재일수</th>
                                 <th>상세보기</th>
                                 <th>강제탈퇴</th>
                             </tr>
@@ -63,17 +62,13 @@
                             <tbody>
                             <tr th:each = "report : ${reportList}">
                                 <td class="reportNo" th:text = "${report.reportNo}" style="vertical-align: middle;"></td>
-                                <td th:text = "${report.fromUserNickname}" style="vertical-align: middle;"></td>
-                                <td th:text = "${report.toUserNickname}" style="vertical-align: middle;"></td>
+                                <td class="fromUserNickname" th:text = "${report.fromUserNickname}" style="vertical-align: middle;"></td>
+                                <td class="toUserNickname" th:text = "${report.toUserNickname}" style="vertical-align: middle;"></td>
                                 <td style="vertical-align: middle;">
                                     <a class="reportContent" th:text = "${report.reportContent}"></a>
                                 </td>
                                 <td style="vertical-align: middle;">
-                                    <input type="number" style="width:50px;">
-                                    <button id="limitDayBtn" type="button" class="btn btn-primary">적용</button>
-                                </td>
-                                <td>
-                                    <button id="reportDetailBtn" type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#reportDetailModal">
+                                    <button  type="button" class="btn btn-outline-primary reportDetailBtn" data-bs-toggle="modal" data-bs-target="#reportDetailModal">
                                         상세보기
                                     </button>
                                 </td>
@@ -104,7 +99,7 @@
                         <input id="modalFile" type="file" required>
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
-                        <div rows="10" class="border rounded m-3 p-2"style="width:93%; height:450px;"></div>
+                        <div id="reportModalContent" rows="10" class="border rounded m-3 p-2"style="width:93%; height:450px;"></div>
                     </div>
                 </div>
                 <div class="modal-footer">

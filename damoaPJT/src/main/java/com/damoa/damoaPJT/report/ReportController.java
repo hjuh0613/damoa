@@ -1,6 +1,8 @@
 package com.damoa.damoaPJT.report;
 
 import com.damoa.damoaPJT.report.dto.AddReportRequest;
+import com.damoa.damoaPJT.report.dto.DeleteUserRequest;
+import com.damoa.damoaPJT.user.UserService;
 import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -15,12 +17,15 @@ public class ReportController {
 
     private final ReportService reportService;
 
+    private final UserService userService;
+
     @GetMapping("/reportList")
     public String getReportList(Model model) {
         model.addAttribute("reportList", reportService.findAllReport());
 
         return "/report/reportList";
     }
+
 
     @PostMapping("/addReport")
     @ResponseBody
@@ -32,4 +37,12 @@ public class ReportController {
 
         return reportService.addReport(addReportRequest, file);
     }
+
+    @PostMapping("/deleteUser")
+    @ResponseBody
+    public void deleteUser(@RequestBody DeleteUserRequest deleteUserRequest) {
+
+        userService.deleteUser(deleteUserRequest);
+    }
+
 }

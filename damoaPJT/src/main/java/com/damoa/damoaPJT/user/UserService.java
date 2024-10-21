@@ -1,6 +1,8 @@
 package com.damoa.damoaPJT.user;
 
+import com.damoa.damoaPJT.entity.Role;
 import com.damoa.damoaPJT.entity.User;
+import com.damoa.damoaPJT.report.dto.DeleteUserRequest;
 import com.damoa.damoaPJT.user.dto.UserAddRequest;
 import com.damoa.damoaPJT.user.dto.UserDetailUpdateRequest;
 import com.damoa.damoaPJT.user.dto.UserPwUpdateRequest;
@@ -32,6 +34,7 @@ public class UserService {
                 .userPhone(userAddRequest.getUserPhone())
                 .userAddress(userAddRequest.getUserAddress())
                 .userYn(1)
+                .userRole(Role.ROLE_USER)
                 .build()).getUserId();
     }
 
@@ -77,6 +80,19 @@ public class UserService {
         return userRepository.findByUserId(user.getUserId())
                 .map(UserResponse::new)
                 .orElseThrow(() -> new RuntimeException("User ID not found"));
+    }
+
+    // 회원 탈퇴
+    @Transactional
+    public UserResponse deleteUser(DeleteUserRequest deleteUserRequest) {
+        User user = userRepository.findByUserNickname(deleteUserRequest.getToUserNickname())
+                .orElseThrow(() -> new RuntimeException("User Delete failed"));
+
+        user.delete(0);
+
+        return userRepository.findByUserNickname(user.getUserNickname())
+                .map(UserResponse::new)
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
 }

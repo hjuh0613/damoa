@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="kor" xmlns:th="http://www.thymeleaf.org">
+<html lang="kor" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+
+<input type="hidden" name="userRole" th:value="${UserDetail.userRole}"/>
+
 <!-- ======= 사이드바 ======= -->
 <div th:fragment="sidebar">
     <aside id="sidebar" class="sidebar">
@@ -71,25 +74,11 @@
             </li><!-- 후기 등록 탭 끝 -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/login">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <span>로그인</span>
-                </a>
-            </li><!-- 로그인 탭 끝 -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/register">
-                    <i class="bi bi-card-list"></i>
-                    <span>회원가입</span>
-                </a>
-            </li><!-- 회원가입 탭 끝 -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/reportList">
+                <a class="nav-link collapsed" href="/reportList" th:if="${#authentication.principal.userRole.name() eq 'ROLE_ADMIN'}">
                     <i class="bi bi-card-list"></i>
                     <span>신고 관리</span>
                 </a>
-            </li><!-- 회원가입 탭 끝 -->
+
 
         </ul>
 

@@ -28,6 +28,7 @@ public class UserDetailService implements UserDetailsService {
                 .userAddress(user.getUserAddress())
                 .userYn(user.getUserYn())
                 .userNo(user.getUserNo())
+                .userRole(user.getUserRole())
                 .build();
     }
 }
