@@ -83,18 +83,18 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item" th:classappend="${!boardSearchList.hasPrevious} ? 'disabled'">
-                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${boardSearchList.number-1}|}">
+                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?boardSearchPage=${boardSearchList.number-1}&search=${search}|}">
                                         <span aria-hidden="true">«</span>
                                     </a>
                                 </li>
                                 <li class="page-item"
-                                    th:if="${page >= boardSearchList.number-2 and page <= boardSearchList.number+2}"
-                                    th:each="page: ${#numbers.sequence(0, boardSearchList.totalPages-1)}"
-                                    th:classappend="${page == boardSearchList.number} ? 'active'">
-                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                    th:if="${boardSearchPage >= boardSearchList.number-2 and boardSearchPage <= boardSearchList.number+2}"
+                                    th:each="boardSearchPage: ${#numbers.sequence(0, boardSearchList.totalPages-1)}"
+                                    th:classappend="${boardSearchPage == boardSearchList.number} ? 'active'">
+                                    <a class="page-link" th:text="${boardSearchPage}" th:href="@{|?boardSearchPage=${boardSearchPage}&search=${search}|}">1</a>
                                 </li>
                                 <li class="page-item" th:classappend="${!boardSearchList.hasNext} ? 'disabled'">
-                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${boardSearchList.number+1}|}">
+                                    <a class="page-link" aria-label="Next" th:href="@{|?boardSearchPage=${boardSearchList.number+1}&search=${search}|}">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </li>
@@ -152,18 +152,18 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 <li class="page-item" th:classappend="${!reviewSearchList.hasPrevious} ? 'disabled'">
-                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${reviewSearchList.number-1}|}">
+                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?reviewSearchPage=${reviewSearchList.number-1}&search=${search}|}">
                                         <span aria-hidden="true">«</span>
                                     </a>
                                 </li>
                                 <li class="page-item"
-                                    th:if="${page >= reviewSearchList.number-2 and page <= reviewSearchList.number+2}"
-                                    th:each="page: ${#numbers.sequence(0, reviewSearchList.totalPages-1)}"
-                                    th:classappend="${page == reviewSearchList.number} ? 'active'">
-                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                    th:if="${reviewSearchPage >= reviewSearchList.number-2 and reviewSearchPage <= reviewSearchList.number+2}"
+                                    th:each="reviewSearchPage: ${#numbers.sequence(0, reviewSearchList.totalPages-1)}"
+                                    th:classappend="${reviewSearchPage == reviewSearchList.number} ? 'active'">
+                                    <a class="page-link" th:text="${reviewSearchPage}" th:href="@{|?reviewSearchPage=${reviewSearchPage}&search=${search}|}">1</a>
                                 </li>
                                 <li class="page-item" th:classappend="${!reviewSearchList.hasNext} ? 'disabled'">
-                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${reviewSearchList.number+1}|}">
+                                    <a class="page-link" aria-label="Next" th:href="@{|?reviewSearchPage=${reviewSearchList.number+1}&search=${search}|}">
                                         <span aria-hidden="true">»</span>
                                     </a>
                                 </li>

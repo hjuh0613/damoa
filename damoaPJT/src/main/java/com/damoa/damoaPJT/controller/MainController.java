@@ -30,14 +30,17 @@ public class MainController {
     }
 
     @GetMapping("/search")
-    public String getSearch (@RequestParam(value="page", defaultValue="0") int page, @RequestParam(value="search", defaultValue="") String search, Model model) {
+    public String getSearch (@RequestParam(value="boardSearchPage", defaultValue="0") int boardSearchPage, @RequestParam(value="reviewSearchPage", defaultValue="0") int reviewSearchPage, @RequestParam(value="search", defaultValue="") String search, Model model) {
 
         // 검색어 조회한 판매게시글 리스트
-        model.addAttribute("boardSearchList", boardService.getBoardListBySearch(page, search));
+        model.addAttribute("boardSearchList", boardService.getBoardListBySearch(boardSearchPage, search));
 
         // 검색어 조회한 후기게시글 리스트
-        model.addAttribute("reviewSearchList", userReviewService.getUserReviewListBySearch(page, search));
-        
+        model.addAttribute("reviewSearchList", userReviewService.getUserReviewListBySearch(reviewSearchPage, search));
+
+        // 검색어
+        model.addAttribute("search", search);
+
         return "/search/search";
     }
 
