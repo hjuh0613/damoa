@@ -5,6 +5,8 @@ import com.damoa.damoaPJT.entity.Review;
 import com.damoa.damoaPJT.file.FileRepository;
 import com.damoa.damoaPJT.file.FileUtil;
 import com.damoa.damoaPJT.file.dto.FileAddRequest;
+import com.damoa.damoaPJT.heart.dto.MyHeartBoardResponse;
+import com.damoa.damoaPJT.heart.dto.MyHeartReviewResponse;
 import com.damoa.damoaPJT.user.dto.MyReviewResponse;
 import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
 import com.damoa.damoaPJT.userReview.dto.UserReviewListResponse;
@@ -108,6 +110,15 @@ public class UserReviewService {
 
         return userReviewRepository.findByTitleContaining(pageable, reviewSearch)
                 .map(UserReviewListResponse::new);
+    }
+
+    // 내가 찜한 판매게시글 불러오기
+    public Page<MyHeartReviewResponse> findReviewByHeartTypeAndUser(int page, int userNo) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return userReviewRepository.findReviewsByUserNo(pageable, userNo)
+                .map(MyHeartReviewResponse::new);
     }
 
 }

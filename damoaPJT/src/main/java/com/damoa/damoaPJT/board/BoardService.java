@@ -9,6 +9,7 @@ import com.damoa.damoaPJT.file.FileRepository;
 import com.damoa.damoaPJT.file.FileUtil;
 import com.damoa.damoaPJT.file.dto.FileAddRequest;
 import com.damoa.damoaPJT.entity.Board;
+import com.damoa.damoaPJT.heart.dto.MyHeartBoardResponse;
 import com.damoa.damoaPJT.user.dto.MyBoardResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +27,9 @@ import java.util.stream.Collectors;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+
     private final FileRepository fileRepository;
+
     private final FileUtil fileUtil;
 
     public Page<BoardListResponse> findByIdBoard(int page, int categoryNo) {
@@ -98,7 +101,7 @@ public class BoardService {
 
         Pageable pageable = PageRequest.of(page, 10);
 
-        return boardRepository.findByUserUserNo(pageable ,userNo)
+        return boardRepository.findByUserUserNo(pageable, userNo)
                 .map(MyBoardResponse::new);
     }
 
@@ -109,6 +112,15 @@ public class BoardService {
 
         return boardRepository.findByTitleContaining(pageable, boardSearch)
                 .map(BoardListResponse::new);
+    }
+
+    // 내가 찜한 판매게시글 불러오기
+    public Page<MyHeartBoardResponse> findBoardByHeartTypeAndUser(int page, int userNo) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return boardRepository.findBoardsByUserNo(pageable, userNo)
+                .map(MyHeartBoardResponse::new);
     }
 
 }

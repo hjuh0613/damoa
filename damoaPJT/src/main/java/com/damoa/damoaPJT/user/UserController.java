@@ -59,6 +59,8 @@ public class UserController {
         model.addAttribute("UserDetail", userService.getUserDetail(user.getUsername()));
         model.addAttribute("MyBoardList", boardService.findByLogInUserId(page, user.getUserNo()));
         model.addAttribute("MyReviewList", userReviewService.findByLogInUserId(page, user.getUserNo()));
+        model.addAttribute("MyHeartBoardList", boardService.findBoardByHeartTypeAndUser(page, user.getUserNo()));
+        model.addAttribute("MyHeartReviewList", userReviewService.findReviewByHeartTypeAndUser(page, user.getUserNo()));
 
         return "/user/userDetail";
     }

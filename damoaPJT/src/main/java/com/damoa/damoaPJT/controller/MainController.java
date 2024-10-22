@@ -1,14 +1,12 @@
 package com.damoa.damoaPJT.controller;
 
 import com.damoa.damoaPJT.board.BoardService;
-import com.damoa.damoaPJT.controller.dto.BoardSearchRequest;
-import com.damoa.damoaPJT.controller.dto.ReviewSearchRequest;
+import com.damoa.damoaPJT.heart.HeartService;
 import com.damoa.damoaPJT.userReview.UserReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
@@ -17,10 +15,16 @@ public class MainController {
 
     private final BoardService boardService;
 
+    private final HeartService heartService;
+
     private final UserReviewService userReviewService;
 
     @GetMapping("/")
     public String home(Model model) {
+
+        // 찜하기 제일 많은 5개 얻어서 model.addAttribute
+        model.addAttribute("mostBoard", heartService.getBoardTop5());
+        model.addAttribute("mostReview", heartService.getReviewTop5());
 
         return "main";
     }

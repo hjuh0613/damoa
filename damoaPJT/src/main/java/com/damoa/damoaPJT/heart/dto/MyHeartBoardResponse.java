@@ -13,18 +13,27 @@ public class MyHeartBoardResponse {
 
     private String boardTitle;
 
-    private int boardPrice;
+    private String boardContent;
 
     private LocalDateTime boardDate;
 
+    private String boardLocation;
+
+    private int boardPrice;
+
     private int categoryNo;
+
+    private int userNo;
 
     @Builder
     public MyHeartBoardResponse(Board board) {
         this.boardNo = board.getBoardNo();
         this.boardTitle = board.getBoardTitle();
-        this.boardPrice = board.getBoardPrice();
+        this.boardContent = board.getBoardContent();
         this.boardDate = board.getBoardDate();
+        this.boardLocation = board.getBoardLocation();
+        this.boardPrice = board.getBoardPrice();
         this.categoryNo = board.getCategory().getCategoryNo();
+        this.userNo = board.getUser().getUserNo();
     }
 }

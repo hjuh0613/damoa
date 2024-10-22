@@ -1,28 +1,34 @@
 package com.damoa.damoaPJT.heart.dto;
 
 import com.damoa.damoaPJT.entity.Board;
-import com.damoa.damoaPJT.entity.Heart;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
-public class MostHeartResponse {
+public class MostHeartBoardResponse {
 
     private int boardNo;
+
     private String boardTitle;
+
     private String boardContent;
+
     private LocalDateTime boardDate;
+
     private String boardLocation;
+
     private int boardPrice;
+
     private int categoryNo;
+
     private int userNo;
 
     private String userNickname;
 
     @Builder
-    public MostHeartResponse(Board board) {
+    public MostHeartBoardResponse(Board board) {
         this.boardNo = board.getBoardNo();
         this.boardTitle = board.getBoardTitle();
         this.boardContent = board.getBoardContent();

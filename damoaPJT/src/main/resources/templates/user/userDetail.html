@@ -447,7 +447,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="userBoard : ${MyBoardList}">
+                                        <tr th:each="userBoard : ${MyHeartBoardList}">
                                             <td th:text="${userBoard.boardNo}"></td>
                                             <td>
                                                 <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
@@ -458,22 +458,22 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div class="d-flex justify-content-center" th:if="${!MyBoardList.isEmpty()}">
+                                    <div class="d-flex justify-content-center" th:if="${!MyHeartBoardList.isEmpty()}">
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
-                                                <li class="page-item" th:classappend="${!MyBoardList.hasPrevious} ? 'disabled'">
-                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyBoardList.number-1}|}">
+                                                <li class="page-item" th:classappend="${!MyHeartBoardList.hasPrevious} ? 'disabled'">
+                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyHeartBoardList.number-1}|}">
                                                         <span aria-hidden="true">«</span>
                                                     </a>
                                                 </li>
                                                 <li class="page-item"
-                                                    th:if="${page >= MyBoardList.number-2 and page <= MyBoardList.number+2}"
-                                                    th:each="page: ${#numbers.sequence(0, MyBoardList.totalPages-1)}"
-                                                    th:classappend="${page == MyBoardList.number} ? 'active'">
+                                                    th:if="${page >= MyHeartBoardList.number-2 and page <= MyHeartBoardList.number+2}"
+                                                    th:each="page: ${#numbers.sequence(0, MyHeartBoardList.totalPages-1)}"
+                                                    th:classappend="${page == MyHeartBoardList.number} ? 'active'">
                                                     <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
                                                 </li>
-                                                <li class="page-item" th:classappend="${!MyBoardList.hasNext} ? 'disabled'">
-                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyBoardList.number+1}|}">
+                                                <li class="page-item" th:classappend="${!MyHeartBoardList.hasNext} ? 'disabled'">
+                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyHeartBoardList.number+1}|}">
                                                         <span aria-hidden="true">»</span>
                                                     </a>
                                                 </li>
@@ -487,43 +487,41 @@
                             <!-- 내가 찜한 후기글 탭 시작 -->
                             <div class="tab-pane fade pt-3" id="profile-myheartreview">
                                 <div class="card-body">
-                                    <table class="table">
+                                    <table class="table ">
                                         <thead>
                                         <tr>
                                             <th>글번호</th>
                                             <th>제목</th>
-                                            <th>가격</th>
                                             <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="userBoard : ${MyBoardList}">
-                                            <td th:text="${userBoard.boardNo}"></td>
+                                        <tr th:each="userReview : ${MyHeartReviewList}">
+                                            <td th:text="${userReview.reviewNo}"></td>
                                             <td>
-                                                <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
-                                                   th:text="${userBoard.boardTitle}"></a>
+                                                <a th:href="@{/review(review_no = ${userReview.reviewNo})}"
+                                                   th:text="${userReview.reviewTitle}"></a>
                                             </td>
-                                            <td th:text="${userBoard.boardPrice}"></td>
-                                            <td th:text="${#temporals.format(userBoard.boardDate, 'yyyy.MM.dd')}"></td>
+                                            <td th:text="${#temporals.format(userReview.reviewDate, 'yyyy.MM.dd')}"></td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <div class="d-flex justify-content-center" th:if="${!MyBoardList.isEmpty()}">
+                                    <div class="d-flex justify-content-center" th:if="${!MyHeartReviewList.isEmpty()}">
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
-                                                <li class="page-item" th:classappend="${!MyBoardList.hasPrevious} ? 'disabled'">
-                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyBoardList.number-1}|}">
+                                                <li class="page-item" th:classappend="${!MyHeartReviewList.hasPrevious} ? 'disabled'">
+                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyHeartReviewList.number-1}|}">
                                                         <span aria-hidden="true">«</span>
                                                     </a>
                                                 </li>
                                                 <li class="page-item"
-                                                    th:if="${page >= MyBoardList.number-2 and page <= MyBoardList.number+2}"
-                                                    th:each="page: ${#numbers.sequence(0, MyBoardList.totalPages-1)}"
-                                                    th:classappend="${page == MyBoardList.number} ? 'active'">
+                                                    th:if="${page >= MyHeartReviewList.number-2 and page <= MyHeartReviewList.number+2}"
+                                                    th:each="page: ${#numbers.sequence(0, MyHeartReviewList.totalPages-1)}"
+                                                    th:classappend="${page == MyHeartReviewList.number} ? 'active'">
                                                     <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
                                                 </li>
-                                                <li class="page-item" th:classappend="${!MyBoardList.hasNext} ? 'disabled'">
-                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyBoardList.number+1}|}">
+                                                <li class="page-item" th:classappend="${!MyHeartReviewList.hasNext} ? 'disabled'">
+                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyHeartReviewList.number+1}|}">
                                                         <span aria-hidden="true">»</span>
                                                     </a>
                                                 </li>
