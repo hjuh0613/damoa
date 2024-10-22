@@ -62,7 +62,7 @@
                   <th>가격</th>
                   <th>장소</th>
                   <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
-                  <th></th>
+                  <th>찜하기</th>
                 </tr>
               </thead>
               <tbody>
@@ -76,7 +76,7 @@
                   <td th:text = "${board.boardLocation}"></td>
                   <td th:text = "${#temporals.format(board.boardDate, 'yyyy.MM.dd')}"></td>
                   <td>
-                    <i class="heartBtn bi bi-bag-heart"></i>
+                    <button id="heartBtn" class="m-1 btn btn-outline-primary bi bi-bag-heart"></button>
                   </td>
                 </tr>
               </tbody>
