@@ -61,7 +61,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each = "board : ${mostBoard}" >
+                <tr th:each = "board, iterStat : ${#lists.size(mostBoard) > 5 ? mostBoard.subList(0, 5) : mostBoard}">
                   <td class="boardNo" th:text = "${board.boardNo}"></td>
                   <td th:text = "${board.userNickname}"></td>
                   <td>
@@ -108,7 +108,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each = "userReview : ${mostReview}">
+                <tr th:each = "userReview, iterStat : ${#lists.size(mostReview) > 5 ? mostReview.subList(0, 5) : mostReview}">
                   <td class="reviewNo" th:text = "${userReview.reviewNo}"></td>
                   <td th:text = "${userReview.userNickname}"></td>
                   <td>
