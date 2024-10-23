@@ -66,12 +66,6 @@ public class User implements UserDetails { // User 를 상속받아 인증 객�
     @OneToMany(mappedBy = "user")
     private List<Heart> hearts = new ArrayList<Heart>();
 
-    @OneToMany(mappedBy = "chatFromUser")
-    private List<Chat> fromChats = new ArrayList<Chat>();
-
-    @OneToMany(mappedBy = "chatToUser")
-    private List<Chat> toChats = new ArrayList<Chat>();
-
     @OneToOne(mappedBy = "user")
     private UserDetail userDetail;
 

@@ -1,212 +1,317 @@
 <!DOCTYPE html>
-<html lang="kor" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<html
+  lang="kor"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
     <title th:text="|다모아 판매게시판 - ${Product.boardTitle}|"></title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <meta content="" name="description" />
+    <meta content="" name="keywords" />
 
     <script th:replace="~{/layout/includeLink::includeLink}"></script>
+  </head>
 
-</head>
+  <body>
+    <!-- 헤더 -->
+    <div th:replace="~{/layout/header::header}"></div>
 
-<body>
+    <!-- 사이드바 -->
+    <div th:replace="~{/layout/sidebar::sidebar}"></div>
 
-<!-- 헤더 -->
-<div th:replace="~{/layout/header::header}"></div>
-
-<!-- 사이드바 -->
-<div th:replace="~{/layout/sidebar::sidebar}"></div>
-
-<main id="main" class="main">
-    <div class="boardTitle">
+    <main id="main" class="main">
+      <div class="boardTitle">
         <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
         <div class="row">
-            <div class="col-6">
-                <h3>
-                    <b th:text="${Product.boardTitle}"></b>
-                </h3>
-            </div>
-            <div class="col-6">
-                <p class="text-end"></p>
-            </div>
+          <div class="col-6">
+            <h3>
+              <b th:text="${Product.boardTitle}"></b>
+            </h3>
+          </div>
+          <div class="col-6">
+            <p class="text-end"></p>
+          </div>
         </div>
-    </div>
-    <!-- 제목 -->
+      </div>
+      <!-- 제목 -->
 
-    <section class="section">
+      <section class="section">
         <div class="row align-items-top">
-            <div class="col-lg-12">
-                <!-- 작성자 -->
-                <div class="card">
-                    <div class="row m-3 gx-3">
-                        <div class="col d-flex align-item-center">
-                            <input type="hidden" id="userNo" th:value="${Product.userNo}">
-                            <input type="hidden" id="categoryNo" th:value="${Product.categoryNo}">
-                            <div class="p-1">
-                                <strong th:text="${Product.userNickname}">
-                                    닉네임
-                                </strong>
-                            </div>
-                            &nbsp; &nbsp; &nbsp;
-                            <div class="p-1" th:text="${#temporals.format(Product.boardDate, 'yyyy.MM.dd')}">
-                                날짜
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="d-flex justify-content-end gap-2">
-                                <div th:if="${#authentication.principal.userNo == Product.userNo}">
-                                    <!-- 버튼 영역  -->
-                                    <button id="deleteBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{/deleteBoard(board_no=${Product.boardNo}, category_no=${Product.categoryNo})}'|">
-                                        삭제
-                                    </button>
-                                    <button id="updateBtn" type="button" class="btn btn-outline-danger" th:onclick = "|location.href='@{/boardUpdate(board_no=${Product.boardNo})}'|">
-                                        수정
-                                    </button>
-                                </div>
-
-                                <div th:if="${#authentication.principal.userNo != Product.userNo}">
-                                    <button id="reportBtn" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#reportModal">
-                                        신고
-                                    </button>
-                                </div>
-
-                                <!-- 신고 모달 창 -->
-                                <div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">신고</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="ms-3">
-                                                    <input id="modalFile" type="file" required>
-                                                </div>
-                                                <div class="d-flex justify-content-center align-items-center">
-                                                    <textarea name="content" id="modalContent" rows="10" class="border rounded m-3 p-2"
-                                                              placeholder="내용을 입력해주세요." style="width:93%; height:450px;" autocomplete="off" required></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button id="cancelReportBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                                                <button id="addReportBtn" type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">작성</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <button id="heartBtn" type="button" class="btn btn-outline-primary">
-                                    <i class="bi bi-bag-heart"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+          <div class="col-lg-12">
+            <!-- 작성자 -->
+            <div class="card">
+              <div class="row m-3 gx-3">
+                <div class="col d-flex align-item-center">
+                  <input
+                    type="hidden"
+                    id="userNo"
+                    th:value="${Product.userNo}"
+                  />
+                  <input
+                    type="hidden"
+                    id="categoryNo"
+                    th:value="${Product.categoryNo}"
+                  />
+                  <div class="p-1">
+                    <strong th:text="${Product.userNickname}"> 닉네임 </strong>
+                  </div>
+                  &nbsp; &nbsp; &nbsp;
+                  <div
+                    class="p-1"
+                    th:text="${#temporals.format(Product.boardDate, 'yyyy.MM.dd')}"
+                  >
+                    날짜
+                  </div>
                 </div>
-                <!-- 작성자 -->
-            </div>
-        </div>
-    </section>
+                <div class="col">
+                  <div class="d-flex justify-content-end gap-2">
+                    <div
+                      th:if="${#authentication.principal.userNo == Product.userNo}"
+                    >
+                      <!-- 버튼 영역  -->
+                      <button
+                        id="deleteBtn"
+                        type="button"
+                        class="btn btn-outline-danger"
+                        th:onclick="|location.href='@{/deleteBoard(board_no=${Product.boardNo}, category_no=${Product.categoryNo})}'|"
+                      >
+                        삭제
+                      </button>
+                      <button
+                        id="updateBtn"
+                        type="button"
+                        class="btn btn-outline-danger"
+                        th:onclick="|location.href='@{/boardUpdate(board_no=${Product.boardNo})}'|"
+                      >
+                        수정
+                      </button>
+                    </div>
 
-    <section>
+                    <div
+                      th:if="${#authentication.principal.userNo != Product.userNo}"
+                    >
+                      <button
+                        id="reportBtn"
+                        type="button"
+                        class="btn btn-outline-danger"
+                        data-bs-toggle="modal"
+                        data-bs-target="#reportModal"
+                      >
+                        신고
+                      </button>
+                      <button
+                        id="saleBtn"
+                        type="button"
+                        class="btn btn-outline-primary"
+                        th:onclick="|location.href='@{goRoom(chatBoardNo=${Product.boardNo}, categoryNo=${Product.categoryNo}, chatSellerUserNo=${Product.userNo})}'|"
+                      >
+                        거래
+                      </button>
+                    </div>
+
+                    <!-- 신고 모달 창 -->
+                    <div
+                      class="modal fade"
+                      id="reportModal"
+                      tabindex="-1"
+                      aria-labelledby="exampleModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                      >
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                              신고
+                            </h1>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="ms-3">
+                              <input id="modalFile" type="file" required />
+                            </div>
+                            <div
+                              class="d-flex justify-content-center align-items-center"
+                            >
+                              <textarea
+                                name="content"
+                                id="modalContent"
+                                rows="10"
+                                class="border rounded m-3 p-2"
+                                placeholder="내용을 입력해주세요."
+                                style="width: 93%; height: 450px"
+                                autocomplete="off"
+                                required
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              id="cancelReportBtn"
+                              type="button"
+                              class="btn btn-secondary"
+                              data-bs-dismiss="modal"
+                            >
+                              취소
+                            </button>
+                            <button
+                              id="addReportBtn"
+                              type="button"
+                              class="btn btn-primary"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            >
+                              작성
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <button
+                      id="heartBtn"
+                      type="button"
+                      class="btn btn-outline-primary"
+                    >
+                      <i class="bi bi-bag-heart"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 작성자 -->
+          </div>
+        </div>
+      </section>
+
+      <section>
         <div class="card p-3">
-            <div class="d-flex">
-                <h5 class="m-2">
-                    <b>장소&nbsp;&nbsp;</b>
-                </h5>
-                <input id="address" name="location" type="hidden" class="form-control col ms-2" value="" th:value="${Product.boardLocation}">
-                <div id="map" class="form-control col ms-2" style="height:500px;"></div>
-                <script type="text/javascript"
-                        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2dee0bb54e20c019b2a6a80534fd99d7&libraries=services"></script>
-            </div>
+          <div class="d-flex">
+            <h5 class="m-2">
+              <b>장소&nbsp;&nbsp;</b>
+            </h5>
+            <input
+              id="address"
+              name="location"
+              type="hidden"
+              class="form-control col ms-2"
+              value=""
+              th:value="${Product.boardLocation}"
+            />
+            <div
+              id="map"
+              class="form-control col ms-2"
+              style="height: 500px"
+            ></div>
+            <script
+              type="text/javascript"
+              src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2dee0bb54e20c019b2a6a80534fd99d7&libraries=services"
+            ></script>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section class="section">
+      <section class="section">
         <div class="row mt-3 justify-content-around">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="row p-3">
-                        <!-- 가격 -->
-                        <div class="col-6 d-flex">
-                            <h5 class="font-weight-bold mt-2 mx-1">
-                                <strong>가격&nbsp;&nbsp;</strong>
-                            </h5>
-                            <div class="col mt-2 mx-1" th:text="${Product.boardPrice}"></div>
-                        </div>
-                        <!-- 카테고리 -->
-                        <div class="col-6 d-flex">
-                            <h5 class="font-weight-bold mt-2 mx-1">
-                                <strong>카테고리&nbsp;&nbsp;</strong>
-                            </h5>
-                            <div class="col mt-2 mx-1">
-                                <span th:if="${Product.categoryNo == 1}">컴퓨터/노트북</span>
-                                <span th:if="${Product.categoryNo == 2}">스마트폰/태블릿</span>
-                                <span th:if="${Product.categoryNo == 3}">워치</span>
-                                <span th:if="${Product.categoryNo == 4}">음향기기</span>
-                                <span th:if="${Product.categoryNo == 5}">생활가전</span>
-                                <span th:if="${Product.categoryNo == 6}">기타</span>
-                            </div>
-                        </div>
-                    </div>
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="row p-3">
+                <!-- 가격 -->
+                <div class="col-6 d-flex">
+                  <h5 class="font-weight-bold mt-2 mx-1">
+                    <strong>가격&nbsp;&nbsp;</strong>
+                  </h5>
+                  <div
+                    class="col mt-2 mx-1"
+                    th:text="${Product.boardPrice}"
+                  ></div>
                 </div>
+                <!-- 카테고리 -->
+                <div class="col-6 d-flex">
+                  <h5 class="font-weight-bold mt-2 mx-1">
+                    <strong>카테고리&nbsp;&nbsp;</strong>
+                  </h5>
+                  <div class="col mt-2 mx-1">
+                    <span th:if="${Product.categoryNo == 1}"
+                      >컴퓨터/노트북</span
+                    >
+                    <span th:if="${Product.categoryNo == 2}"
+                      >스마트폰/태블릿</span
+                    >
+                    <span th:if="${Product.categoryNo == 3}">워치</span>
+                    <span th:if="${Product.categoryNo == 4}">음향기기</span>
+                    <span th:if="${Product.categoryNo == 5}">생활가전</span>
+                    <span th:if="${Product.categoryNo == 6}">기타</span>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-    <!-- 가격 첨부파일 카테고리 끝 -->
+      </section>
+      <!-- 가격 첨부파일 카테고리 끝 -->
 
-    <section class="section">
+      <section class="section">
         <div class="row">
-            <div class="col-lg-12">
-                <!-- 내용 -->
-                <div class="card">
-                    <div id="file" class="row gx-2 m-3" th:if="${#lists.size(fileList) >= 1}">
-                        <div class="col-1">
-                            <strong>첨부파일</strong>
-                        </div>
-                        <div class="col-11">
-                            <div class="d-flex border rounded p-2 m-1 fileSelectDiv" th:each="file : ${fileList}">
-                                <input type="hidden" th:value="${file.fileNo}" />
-                                <i class="bi bi-file-earmark-richtext me-2"></i>
-                                <strong th:text="${file.originalName}"></strong>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-body py-3">
-                        <div class="d-flex border rounded p-3" style="height: 500px;" th:text="${Product.boardContent}">
-                            내용
-                        </div>
-                    </div>
-
+          <div class="col-lg-12">
+            <!-- 내용 -->
+            <div class="card">
+              <div
+                id="file"
+                class="row gx-2 m-3"
+                th:if="${#lists.size(fileList) >= 1}"
+              >
+                <div class="col-1">
+                  <strong>첨부파일</strong>
                 </div>
-                <!-- 내용 -->
+                <div class="col-11">
+                  <div
+                    class="d-flex border rounded p-2 m-1 fileSelectDiv"
+                    th:each="file : ${fileList}"
+                  >
+                    <input type="hidden" th:value="${file.fileNo}" />
+                    <i class="bi bi-file-earmark-richtext me-2"></i>
+                    <strong th:text="${file.originalName}"></strong>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body py-3">
+                <div
+                  class="d-flex border rounded p-3"
+                  style="height: 500px"
+                  th:text="${Product.boardContent}"
+                >
+                  내용
+                </div>
+              </div>
             </div>
+            <!-- 내용 -->
+          </div>
         </div>
-    </section>
+      </section>
 
-    <section class="section">
+      <section class="section">
         <div class="row align-items-top">
-            <div class="col-lg-12">
-            </div>
+          <div class="col-lg-12"></div>
         </div>
-    </section>
-</main>
-<!-- End #main -->
+      </section>
+    </main>
+    <!-- End #main -->
 
-<!-- <head>로 올리면 Jquery보다 먼저 선언돼서 오류 발생 -->
+    <!-- <head>로 올리면 Jquery보다 먼저 선언돼서 오류 발생 -->
 
-<script src="/assets/js/product.js" />
+    <script src="/assets/js/product.js" />
 
-
-<!-- includeAsset -->
-<div th:replace="~{/layout/includeAsset::includeAsset}"></div>
-
-</body>
-
+    <!-- includeAsset -->
+    <div th:replace="~{/layout/includeAsset::includeAsset}"></div>
+  </body>
 </html>
