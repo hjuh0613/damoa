@@ -5,6 +5,8 @@
 //npm i mongodb
 //npm i mongoose
 //npm i mongoose-sequence
+//npm i aws-sdk
+//npm install @aws-sdk/client-s3
 
 // 서버실행 ; node server.js
 
@@ -16,9 +18,11 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const Message = require('./models/Message');  // 메시지 모델 가져오기
 
+const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+
 const app = express();
 
-const { PORT, MONGO_URI } = process.env;
+const { PORT, MONGO_URI, AWS_SECRET_KEY, AWS_ACCESS, BUCKET_NAME, REGION } = process.env;
 
 app.use(cors());
 // 정적 파일 제공 (chat.html 파일을 / 경로로 열어줌)
@@ -48,6 +52,36 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'chat.html'));
 });
 */
+
+// AWS S3 설정
+const s3 = new S3Client({
+    region: REGION,
+    credentials: {
+        accessKeyId: AWS_ACCESS,
+        secretAccessKey: AWS_SECRET_KEY
+    }
+});
+
+// S3에 파일 업로드 함수 
+const uploadFileToS3 = async (fileName, fileData) => {
+
+    let params = {
+      Bucket: BUCKET_NAME,                      // 버킷 이름
+      Key: `uploads/${fileName}`,               // 파일 경로 및 이름
+      Body: fileData                            // 파일 데이터
+    };
+  
+    try{
+
+        let command = new PutObjectCommand(params);
+        let data = await s3.send(command);
+        return `https://${BUCKET_NAME}.s3.${REGION}.amazonaws.com/uploads/${fileName}`;
+
+    } catch(err) {
+        console.log("s3에 파일을 업로드하는 도중 에러 발생");
+        throw error;
+    }
+};
 
 // client가 socket.io 서버에 접속할 경우 connection 이벤트 발생
 io.on('connection', (socket)=>{
@@ -119,6 +153,7 @@ io.on('connection', (socket)=>{
 
     });
 
+    // client가 전송한 'chat' 수신
     socket.on('chat', async function(data){
         console.log('message from ' + socket.userNo + " " + socket.userNickname);
 
@@ -141,6 +176,7 @@ io.on('connection', (socket)=>{
                 userNo: socket.userNo,
                 userNickname: socket.userNickname,
                 roomNo: socket.roomNo,
+                isFile: false,
                 msg: data.msg
             });
 
@@ -149,6 +185,54 @@ io.on('connection', (socket)=>{
         } catch (error) {
             console.error('Error saving message: ', error);
         }
+    });
+
+    // client 보낸 'file-upload' 이벤트 수신
+    socket.on('file-upload', async (fileData) => {
+        
+        try{
+            let buffer = Buffer.from(fileData.file); // 파일 데이터 변환
+            let fileName = Math.floor(10000 + Math.random() * 90000) + "_" + fileData.fileName;
+
+            // S3에 파일 업로드
+            let fileUrl = await uploadFileToS3(fileName, buffer);
+            console.log('File uploaded successfully to S3:', fileUrl);
+
+            // 메시지 DB 저장
+            try{
+                let message = new Message({
+                    userNo: socket.userNo,
+                    userNickname: socket.userNickname,
+                    roomNo: socket.roomNo,
+                    isFile: true,
+                    msg: fileUrl
+                });
+
+                await message.save();
+                console.log('Message saved to DB');
+            } catch (error) {
+                console.error('Error saving message: ', error);
+            }
+
+            // 업로드 성공 메시지 전송
+            socket.emit('file-upload-status', { success: true, location: fileUrl });
+
+            // 메시지를 전송한 클라이언트 제외 모든 클라이언트에게 메시지 전송
+            let msg = {
+                from: {
+                    userNo: socket.userNo,
+                    userNickname: socket.userNickname,
+                    roomNo: socket.roomNo,
+                    regDate: new Date()
+                },
+                msg: fileUrl
+            };
+            socket.to(socket.roomNo).emit('fileSend', msg);
+        } catch (err) {
+            console.error('Error uploading file to S3:', err);
+            socket.emit('file-upload-status', { success: false });
+        }
+        
     });
 
     socket.on('forceDisconnect', () => {
