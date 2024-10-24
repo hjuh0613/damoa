@@ -11,7 +11,7 @@ public class ReportListResponse {
 
     private int reportNo;
 
-    private String reportType;
+    private int boardTypeNo;
 
     private int reportFromUserNo;
 
@@ -22,9 +22,9 @@ public class ReportListResponse {
     @Builder
     public ReportListResponse(Report report) {
         this.reportNo = report.getReportNo();
-        this.reportType = report.getReportType();
-        this.reportFromUserNo = report.getReportFromUserNo();
-        this.reportToUserNo = report.getReportToUserNo();
+        this.boardTypeNo = report.getBoardTypeNo();
+        this.reportFromUserNo = report.getReportFromUser().getUserNo();
+        this.reportToUserNo = report.getReportToUser().getUserNo();
         this.reportContent = report.getReportContent();
     }
 

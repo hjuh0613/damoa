@@ -1,14 +1,16 @@
 package com.damoa.damoaPJT.report.dto;
 
+import com.damoa.damoaPJT.entity.Board;
 import com.damoa.damoaPJT.entity.Report;
+import com.damoa.damoaPJT.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class AddReportRequest {
-
-    private String reportType;
 
     private Integer reportFromUserNo = null;
 
@@ -16,12 +18,21 @@ public class AddReportRequest {
 
     private String reportContent;
 
+    private int boardNo;
+
+    private int boardTypeNo;
+
     public Report toEntity() {
         return Report.builder()
-                .reportType(reportType)
                 .reportContent(reportContent)
-                .reportFromUserNo(reportFromUserNo)
-                .reportToUserNo(reportToUserNo)
+                .reportFromUser(User.builder()
+                        .userNo(reportFromUserNo)
+                        .build())
+                .reportToUser(User.builder()
+                        .userNo(reportToUserNo)
+                        .build())
+                .boardNo(boardNo)
+                .boardTypeNo(boardTypeNo)
                 .build();
     }
 

@@ -193,6 +193,7 @@ window.onload = function () {
 
         // 현재 클릭된 `.room` 내부에 있는 `.chatRoomNo` input 태그의 값을 가져옴
         let chatRoomNo = $(this).find(".chatRoomNo").val();
+        $("#selectRoomNo").val(chatRoomNo);
         console.log("Chat Room No: ", chatRoomNo);
 
         // client가 기존 방 접속을 끊고 새로운 방에 접속할 경우
@@ -301,4 +302,40 @@ window.onload = function () {
         // scroll 맨 아래로
         $("#chatContentArea").scrollTop($("#chatContentArea")[0].scrollHeight);
     });
+
+    $("#isPurchase").on("click", function() {
+        let sendData = {
+            "chatRoomNo": $("#selectRoomNo").val()
+        }
+
+        // 첫번째 - selectRoomNo를 가지고 서버로 가서 서비스단에서 chatRoom 엔티티를 얻어서 boardNo와 categoryType을 얻는다
+        // 두번째 - board에서 boardNo와 categoryNo를 가지고 board 테이블을 불러와서 isPurchase를 1로 바꿔준다
+        $.ajax({
+            url: "/isPurchase",                   // controller에 요청할 api 요청
+            type: "post",                       // api 요청 타입
+            contentType: "application/json",
+            data: JSON.stringify(sendData),     // api 요청 시 전달되는 값
+            dataType: "text",
+
+            //정상 처리될 경우
+            success: function(data) {
+                console.log("요청 성공");
+                console.log(data);
+
+                document.getElementById("boardIsPurchase").value='';
+
+                getBoardIsPurchase();
+
+            },
+            //에러일 경우 xmlHttp 객체를 받음
+            error: function(err) {
+                Swal.fire({
+                    title: "요청 실패",
+                    text: "조금 뒤 다시 시도해주세요",
+                    icon: "error"
+                });
+            }
+        });
+    });
+
 };

@@ -38,7 +38,7 @@
         <div class="row">
             <div class="col-lg-12">
 
-                <div class="card" style="height=100%">
+                <div class="card" style="height: 100%;">
                     <div class="card-body">
                         <div class="row pt-3">
                             <div class="col">
@@ -62,11 +62,9 @@
                             <tbody>
                             <tr th:each = "report : ${reportList}">
                                 <td class="reportNo" th:text = "${report.reportNo}" style="vertical-align: middle;"></td>
-                                <td class="fromUserNickname" th:text = "${report.fromUserNickname}" style="vertical-align: middle;"></td>
-                                <td class="toUserNickname" th:text = "${report.toUserNickname}" style="vertical-align: middle;"></td>
-                                <td style="vertical-align: middle;">
-                                    <a class="reportContent" th:text = "${report.reportContent}"></a>
-                                </td>
+                                <td class="fromUserNickname" th:text = "${report.reportFromUser.userNickname}" style="vertical-align: middle;"></td>
+                                <td class="toUserNickname" th:text = "${report.reportToUser.userNickname}" style="vertical-align: middle;"></td>
+                                <td class="reportContent" style="vertical-align: middle;" th:text = "${report.reportContent}"></td>
                                 <td style="vertical-align: middle;">
                                     <button  type="button" class="btn btn-outline-primary reportDetailBtn" data-bs-toggle="modal" data-bs-target="#reportDetailModal">
                                         상세보기
@@ -95,8 +93,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="ms-3">
-                        <input id="modalFile" type="file" required>
+                    <div id="fileList">
                     </div>
                     <div class="d-flex justify-content-center align-items-center">
                         <div id="reportModalContent" rows="10" class="border rounded m-3 p-2"style="width:93%; height:450px;"></div>

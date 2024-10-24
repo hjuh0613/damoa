@@ -17,24 +17,30 @@ public class Report {
     @Column(name = "report_No", nullable = false)
     private int reportNo;
 
-    @Column(name = "report_type", nullable = false)
-    private String reportType;
-
-    @Column(name = "report_from_user_no", nullable = false) // 신고를 한 유저의 UserNo
-    private int reportFromUserNo;
-
-    @Column(name = "report_to_user_no", nullable = false) // 신고를 당한 유저의 UserNo
-    private int reportToUserNo;
-
     @Column(name = "report_content", length = 900, nullable = false)
     private String reportContent;
 
+    @ManyToOne
+    @JoinColumn(name = "report_from_user_no")   // 신고를 한 유저의 UserNo
+    private User reportFromUser;
+
+    @ManyToOne
+    @JoinColumn(name = "report_to_user_no")   // 신고를 당한 유저의 User
+    private User reportToUser;
+
+    @Column(name="board_no")
+    private int boardNo;    // 어떤 글을 신고 했는지
+
+    @Column(name = "board_type_no", nullable = false)
+    private int boardTypeNo;  // 어떤 카테고리의 글을 신고 했는지
+
     @Builder
-    public Report(int reportNo, String reportType, int reportFromUserNo, int reportToUserNo, String reportContent) {
+    public Report(int reportNo, String reportContent, User reportFromUser, User reportToUser, int boardNo, int boardTypeNo) {
         this.reportNo = reportNo;
-        this.reportType = reportType;
-        this.reportFromUserNo = reportFromUserNo;
-        this.reportToUserNo = reportToUserNo;
+        this.reportFromUser = reportFromUser;
+        this.reportToUser = reportToUser;
+        this.boardNo = boardNo;
         this.reportContent = reportContent;
+        this.boardTypeNo = boardTypeNo;
     }
 }

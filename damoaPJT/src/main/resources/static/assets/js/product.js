@@ -61,9 +61,10 @@ window.onload = function (){
     // 신고 모달 창의 save 버튼 클릭 시 이벤트
     $("#addReportBtn").on("click", function(){
         let sendData = {
-           "reportType" : $("#categoryNo").val(),
-           "reportToUserNo" : $("#userNo").val(),
-           "reportContent" : $("#modalContent").val()
+            "boardNo" : $("#boardNo").val(),
+            "boardTypeNo" : $("#categoryNo").val(),
+            "reportToUserNo" : $("#userNo").val(),
+            "reportContent" : $("#modalContent").val()
         };
 
         console.log(sendData);

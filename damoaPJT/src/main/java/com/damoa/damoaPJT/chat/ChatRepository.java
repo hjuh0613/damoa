@@ -21,4 +21,7 @@ public interface ChatRepository extends JpaRepository<ChatRoom, Integer> {
     List<ChatRoom> findChatRoomsByBuyerAndSeller(@Param("buyerNo") int buyerNo,
                                                  @Param("sellerNo") int sellerNo);
 
+    // chatRoomNo로 전체 ChatRoom 엔티티 가져오기
+    Optional<ChatRoom> findByChatRoomNo(int chatRoomNo);
+
 }

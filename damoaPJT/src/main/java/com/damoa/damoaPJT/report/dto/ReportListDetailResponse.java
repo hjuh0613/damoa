@@ -1,29 +1,30 @@
 package com.damoa.damoaPJT.report.dto;
 
+import com.damoa.damoaPJT.entity.Board;
+import com.damoa.damoaPJT.entity.Report;
+import com.damoa.damoaPJT.entity.User;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@Setter
 public class ReportListDetailResponse {
 
     private int reportNo;
     private String reportContent;
-    private int reportFromUserNo;
-    private String fromUserNickname;
-    private int reportToUserNo;
-    private String toUserNickname;
-    private String reportType;
+    private User reportFromUser;
+    private User reportToUser;
+    private int boardNo;
+    private int boardTypeNo;
 
-    public ReportListDetailResponse(int reportNo, String reportContent, int reportFromUserNo, String fromUserNickname,
-                                    int reportToUserNo, String toUserNickname, String reportType) {
-        this.reportNo = reportNo;
-        this.reportContent = reportContent;
-        this.reportFromUserNo = reportFromUserNo;
-        this.fromUserNickname = fromUserNickname;
-        this.reportToUserNo = reportToUserNo;
-        this.toUserNickname = toUserNickname;
-        this.reportType = reportType;
+    @Builder
+    public ReportListDetailResponse(Report report) {
+        this.reportNo = report.getReportNo();
+        this.reportContent = report.getReportContent();
+        this.reportFromUser = report.getReportFromUser();
+        this.reportToUser = report.getReportToUser();
+        this.boardNo = report.getBoardNo();
+        this.boardTypeNo = report.getBoardTypeNo();
     }
 
 }

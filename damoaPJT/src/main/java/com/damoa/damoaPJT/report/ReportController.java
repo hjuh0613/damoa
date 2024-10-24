@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 @RequiredArgsConstructor
 @Controller
 public class ReportController {
@@ -27,10 +28,11 @@ public class ReportController {
     }
 
 
+	// 판매게시판 신고
     @PostMapping("/addReport")
     @ResponseBody
     public int addReport(@RequestPart(value = "sendData") AddReportRequest addReportRequest,
-                         @RequestPart(value = "file", required = false) MultipartFile file,
+                         @RequestPart(value = "file", required = false) List<MultipartFile> file,
                          @AuthenticationPrincipal CustomUserDetails user) throws Exception {
 
         addReportRequest.setReportFromUserNo(user.getUserNo());

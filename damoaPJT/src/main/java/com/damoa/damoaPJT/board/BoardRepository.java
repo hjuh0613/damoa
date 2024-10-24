@@ -36,4 +36,8 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             "WHERE h.type != '후기게시판' AND h.user_no = :userNo",
             nativeQuery = true)
     Page<Board> findBoardsByUserNo(Pageable pageable, @Param("userNo") int userNo);
+
+    @Query("SELECT b FROM Board b WHERE b.boardNo = :boardNo AND b.category.categoryNo = :categoryNo")
+    Optional<Board> findByBoardNoAndCategoryNo(@Param("boardNo") int boardNo, @Param("categoryNo") int categoryNo);
+
 }

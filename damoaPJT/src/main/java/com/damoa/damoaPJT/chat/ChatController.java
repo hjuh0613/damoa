@@ -1,14 +1,14 @@
 package com.damoa.damoaPJT.chat;
 
 import com.damoa.damoaPJT.chat.dto.ChatRoomGoRequest;
+import com.damoa.damoaPJT.chat.dto.IsPurchaseRequest;
+import com.damoa.damoaPJT.entity.Board;
 import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -44,4 +44,10 @@ public class ChatController {
         return "redirect:/chat?roomNo=" + roomNo;
     }
 
+    @PostMapping("/isPurchase")
+    @ResponseBody
+    public void isPurchase(@RequestBody IsPurchaseRequest isPurchaseRequest) {
+
+        chatService.isPurchase(isPurchaseRequest);
+    }
 }

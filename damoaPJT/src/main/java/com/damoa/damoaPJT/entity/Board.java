@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -47,6 +48,10 @@ public class Board {
     @JoinColumn(name = "user_no")
     private User user;
 
+    @Column(name = "board_isPurchase", nullable = false)
+    @ColumnDefault("0")
+    private int boardIsPurchase;
+
     @Builder
     public Board(int boardNo,
                  String boardTitle,
@@ -55,7 +60,8 @@ public class Board {
                  String boardLocation,
                  int boardPrice,
                  Category category,
-                 User user){
+                 User user,
+                 int boardIsPurchase){
         this.boardNo = boardNo;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
@@ -64,6 +70,7 @@ public class Board {
         this.boardPrice = boardPrice;
         this.category = category;
         this.user = user;
+        this.boardIsPurchase = boardIsPurchase;
     }
 
     public void update(String boardTitle,
@@ -78,6 +85,10 @@ public class Board {
         this.category = Category.builder()
                 .categoryNo(categoryNo)
                 .build();
+    }
+
+    public void update(int boardIsPurchase) {
+        this.boardIsPurchase = boardIsPurchase;
     }
 
 }

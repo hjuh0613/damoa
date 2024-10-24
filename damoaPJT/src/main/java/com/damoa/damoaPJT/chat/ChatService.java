@@ -1,7 +1,10 @@
 package com.damoa.damoaPJT.chat;
 
+import com.damoa.damoaPJT.board.BoardRepository;
 import com.damoa.damoaPJT.chat.dto.ChatRoomGoRequest;
 import com.damoa.damoaPJT.chat.dto.ChatRoomResponse;
+import com.damoa.damoaPJT.chat.dto.IsPurchaseRequest;
+import com.damoa.damoaPJT.entity.Board;
 import com.damoa.damoaPJT.entity.ChatRoom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ import java.util.Optional;
 public class ChatService {
 
     private final ChatRepository chatRepository;
+
+    private final BoardRepository boardRepository;
     
     @Transactional
     public int goRoom(ChatRoomGoRequest chatRoomGoRequest){
@@ -45,6 +50,22 @@ public class ChatService {
                 .stream()
                 .map(ChatRoomResponse::new)
                 .toList();
+    }
+
+    @Transactional
+    public void isPurchase(IsPurchaseRequest isPurchaseRequest) {
+
+        // 채팅방 번호로 chatRoom 엔티티
+        ChatRoom chatRoom = chatRepository.findByChatRoomNo(isPurchaseRequest.getChatRoomNo())
+                .orElseThrow(() -> new RuntimeException("Cannot found chatRoomNo"));
+
+        // 게시글 번호와 카테고리 번호로 board 엔티티
+        Board board = boardRepository.findByBoardNoAndCategoryNo(chatRoom.getChatBoard().getBoardNo(), chatRoom.getCategoryNo())
+                .orElseThrow(() -> new RuntimeException("Cannot found BoardNo and CategoryNo"));
+
+        board.update(1);
+
+
     }
 
 }
