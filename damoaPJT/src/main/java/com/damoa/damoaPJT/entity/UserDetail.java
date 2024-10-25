@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,14 +15,12 @@ import java.time.LocalDateTime;
 @Table(name = "user_datail")
 public class UserDetail {
 
-    // 보류
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 1씩 자동 증가
-    @Column(name = "user_no", nullable = false)
-    private int userNo;
+    @Column(name = "ud_no", nullable = false)
+    private int userDetailNo;
 
     @OneToOne
-    @MapsId
     @JoinColumn(name = "user_no")
     private User user;
 
@@ -29,13 +28,18 @@ public class UserDetail {
     @Column(name = "ud_joindate", nullable = false)
     private LocalDateTime udJoinDate;
 
-    @Column(name = "ud_penaltyday", nullable = false)
+    @Column(name = "ud_penaltyday", nullable = true)
     private int udPenaltyDay;
 
-    @Column(name = "ud_penaltycount", nullable = false)
+    @Column(name = "ud_penaltycount", nullable = true)
     private int udPenaltyCount;
 
-    @CreatedDate
-    @Column(name = "ud_gpsdate", nullable = false)
-    private LocalDateTime udGpsDate;
+    @Builder
+    public UserDetail(int userDetailNo,User user, int udPenaltyDay, int udPenaltyCount, LocalDateTime udJoinDate){
+        this.userDetailNo = userDetailNo;
+        this.user = user;
+        this.udPenaltyDay = udPenaltyDay;
+        this.udPenaltyCount = udPenaltyCount;
+        this.udJoinDate = udJoinDate;
+    }
 }

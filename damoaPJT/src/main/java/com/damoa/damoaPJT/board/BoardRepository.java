@@ -37,7 +37,16 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             nativeQuery = true)
     Page<Board> findBoardsByUserNo(Pageable pageable, @Param("userNo") int userNo);
 
+    // 채팅에서 구매확정을 할 때 boardNo와 categoryNo로 게시글을 조회하는 쿼리
     @Query("SELECT b FROM Board b WHERE b.boardNo = :boardNo AND b.category.categoryNo = :categoryNo")
     Optional<Board> findByBoardNoAndCategoryNo(@Param("boardNo") int boardNo, @Param("categoryNo") int categoryNo);
+
+    // 내가 판매한 내역을 조회하는 쿼리
+    @Query("SELECT b FROM Board b WHERE b.user.userNo = :userNo AND b.boardIsPurchase = :boardIsPurchase")
+    Page<Board> findByUserNoAndBoardIsPurchase(
+            Pageable pageable,
+            @Param("userNo") int userNo,
+            @Param("boardIsPurchase") int boardIsPurchase
+    );
 
 }

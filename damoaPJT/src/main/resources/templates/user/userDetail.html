@@ -128,9 +128,9 @@
                                 <button
                                         class="nav-link"
                                         data-bs-toggle="tab"
-                                        data-bs-target="#profile-mypurchase"
+                                        data-bs-target="#profile-myselllist"
                                 >
-                                    구매 / 판매내역
+                                    판매내역
                                 </button>
                             </li>
                         </ul>
@@ -447,15 +447,15 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr th:each="userBoard : ${MyHeartBoardList}">
-                                            <td th:text="${userBoard.boardNo}"></td>
-                                            <td>
-                                                <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
-                                                   th:text="${userBoard.boardTitle}"></a>
-                                            </td>
-                                            <td th:text="${userBoard.boardPrice}"></td>
-                                            <td th:text="${#temporals.format(userBoard.boardDate, 'yyyy.MM.dd')}"></td>
-                                        </tr>
+                                            <tr th:each="userBoard : ${MyHeartBoardList}">
+                                                <td th:text="${userBoard.boardNo}"></td>
+                                                <td>
+                                                    <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
+                                                       th:text="${userBoard.boardTitle}"></a>
+                                                </td>
+                                                <td th:text="${userBoard.boardPrice}"></td>
+                                                <td th:text="${#temporals.format(userBoard.boardDate, 'yyyy.MM.dd')}"></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-center" th:if="${!MyHeartBoardList.isEmpty()}">
@@ -532,32 +532,29 @@
                             </div>
                             <!-- 내가 찜한 후기글 탭 끝 -->
 
-                            <!-- 내 구매 / 판매내역 탭 시작 -->
-                            <div class="tab-pane fade pt-3" id="profile-mypurchase">
+                            <!-- 내 판매내역 탭 시작 -->
+                            <div class="tab-pane fade pt-3" id="profile-myselllist">
                                 <div class="card-body">
                                     <table class="table ">
                                         <thead>
                                         <tr>
                                             <th>글번호</th>
-                                            <th>닉네임</th>
                                             <th>제목</th>
+                                            <th>가격</th>
                                             <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
                                             <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
-<!--                                        <tr th:each="userReview : ${userReviewList}">-->
-<!--                                            <td th:text="${userReview.reviewNo}"></td>-->
-<!--                                            <td th:text="${userReview.userNickname}"></td>-->
-<!--                                            <td>-->
-<!--                                                <a th:href="@{/review(review_no = ${userReview.reviewNo})}"-->
-<!--                                                   th:text="${userReview.reviewTitle}"></a>-->
-<!--                                            </td>-->
-<!--                                            <td th:text="${#temporals.format(userReview.reviewDate, 'yyyy.MM.dd')}"></td>-->
-<!--                                            <td>-->
-<!--                                                <i id="" class="bi bi-bag-heart"></i>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
+                                            <tr th:each="userBoard : ${MySellList}">
+                                                <td th:text="${userBoard.boardNo}"></td>
+                                                <td>
+                                                    <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
+                                                       th:text="${userBoard.boardTitle}"></a>
+                                                </td>
+                                                <td th:text="${userBoard.boardPrice}"></td>
+                                                <td th:text="${#temporals.format(userBoard.boardDate, 'yyyy.MM.dd')}"></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

@@ -11,6 +11,7 @@ import com.damoa.damoaPJT.file.dto.FileAddRequest;
 import com.damoa.damoaPJT.entity.Board;
 import com.damoa.damoaPJT.heart.dto.MyHeartBoardResponse;
 import com.damoa.damoaPJT.user.dto.MyBoardResponse;
+import com.damoa.damoaPJT.user.dto.MySellResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -121,6 +122,15 @@ public class BoardService {
 
         return boardRepository.findBoardsByUserNo(pageable, userNo)
                 .map(MyHeartBoardResponse::new);
+    }
+
+    // 내가 판매한 판매게시글 불러오기
+    public Page<MySellResponse> findByUserNoAndBoardIsPurchase (int page, int userNo) {
+
+        Pageable pageable = PageRequest.of(page, 10);
+
+        return boardRepository.findByUserNoAndBoardIsPurchase(pageable, userNo, 1)
+                .map(MySellResponse::new);
     }
 
 }

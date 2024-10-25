@@ -37,4 +37,11 @@ public class FileController {
         return fileService.getFileListByBoardNoAndBoardType(reportNo, 8);
     }
 
+    // 후기의 파일 정보 획득
+    @GetMapping("/findReviewFile")
+    @ResponseBody
+    public List<FileListByBoardNoResponse> getReviewFileDetail(@RequestParam(value = "reviewNo") int reviewNo){
+        return fileService.getFileListByBoardNoAndBoardType(reviewNo, 7);
+    }
+
 }

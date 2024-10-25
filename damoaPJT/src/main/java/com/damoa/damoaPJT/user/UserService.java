@@ -2,6 +2,7 @@ package com.damoa.damoaPJT.user;
 
 import com.damoa.damoaPJT.entity.Role;
 import com.damoa.damoaPJT.entity.User;
+import com.damoa.damoaPJT.entity.UserDetail;
 import com.damoa.damoaPJT.report.dto.DeleteUserRequest;
 import com.damoa.damoaPJT.user.dto.UserAddRequest;
 import com.damoa.damoaPJT.user.dto.UserDetailUpdateRequest;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.swing.text.html.Option;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,11 +23,14 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final UserDetailRepository userDetailRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Transactional
     public String save(UserAddRequest userAddRequest) {
-        return userRepository.save(User.builder()
+
+        // User db에 저장
+        User user = userRepository.save(User.builder()
                 .userId(userAddRequest.getUserId())
                 .userPw(bCryptPasswordEncoder.encode(userAddRequest.getUserPw()))
                 .userEmail(userAddRequest.getUserEmail())
@@ -35,7 +40,17 @@ public class UserService {
                 .userAddress(userAddRequest.getUserAddress())
                 .userYn(1)
                 .userRole(Role.ROLE_USER)
-                .build()).getUserId();
+                .build());
+
+        // UserDetail db에 저장
+        userDetailRepository.save(UserDetail.builder()
+                .user(user)
+                .udPenaltyDay(0)
+                .udPenaltyCount(0)
+                .udJoinDate(LocalDateTime.now())
+                .build());
+
+        return user.getUserId();
     }
 
     public UserResponse getUserDetail(String userId) {

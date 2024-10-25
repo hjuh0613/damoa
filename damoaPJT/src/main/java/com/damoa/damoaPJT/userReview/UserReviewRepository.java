@@ -32,7 +32,7 @@ public interface UserReviewRepository extends JpaRepository<Review, Integer> {
 
     // '후기게시판' 타입에 대한 내가 찜한 게시글을 조회하는 쿼리
     @Query(value = "SELECT r.* " +
-            "FROM Review r JOIN Heart h ON r.review_no = h.no " +
+            "FROM review r JOIN heart h ON r.review_no = h.no " +
             "WHERE h.type = '후기게시판' " +
             "AND h.user_no = :userNo",
             nativeQuery = true)
