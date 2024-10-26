@@ -1,6 +1,6 @@
 window.onload = function (){
 
-   $(".heartBtn").on("click", function(){
+   $("#heartBtn").on("click", function(){
 
         // '찜하기'를 위해 필요한 데이터
         // 사용자가 선택한 글의 번호
