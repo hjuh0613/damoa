@@ -133,4 +133,29 @@ public class BoardService {
                 .map(MySellResponse::new);
     }
 
+    // 검색어의 그래프 표현 시 x축 값
+    public List<String> findLastFiveMonths(String keyword){
+        return boardRepository.findMonthsByKeyword(keyword);
+    }
+
+    // 통계 기능 관련 x축 데이터에 대한 최고가 list
+    public List<Integer> findMaxPriceByMonth(String keyword){
+        return boardRepository.findMaxPriceByKeyword(keyword);
+    }
+
+    // 통계 기능 관련 x축 데이터에 대한 평균가 list
+    public List<Integer> findAveragePriceByMonth(String keyword){
+        return boardRepository.findAveragePriceByKeyword(keyword);
+    }
+
+    // 통계 기능 관련 x축 데이터에 대한 최저가 list
+    public List<Integer> findMinPriceByMonth(String keyword){
+        return boardRepository.findMinPriceByKeyword(keyword);
+    }
+
+    // 역대 가격정보
+    public Object[] findPriceStatisticsByKeyword(String keyword){
+        return boardRepository.findPriceStatisticsByKeyword(keyword);
+    }
+
 }

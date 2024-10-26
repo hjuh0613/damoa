@@ -49,4 +49,55 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
             @Param("boardIsPurchase") int boardIsPurchase
     );
 
+
+    // 검색어의 그래프 표현 시 x축 값
+    @Query(value = "SELECT DATE_FORMAT(board_date, '%Y-%m') AS month " +
+            "FROM board " +
+            "WHERE board_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), '%Y-%m-01') " +
+            "AND board_title LIKE %:keyword% " +
+            "GROUP BY month " +
+            "ORDER BY month",
+            nativeQuery = true)
+    List<String> findMonthsByKeyword(@Param("keyword") String keyword);
+
+    // 통계 기능 관련 x축 데이터에 대한 최고가 list
+    @Query(value = "SELECT MAX(board_price) AS max_price " +
+            "FROM board " +
+            "WHERE board_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), '%Y-%m-01') " +
+            "AND board_title LIKE %:keyword% " +
+            "GROUP BY DATE_FORMAT(board_date, '%Y-%m') " +
+            "ORDER BY DATE_FORMAT(board_date, '%Y-%m')",
+            nativeQuery = true)
+    List<Integer> findMaxPriceByKeyword(@Param("keyword") String keyword);
+
+    // 통계 기능 관련 x축 데이터에 대한 평균가 list
+    @Query(value = "SELECT AVG(board_price) AS avg_price " +
+            "FROM board " +
+            "WHERE board_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), '%Y-%m-01') " +
+            "AND board_title LIKE %:keyword% " +
+            "GROUP BY DATE_FORMAT(board_date, '%Y-%m') " +
+            "ORDER BY DATE_FORMAT(board_date, '%Y-%m') ",
+            nativeQuery = true)
+    List<Integer> findAveragePriceByKeyword(@Param("keyword") String keyword);
+
+
+    // 통계 기능 관련 x축 데이터 대한 최저가 list
+    @Query(value = "SELECT MIN(board_price) AS min_price " +
+            "FROM board " +
+            "WHERE board_date >= DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 4 MONTH), '%Y-%m-01') " +
+            "AND board_title LIKE %:keyword% " +
+            "GROUP BY DATE_FORMAT(board_date, '%Y-%m') " +
+            "ORDER BY DATE_FORMAT(board_date, '%Y-%m') ",
+            nativeQuery = true)
+    List<Integer> findMinPriceByKeyword(@Param("keyword") String keyword);
+
+    // 역대 가격정보
+    @Query(value = "SELECT IFNULL(MAX(b.board_price), 0) AS max_price, " +
+            "IFNULL(AVG(b.board_price), 0) AS avg_price, " +
+            "IFNULL(MIN(b.board_price), 0) AS min_price " +
+            "FROM board b " +
+            "WHERE b.board_title LIKE %:keyword%",
+            nativeQuery = true)
+    Object[] findPriceStatisticsByKeyword(@Param("keyword") String keyword);
+
 }
