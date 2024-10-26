@@ -364,18 +364,18 @@
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
                                                 <li class="page-item" th:classappend="${!MyBoardList.hasPrevious} ? 'disabled'">
-                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyBoardList.number-1}|}">
+                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?myBoardPage=${MyBoardList.number-1}|}">
                                                         <span aria-hidden="true">«</span>
                                                     </a>
                                                 </li>
                                                 <li class="page-item"
-                                                    th:if="${page >= MyBoardList.number-2 and page <= MyBoardList.number+2}"
-                                                    th:each="page: ${#numbers.sequence(0, MyBoardList.totalPages-1)}"
-                                                    th:classappend="${page == MyBoardList.number} ? 'active'">
-                                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                                    th:if="${myBoardPage >= MyBoardList.number-2 and myBoardPage <= MyBoardList.number+2}"
+                                                    th:each="myBoardPage: ${#numbers.sequence(0, MyBoardList.totalPages-1)}"
+                                                    th:classappend="${myBoardPage == MyBoardList.number} ? 'active'">
+                                                    <a class="page-link" th:text="${myBoardPage}" th:href="@{|?myBoardPage=${myBoardPage}|}">1</a>
                                                 </li>
                                                 <li class="page-item" th:classappend="${!MyBoardList.hasNext} ? 'disabled'">
-                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyBoardList.number+1}|}">
+                                                    <a class="page-link" aria-label="Next" th:href="@{|?myBoardPage=${MyBoardList.number+1}|}">
                                                         <span aria-hidden="true">»</span>
                                                     </a>
                                                 </li>
@@ -412,18 +412,18 @@
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
                                                 <li class="page-item" th:classappend="${!MyReviewList.hasPrevious} ? 'disabled'">
-                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyReviewList.number-1}|}">
+                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?myReviewPage=${MyReviewList.number-1}|}">
                                                         <span aria-hidden="true">«</span>
                                                     </a>
                                                 </li>
                                                 <li class="page-item"
-                                                    th:if="${page >= MyReviewList.number-2 and page <= MyReviewList.number+2}"
-                                                    th:each="page: ${#numbers.sequence(0, MyReviewList.totalPages-1)}"
-                                                    th:classappend="${page == MyReviewList.number} ? 'active'">
-                                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                                    th:if="${myReviewPage >= MyReviewList.number-2 and myReviewPage <= MyReviewList.number+2}"
+                                                    th:each="myReviewPage: ${#numbers.sequence(0, MyReviewList.totalPages-1)}"
+                                                    th:classappend="${myReviewPage == MyReviewList.number} ? 'active'">
+                                                    <a class="page-link" th:text="${myReviewPage}" th:href="@{|?myReviewPage=${myReviewPage}|}">1</a>
                                                 </li>
                                                 <li class="page-item" th:classappend="${!MyReviewList.hasNext} ? 'disabled'">
-                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyReviewList.number+1}|}">
+                                                    <a class="page-link" aria-label="Next" th:href="@{|?myReviewPage=${MyReviewList.number+1}|}">
                                                         <span aria-hidden="true">»</span>
                                                     </a>
                                                 </li>
@@ -462,18 +462,18 @@
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
                                                 <li class="page-item" th:classappend="${!MyHeartBoardList.hasPrevious} ? 'disabled'">
-                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyHeartBoardList.number-1}|}">
+                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?myHeartBoardPage=${MyHeartBoardList.number-1}|}">
                                                         <span aria-hidden="true">«</span>
                                                     </a>
                                                 </li>
                                                 <li class="page-item"
-                                                    th:if="${page >= MyHeartBoardList.number-2 and page <= MyHeartBoardList.number+2}"
-                                                    th:each="page: ${#numbers.sequence(0, MyHeartBoardList.totalPages-1)}"
-                                                    th:classappend="${page == MyHeartBoardList.number} ? 'active'">
-                                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                                    th:if="${myHeartBoardPage >= MyHeartBoardList.number-2 and myHeartBoardPage <= MyHeartBoardList.number+2}"
+                                                    th:each="myHeartBoardPage: ${#numbers.sequence(0, MyHeartBoardList.totalPages-1)}"
+                                                    th:classappend="${myHeartBoardPage == MyHeartBoardList.number} ? 'active'">
+                                                    <a class="page-link" th:text="${myHeartBoardPage}" th:href="@{|?myHeartBoardPage=${myHeartBoardPage}|}">1</a>
                                                 </li>
                                                 <li class="page-item" th:classappend="${!MyHeartBoardList.hasNext} ? 'disabled'">
-                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyHeartBoardList.number+1}|}">
+                                                    <a class="page-link" aria-label="Next" th:href="@{|?myHeartBoardPage=${MyHeartBoardList.number+1}|}">
                                                         <span aria-hidden="true">»</span>
                                                     </a>
                                                 </li>
@@ -510,18 +510,18 @@
                                         <nav aria-label="Page navigation example">
                                             <ul class="pagination">
                                                 <li class="page-item" th:classappend="${!MyHeartReviewList.hasPrevious} ? 'disabled'">
-                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?page=${MyHeartReviewList.number-1}|}">
+                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?myHeartReviewPage=${MyHeartReviewList.number-1}|}">
                                                         <span aria-hidden="true">«</span>
                                                     </a>
                                                 </li>
                                                 <li class="page-item"
-                                                    th:if="${page >= MyHeartReviewList.number-2 and page <= MyHeartReviewList.number+2}"
-                                                    th:each="page: ${#numbers.sequence(0, MyHeartReviewList.totalPages-1)}"
-                                                    th:classappend="${page == MyHeartReviewList.number} ? 'active'">
-                                                    <a class="page-link" th:text="${page}" th:href="@{|?page=${page}|}">1</a>
+                                                    th:if="${myHeartReviewPage >= MyHeartReviewList.number-2 and myHeartReviewPage <= MyHeartReviewList.number+2}"
+                                                    th:each="myHeartReviewPage: ${#numbers.sequence(0, MyHeartReviewList.totalPages-1)}"
+                                                    th:classappend="${myHeartReviewPage == MyHeartReviewList.number} ? 'active'">
+                                                    <a class="page-link" th:text="${myHeartReviewPage}" th:href="@{|?myHeartReviewPage=${myHeartReviewPage}|}">1</a>
                                                 </li>
                                                 <li class="page-item" th:classappend="${!MyHeartReviewList.hasNext} ? 'disabled'">
-                                                    <a class="page-link" aria-label="Next" th:href="@{|?page=${MyHeartReviewList.number+1}|}">
+                                                    <a class="page-link" aria-label="Next" th:href="@{|?myHeartReviewPage=${MyHeartReviewList.number+1}|}">
                                                         <span aria-hidden="true">»</span>
                                                     </a>
                                                 </li>
@@ -557,6 +557,28 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <div class="d-flex justify-content-center" th:if="${!MySellList.isEmpty()}">
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                                <li class="page-item" th:classappend="${!MySellList.hasPrevious} ? 'disabled'">
+                                                    <a class="page-link" href="#" aria-label="Previous" th:href="@{|?mySellPage=${MySellList.number-1}|}">
+                                                        <span aria-hidden="true">«</span>
+                                                    </a>
+                                                </li>
+                                                <li class="page-item"
+                                                    th:if="${mySellPage >= MySellList.number-2 and mySellPage <= MySellList.number+2}"
+                                                    th:each="mySellPage: ${#numbers.sequence(0, MySellList.totalPages-1)}"
+                                                    th:classappend="${mySellPage == MySellList.number} ? 'active'">
+                                                    <a class="page-link" th:text="${mySellPage}" th:href="@{|?mySellPage=${mySellPage}|}">1</a>
+                                                </li>
+                                                <li class="page-item" th:classappend="${!MySellList.hasNext} ? 'disabled'">
+                                                    <a class="page-link" aria-label="Next" th:href="@{|?mySellPage=${MySellList.number+1}|}">
+                                                        <span aria-hidden="true">»</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
                                 </div>
                             </div>
                             <!-- 내 구매 / 판매내역 탭 끝 -->

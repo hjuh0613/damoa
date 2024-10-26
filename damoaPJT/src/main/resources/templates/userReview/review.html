@@ -72,9 +72,75 @@
                                 </div>
 
                                 <div th:if="${#authentication.principal.userNo != Review.userNo}">
-                                    <button id="reportBtn" type="button" class="btn btn-outline-danger">
+                                    <button id="reportBtn" type="button" class="btn btn-outline-danger"
+                                            data-bs-toggle="modal" data-bs-target="#reportModal">
                                         신고
                                     </button>
+                                </div>
+
+                                <!-- 신고 모달 창 -->
+                                <div
+                                        class="modal fade"
+                                        id="reportModal"
+                                        tabindex="-1"
+                                        aria-labelledby="exampleModalLabel"
+                                        aria-hidden="true"
+                                >
+                                    <div
+                                            class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                    >
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                    신고
+                                                </h1>
+                                                <button
+                                                        type="button"
+                                                        class="btn-close"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"
+                                                ></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="ms-3">
+                                                    <input id="modalFile" type="file" required/>
+                                                </div>
+                                                <div
+                                                        class="d-flex justify-content-center align-items-center"
+                                                >
+                                                  <textarea
+                                                      name="content"
+                                                      id="modalContent"
+                                                      rows="10"
+                                                      class="border rounded m-3 p-2"
+                                                      placeholder="내용을 입력해주세요."
+                                                      style="width: 93%; height: 450px"
+                                                      autocomplete="off"
+                                                      required
+                                                  ></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button
+                                                    id="cancelReportBtn"
+                                                    type="button"
+                                                    class="btn btn-secondary"
+                                                    data-bs-dismiss="modal"
+                                                >
+                                                    취소
+                                                </button>
+                                                <button
+                                                        id="addReportBtn"
+                                                        type="button"
+                                                        class="btn btn-primary"
+                                                        data-bs-dismiss="modal"
+                                                        aria-label="Close"
+                                                >
+                                                    작성
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <button id="heartBtn" type="button" class="btn btn-outline-primary">
@@ -82,6 +148,7 @@
                                 </button>
 
                             </div>
+
                         </div>
                     </div>
                 </div>

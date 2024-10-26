@@ -29,7 +29,7 @@ public class Report {
     private User reportToUser;
 
     @Column(name="board_no")
-    private int boardNo;    // 어떤 글을 신고 했는지
+    private int boardNo;    // 어떤 판매글을 신고 했는지
 
     @Column(name = "board_type_no", nullable = false)
     private int boardTypeNo;  // 어떤 카테고리의 글을 신고 했는지

@@ -98,9 +98,9 @@ public class BoardService {
     }
     
     // 특정 사용자가 작성한 모든 판매글 불러오기
-    public Page<MyBoardResponse> findByLogInUserId(int page, int userNo) {
+    public Page<MyBoardResponse> findByLogInUserId(int myBoardPage, int userNo) {
 
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(myBoardPage, 10);
 
         return boardRepository.findByUserUserNo(pageable, userNo)
                 .map(MyBoardResponse::new);

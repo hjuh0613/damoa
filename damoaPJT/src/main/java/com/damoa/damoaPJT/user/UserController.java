@@ -54,14 +54,19 @@ public class UserController {
 
     // 마이페이지 조회
     @GetMapping("/userDetail")
-    public String getUserDetail(@RequestParam(value="page", defaultValue="0") int page, @AuthenticationPrincipal CustomUserDetails user, Model model) {
+    public String getUserDetail(@RequestParam(value="myBoardPage", defaultValue="0") int myBoardPage,
+                                @RequestParam(value="myReviewPage", defaultValue="0") int myReviewPage,
+                                @RequestParam(value="myHeartBoardPage", defaultValue="0") int myHeartBoardPage,
+                                @RequestParam(value="myHeartReviewPage", defaultValue="0") int myHeartReviewPage,
+                                @RequestParam(value="mySellPage", defaultValue="0") int mySellPage,
+                                @AuthenticationPrincipal CustomUserDetails user, Model model) {
 
         model.addAttribute("UserDetail", userService.getUserDetail(user.getUsername()));
-        model.addAttribute("MyBoardList", boardService.findByLogInUserId(page, user.getUserNo()));
-        model.addAttribute("MyReviewList", userReviewService.findByLogInUserId(page, user.getUserNo()));
-        model.addAttribute("MyHeartBoardList", boardService.findBoardByHeartTypeAndUser(page, user.getUserNo()));
-        model.addAttribute("MyHeartReviewList", userReviewService.findReviewByHeartTypeAndUser(page, user.getUserNo()));
-        model.addAttribute("MySellList", boardService.findByUserNoAndBoardIsPurchase(page, user.getUserNo()));
+        model.addAttribute("MyBoardList", boardService.findByLogInUserId(myBoardPage, user.getUserNo()));
+        model.addAttribute("MyReviewList", userReviewService.findByLogInUserId(myReviewPage, user.getUserNo()));
+        model.addAttribute("MyHeartBoardList", boardService.findBoardByHeartTypeAndUser(myHeartBoardPage, user.getUserNo()));
+        model.addAttribute("MyHeartReviewList", userReviewService.findReviewByHeartTypeAndUser(myHeartReviewPage, user.getUserNo()));
+        model.addAttribute("MySellList", boardService.findByUserNoAndBoardIsPurchase(mySellPage, user.getUserNo()));
 
         return "/user/userDetail";
     }

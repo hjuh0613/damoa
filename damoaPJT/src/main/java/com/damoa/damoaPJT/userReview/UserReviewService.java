@@ -95,9 +95,9 @@ public class UserReviewService {
     }
 
     // 특정 사용자가 작성한 모든 후기글 불러오기
-    public Page<MyReviewResponse> findByLogInUserId(int page, int userNo) {
+    public Page<MyReviewResponse> findByLogInUserId(int myReviewPage, int userNo) {
 
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(myReviewPage, 10);
 
         return userReviewRepository.findByUserUserNo(pageable, userNo)
                 .map(MyReviewResponse::new);

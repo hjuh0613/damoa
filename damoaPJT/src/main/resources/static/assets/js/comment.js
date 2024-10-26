@@ -42,7 +42,6 @@ window.onload = function () {
                             + '<div class="col-2">' + obj.commentDate + '<br>' + obj.userNickname + '</div>'
                             + '<div class="col-1">'
                             + '<button class="m-1 btn btn-outline-danger reportCommentBtn">신고</button>'
-                            + '<button class="m-1 btn btn-outline-danger addMoreCommentBtn">답글</button>'
                             + '</div>';
                             + '</div>';
                     }else {
@@ -50,7 +49,6 @@ window.onload = function () {
                             + '<div class="col-2">' + obj.commentDate + '<br>' + obj.userNickname + '</div>'
                             + '<div class="col-1">'
                             + '<button class="m-1 btn btn-outline-danger deleteCommentBtn">삭제</button>'
-                            + '<button class="m-1 btn btn-outline-danger addMoreCommentBtn">답글</button>'
                             + '</div>';
                             + '</div>';
                     }
@@ -70,8 +68,64 @@ window.onload = function () {
             }
         });
     }
-
     // 댓글 전체 조회 종료
+
+    // 신고 시작
+    // 모달 창을 닫았을 때 모달 내부의 값 초기화
+    $('.modal').on('hidden.bs.modal', function (e) {
+        $(this).find('input[type="text"], input[type="file"], textarea').val('');
+
+        console.log('modal close');
+    });
+
+    // 신고 모달 창의 save 버튼 클릭 시 이벤트
+    $("#addReportBtn").on("click", function(){
+        let sendData = {
+            "boardNo" : $("#review_no").val(),
+            "boardTypeNo" : 7,
+            "reportToUserNo" : $("#user_no").val(),
+            "reportContent" : $("#modalContent").val()
+        };
+
+        console.log(sendData);
+
+        const formData = new FormData();
+        formData.append(
+            "sendData", new Blob([JSON.stringify(sendData)], { type: "application/json" })
+        );
+        formData.append("file", $('#modalFile')[0].files[0]);
+
+
+        $.ajax({
+            url: "/addReport",
+            type: "post",
+            contentType: "multipart/form-data",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "text",
+
+            success: function(data) {
+                console.log("요청 성공");
+                console.log(data)
+
+                Swal.fire({
+                    title: "신고 완료",
+                    text: "신고가 완료되었습니다.",
+                    icon: "success"
+                });
+            },
+
+            error: function(err) {
+                Swal.fire({
+                    title: "요청 실패",
+                    text: "조금 뒤 다시 시도해주세요",
+                    icon: "error"
+                });
+            }
+        });
+    });
+    // 신고 종료
 
     // 댓글 작성 시작
     $("#AddCommentBtn").on("click", function() {
@@ -111,12 +165,6 @@ window.onload = function () {
     });
 
     // 댓글 작성 종료
-
-    // 대댓글 작성 시작
-
-
-
-    // 대댓글 작성 종료
 
     // 댓글 삭제 시작
 
