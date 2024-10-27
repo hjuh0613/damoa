@@ -61,7 +61,6 @@
                 <th>닉네임</th>
                 <th>제목</th>
                 <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
-                <th>찜하기</th>
               </tr>
               </thead>
               <tbody>
@@ -69,12 +68,9 @@
                 <td class="reviewNo" th:text = "${userReview.reviewNo}"></td>
                 <td th:text = "${userReview.userNickname}"></td>
                 <td>
-                  <a th:href = "@{/review(review_no = ${userReview.reviewNo})}" th:text = "${userReview.reviewTitle}"></a>
+                  <a th:href = "@{/review(review_no = ${userReview.reviewNo})}" th:text = "${#strings.abbreviate(userReview.reviewTitle, 50)}"></a>
                 </td>
                 <td th:text = "${#temporals.format(userReview.reviewDate, 'yyyy.MM.dd')}"></td>
-                <td>
-                  <button id="heartBtn" class="m-1 btn btn-outline-primary bi bi-bag-heart"></button>
-                </td>
               </tr>
               </tbody>
             </table>

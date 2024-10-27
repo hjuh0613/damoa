@@ -29,10 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     name: "최고가",
                     data: maxMonth
                 }, {
-                    name: '평균가 ',
+                    name: '평균가',
                     data: avgMonth
                 }, {
-                    name: '평균가 ',
+                    name: '최저가',
                     data: minMonth
                 }],
                 chart: {

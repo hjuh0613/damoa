@@ -24,15 +24,11 @@
 
     <main id="main" class="main">
       <div class="boardTitle">
-        <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12">
             <h3>
               <b th:text="${Product.boardTitle}"></b>
             </h3>
-          </div>
-          <div class="col-6">
-            <p class="text-end"></p>
           </div>
         </div>
       </div>
@@ -47,7 +43,7 @@
                 <div class="col d-flex align-item-center">
                   <input
                     type="hidden"
-                    id="userNo"
+                    id="productUserNo"
                     th:value="${Product.userNo}"
                   />
                   <input
@@ -179,11 +175,18 @@
                     </div>
 
                     <button
-                      id="heartBtn"
+                      th:if="${!isHeart}"
                       type="button"
-                      class="btn btn-outline-primary"
+                      class="btn btn-outline-primary heartBtn"
                     >
-                      <i class="bi bi-bag-heart"></i>
+                      <i  class="bi bi-bag-heart"></i>
+                    </button>
+                    <button
+                      th:if="${isHeart}"
+                      type="button"
+                      class="btn btn-outline-danger heartBtn"
+                    >
+                      <i class="bi bi-bag-heart-fill"></i>
                     </button>
                   </div>
                 </div>

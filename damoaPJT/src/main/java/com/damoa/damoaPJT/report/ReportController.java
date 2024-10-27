@@ -40,6 +40,7 @@ public class ReportController {
         return reportService.addReport(addReportRequest, file);
     }
 
+    // 유저 탈퇴 처리
     @PostMapping("/deleteUser")
     @ResponseBody
     public void deleteUser(@RequestBody DeleteUserRequest deleteUserRequest) {

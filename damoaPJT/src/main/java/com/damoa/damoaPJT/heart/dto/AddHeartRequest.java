@@ -27,4 +27,8 @@ public class AddHeartRequest {
         this.userNo = userNo;
     }
 
+    public void setType(String type){
+        this.type = type;
+    }
+
 }

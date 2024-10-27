@@ -5,6 +5,8 @@ import com.damoa.damoaPJT.board.dto.BoardListResponse;
 import com.damoa.damoaPJT.board.dto.BoardUpdateRequest;
 import com.damoa.damoaPJT.category.CategoryService;
 import com.damoa.damoaPJT.file.FileService;
+import com.damoa.damoaPJT.heart.HeartService;
+import com.damoa.damoaPJT.heart.dto.AddHeartRequest;
 import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,8 +22,12 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+
     private final CategoryService categoryService;
+
     private final FileService fileService;
+
+    private final HeartService heartService;
 
     @GetMapping("/boardList")
     public String getBoardList (@RequestParam(value="page", defaultValue="0") int page,
@@ -37,12 +43,30 @@ public class BoardController {
     }
 
     @GetMapping("/product")
-    public String getProduct (@RequestParam("board_no") int boardNo, Model model) {
+    public String getProduct (@AuthenticationPrincipal CustomUserDetails user, @RequestParam("board_no") int boardNo, Model model) {
 
         BoardListResponse boardListResponse = boardService.getProduct(boardNo);
 
         model.addAttribute("Product", boardListResponse);
         model.addAttribute("fileList", fileService.getFileListByBoardNoAndBoardType(boardNo, boardListResponse.getCategoryNo()));
+
+        String type = "";
+
+        switch (boardListResponse.getCategoryNo()) {
+            case 1 -> type = "컴퓨터/노트북";
+            case 2 -> type = "스마트폰/태블릿";
+            case 3 -> type = "워치";
+            case 4 -> type = "음향기기";
+            case 5 -> type = "생활가전";
+            case 6 -> type = "기타";
+            case 7 -> type = "후기게시판";
+        }
+
+        String tmpNo = String.valueOf(boardListResponse.getBoardNo());
+
+        AddHeartRequest addHeartRequest = new AddHeartRequest(tmpNo, type, user.getUserNo());
+
+        model.addAttribute("isHeart", heartService.getHeartByBoardNo(addHeartRequest));
 
         return "/board/product";
     }

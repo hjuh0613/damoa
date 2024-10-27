@@ -62,7 +62,6 @@
                   <th>가격</th>
                   <th>장소</th>
                   <th data-type="date" data-format="yyyy-MM-dd">등록일</th>
-                  <th>찜하기</th>
                 </tr>
               </thead>
               <tbody>
@@ -70,14 +69,11 @@
                   <td class="boardNo" th:text = "${board.boardNo}"></td>
                   <td th:text = "${board.userNickname}"></td>
                   <td>
-                    <a th:href = "@{/product(board_no = ${board.boardNo})}" th:text = "${board.boardTitle}"></a>
+                    <a th:href = "@{/product(board_no = ${board.boardNo})}" th:text = "${#strings.abbreviate(board.boardTitle, 50)}"></a>
                   </td>
                   <td th:text = "${board.boardPrice}"></td>
                   <td th:text = "${board.boardLocation}"></td>
                   <td th:text = "${#temporals.format(board.boardDate, 'yyyy.MM.dd')}"></td>
-                  <td>
-                    <button id="heartBtn" class="m-1 btn btn-outline-primary bi bi-bag-heart"></button>
-                  </td>
                 </tr>
               </tbody>
             </table>

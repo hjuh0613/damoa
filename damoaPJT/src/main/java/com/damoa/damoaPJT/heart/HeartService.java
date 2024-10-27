@@ -63,4 +63,15 @@ public class HeartService {
                 .toList();
     }
 
+    // 이 판매글에 하트가 있는지 없는지 확인
+    public boolean getHeartByBoardNo(AddHeartRequest addHeartRequest){
+        Optional<Heart> optionalHeart = heartRepository.findByUserUserNoAndNoAndType(
+                addHeartRequest.getUserNo()
+                , Integer.parseInt(addHeartRequest.getNo())
+                , addHeartRequest.getType()
+        );
+
+        return optionalHeart.isPresent();
+    }
+
 }

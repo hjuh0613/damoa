@@ -1,7 +1,10 @@
 package com.damoa.damoaPJT.userReview;
 
+import com.damoa.damoaPJT.heart.HeartService;
+import com.damoa.damoaPJT.heart.dto.AddHeartRequest;
 import com.damoa.damoaPJT.user.dto.CustomUserDetails;
 import com.damoa.damoaPJT.userReview.dto.ReviewAddRequest;
+import com.damoa.damoaPJT.userReview.dto.UserReviewListResponse;
 import com.damoa.damoaPJT.userReview.dto.UserReviewUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +21,8 @@ public class UserReviewController {
 
     private final UserReviewService userReviewService;
 
+    private final HeartService heartService;
+
     @GetMapping("/userReviewList")
     public String getUserReviewList(@RequestParam(value="page", defaultValue="0") int page, Model model) {
 
@@ -27,9 +32,18 @@ public class UserReviewController {
     }
 
     @GetMapping("/review")
-    public String getReview(@RequestParam("review_no") int reviewNo, Model model) {
+    public String getReview(@AuthenticationPrincipal CustomUserDetails user, @RequestParam("review_no") int reviewNo, Model model) {
 
-        model.addAttribute("Review", userReviewService.getReview(reviewNo));
+        UserReviewListResponse userReviewListResponse = userReviewService.getReview(reviewNo);
+
+        model.addAttribute("Review", userReviewListResponse);
+
+        String type = "후기게시판";
+        String tmpNo = String.valueOf(userReviewListResponse.getReviewNo());
+
+        AddHeartRequest addHeartRequest = new AddHeartRequest(tmpNo, type, user.getUserNo());
+
+        model.addAttribute("isHeart", heartService.getHeartByBoardNo(addHeartRequest));
 
         return "/userReview/review";
     }

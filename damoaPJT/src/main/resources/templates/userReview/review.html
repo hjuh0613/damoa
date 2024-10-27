@@ -24,15 +24,11 @@
 
 <main id="main" class="main">
     <div class="reviewTitle">
-        <div>올바른 중고 거래를 위해 바른 말을 사용해주세요.</div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-12">
                 <h3>
                     <b th:text="${Review.reviewTitle}"></b>
                 </h3>
-            </div>
-            <div class="col-6">
-                <p class="text-end"></p>
             </div>
         </div>
     </div>
@@ -143,8 +139,19 @@
                                     </div>
                                 </div>
 
-                                <button id="heartBtn" type="button" class="btn btn-outline-primary">
-                                    <i class="bi bi-bag-heart"></i>
+                                <button
+                                        th:if="${!isHeart}"
+                                        type="button"
+                                        class="btn btn-outline-primary heartBtn"
+                                >
+                                    <i  class="bi bi-bag-heart"></i>
+                                </button>
+                                <button
+                                        th:if="${isHeart}"
+                                        type="button"
+                                        class="btn btn-outline-danger heartBtn"
+                                >
+                                    <i class="bi bi-bag-heart-fill"></i>
                                 </button>
 
                             </div>
