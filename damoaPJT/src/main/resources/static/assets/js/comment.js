@@ -255,8 +255,8 @@ window.onload = function () {
         // 사용자가 선택한 글의 번호
         // 사용자가 선택한 글의 게시판 유형 정보
         let sendData = {
-            "no": $("#boardNo").val(),
-            "type": $("#categoryNo").val()
+            "no": $("#review_no").val(),
+            "type": '7'
         };
 
         console.log(sendData);
