@@ -42,11 +42,10 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     Optional<Board> findByBoardNoAndCategoryNo(@Param("boardNo") int boardNo, @Param("categoryNo") int categoryNo);
 
     // 내가 판매한 내역을 조회하는 쿼리
-    @Query("SELECT b FROM Board b WHERE b.user.userNo = :userNo AND b.boardIsPurchase = :boardIsPurchase")
+    @Query("SELECT b FROM Board b WHERE b.user.userNo = :userNo AND b.boardIsPurchase = 1")
     Page<Board> findByUserNoAndBoardIsPurchase(
             Pageable pageable,
-            @Param("userNo") int userNo,
-            @Param("boardIsPurchase") int boardIsPurchase
+            @Param("userNo") int userNo
     );
 
 

@@ -130,7 +130,7 @@
                                         data-bs-toggle="tab"
                                         data-bs-target="#profile-myselllist"
                                 >
-                                    판매내역
+                                    판매확정내역
                                 </button>
                             </li>
                         </ul>
@@ -353,7 +353,7 @@
                                         <tr th:each="userBoard : ${MyBoardList}">
                                             <td th:text="${userBoard.boardNo}"></td>
                                             <td>
-                                                <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
+                                                <a th:href="@{/product(board_no = ${userBoard.boardNo})}"
                                                    th:text="${userBoard.boardTitle}"></a>
                                             </td>
                                             <td th:text="${userBoard.boardPrice}"></td>
@@ -451,7 +451,7 @@
                                             <tr th:each="userBoard : ${MyHeartBoardList}">
                                                 <td th:text="${userBoard.boardNo}"></td>
                                                 <td>
-                                                    <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
+                                                    <a th:href="@{/product(board_no = ${userBoard.boardNo})}"
                                                        th:text="${userBoard.boardTitle}"></a>
                                                 </td>
                                                 <td th:text="${userBoard.boardPrice}"></td>
@@ -550,7 +550,7 @@
                                             <tr th:each="userBoard : ${MySellList}">
                                                 <td th:text="${userBoard.boardNo}"></td>
                                                 <td>
-                                                    <a th:href="@{/board(board_no = ${userBoard.boardNo})}"
+                                                    <a th:href="@{/product(board_no = ${userBoard.boardNo})}"
                                                        th:text="${userBoard.boardTitle}"></a>
                                                 </td>
                                                 <td th:text="${userBoard.boardPrice}"></td>

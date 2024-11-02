@@ -6,6 +6,16 @@ window.onload = function () {
     $("#roomListDiv").find("#"+selectRoomNo).addClass("bg-primary");
     $("#roomListDiv").find("#"+selectRoomNo).addClass("bg-opacity-10");
 
+    let chatName = $("#roomListDiv").find("#"+selectRoomNo).parent().find('.chatRoom').text().trim();
+    if(chatName == '전체 채팅방'){
+        $("#isPurchaseBtnTag").html('');
+    }else{
+        let tmpHtml = '<button id="isPurchase" class="btn btn-outline-secondary">확정</button>';
+        $("#isPurchaseBtnTag").html('');
+        $("#isPurchaseBtnTag").append(tmpHtml);
+    }
+
+
     let socket = io('http://localhost:3000');
 
     // 서버로 자신의 정보 전송
@@ -196,6 +206,15 @@ window.onload = function () {
         $("#selectRoomNo").val(chatRoomNo);
         console.log("Chat Room No: ", chatRoomNo);
 
+        let chatName = $(this).find('.chatRoom').text().trim();
+        if(chatName == '전체 채팅방'){
+            $("#isPurchaseBtnTag").html('');
+        }else{
+            let tmpHtml = '<button id="isPurchase" class="btn btn-outline-secondary">확정</button>';
+            $("#isPurchaseBtnTag").html('');
+            $("#isPurchaseBtnTag").append(tmpHtml);
+        }
+
         // client가 기존 방 접속을 끊고 새로운 방에 접속할 경우
         socket.emit("joinRoom", {
             userNo: $("#userNo").val(),             // 로그인한 사용자 no
@@ -303,7 +322,7 @@ window.onload = function () {
         $("#chatContentArea").scrollTop($("#chatContentArea")[0].scrollHeight);
     });
 
-    $("#isPurchase").on("click", function() {
+    $(document).on("click","#isPurchase",function(){
         let sendData = {
             "chatRoomNo": $("#selectRoomNo").val()
         }

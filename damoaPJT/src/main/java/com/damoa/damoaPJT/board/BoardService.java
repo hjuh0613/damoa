@@ -129,7 +129,7 @@ public class BoardService {
 
         Pageable pageable = PageRequest.of(page, 10);
 
-        return boardRepository.findByUserNoAndBoardIsPurchase(pageable, userNo, 1)
+        return boardRepository.findByUserNoAndBoardIsPurchase(pageable, userNo)
                 .map(MySellResponse::new);
     }
 

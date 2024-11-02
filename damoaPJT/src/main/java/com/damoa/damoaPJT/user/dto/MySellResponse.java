@@ -2,9 +2,11 @@ package com.damoa.damoaPJT.user.dto;
 
 import com.damoa.damoaPJT.entity.Board;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class MySellResponse {
     private int boardNo;
 
